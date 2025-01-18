@@ -13,9 +13,8 @@
         /// <returns></returns>
         public static Fixed16 operator /(Fixed16 a, int b)
         {
-            var n = a.IsFractional() ? a.ToDouble()
-                                     : a.ToLong();
-            return new Fixed16(n / b);
+            var n = a.ToFloat() / b;
+            return new Fixed16(n);
         }
 
         /// <summary>
@@ -37,8 +36,8 @@
         /// <returns></returns>
         public static Fixed16 operator /(Fixed16 a, long b)
         {
-            var n = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            return new Fixed16(n / b);
+            var n = a.ToDouble() / b;
+            return new Fixed16(n);
         }
 
         /// <summary>
@@ -60,8 +59,8 @@
         /// <returns></returns>
         public static Fixed16 operator /(Fixed16 a, float b)
         {
-            var n = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            return new Fixed16(n / b);
+            var n = a.ToFloat() / b;
+            return new Fixed16(n);
         }
 
         /// <summary>
@@ -83,8 +82,8 @@
         /// <returns></returns>
         public static Fixed16 operator /(Fixed16 a, double b)
         {
-            var n = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            return new Fixed16(n / b);
+            var n = a.ToDouble() / b;
+            return new Fixed16(n);
         }
 
         /// <summary>
@@ -106,10 +105,8 @@
         /// <returns></returns>
         public static Fixed16 operator /(Fixed16 a, Fixed16 b)
         {
-            var u = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            var v = b.IsFractional() ? b.ToDouble() : b.ToLong();
-
-            return new Fixed16(u / v);
+            var n = a.ToFloat() / b.ToFloat();
+            return new Fixed16(n);
         }
     }
 }

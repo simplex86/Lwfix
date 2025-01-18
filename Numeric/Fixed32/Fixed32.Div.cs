@@ -13,9 +13,8 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, int b)
         {
-            var n = a.IsFractional() ? a.ToDouble()
-                                     : a.ToLong();
-            return new Fixed32(n / b);
+            var n = a.ToDouble() / b;
+            return new Fixed32(n);
         }
 
         /// <summary>
@@ -26,7 +25,7 @@
         /// <returns></returns>
         public static Fixed32 operator /(int a, Fixed32 b)
         {
-            return b * a;
+            return b / a;
         }
 
         /// <summary>
@@ -37,8 +36,8 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, long b)
         {
-            var n = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            return new Fixed32(n / b);
+            var n = a.ToDouble() / b;
+            return new Fixed32(n);
         }
 
         /// <summary>
@@ -60,8 +59,8 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, float b)
         {
-            var n = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            return new Fixed32(n / b);
+            var n = a.ToDouble() / b;
+            return new Fixed32(n);
         }
 
         /// <summary>
@@ -83,8 +82,8 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, double b)
         {
-            var n = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            return new Fixed32(n / b);
+            var n = a.ToDouble() / b;
+            return new Fixed32(n);
         }
 
         /// <summary>
@@ -106,10 +105,7 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, Fixed32 b)
         {
-            var u = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            var v = b.IsFractional() ? b.ToDouble() : b.ToLong();
-
-            return new Fixed32(u / v);
+            return new Fixed32(a.ToDouble() / b.ToDouble());
         }
     }
 }
