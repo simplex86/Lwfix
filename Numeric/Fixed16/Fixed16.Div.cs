@@ -25,7 +25,7 @@
         /// <returns></returns>
         public static Fixed16 operator /(int a, Fixed16 b)
         {
-            return b * a;
+            return b / a;
         }
 
         /// <summary>
