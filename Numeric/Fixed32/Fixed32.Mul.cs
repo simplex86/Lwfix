@@ -11,6 +11,50 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        public static Fixed32 operator *(Fixed32 a, byte b)
+        {
+            return a * (long)b;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Fixed32 operator *(byte a, Fixed32 b)
+        {
+            return b * a;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Fixed32 operator *(Fixed32 a, short b)
+        {
+            return a * (long)b;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Fixed32 operator *(short a, Fixed32 b)
+        {
+            return b * a;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, int b)
         {
             return a * new Fixed32(b);

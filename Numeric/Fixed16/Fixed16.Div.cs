@@ -11,6 +11,50 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        public static Fixed16 operator /(Fixed16 a, byte b)
+        {
+            return a / (int)b;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Fixed16 operator /(byte a, Fixed16 b)
+        {
+            return b / a;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Fixed16 operator /(Fixed16 a, short b)
+        {
+            return a / (int)b;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Fixed16 operator /(short a, Fixed16 b)
+        {
+            return b / a;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static Fixed16 operator /(Fixed16 a, int b)
         {
             var n = a.ToFloat() / b;

@@ -11,13 +11,17 @@
         private long value = 0;
 
         /// <summary>
+        /// 总位宽
+        /// </summary>
+        private const byte TOTAL_BITS = sizeof(long) * 8;
+        /// <summary>
         /// 整数部分占用的位宽
         /// </summary>
-        private const byte INTEGRAL_BITS = 32;
+        private const byte INTEGRAL_BITS = TOTAL_BITS / 2;
         /// <summary>
         /// 小数部分占用的位宽
         /// </summary>
-        private const byte FRACTIONAL_BITS = 64 - INTEGRAL_BITS;
+        private const byte FRACTIONAL_BITS = TOTAL_BITS - INTEGRAL_BITS;
         /// <summary>
         /// 小数精度
         /// </summary>
