@@ -142,9 +142,10 @@
             var divisor = (ulong)((b + bm) ^ bm); // 除数
             var quotient = 0UL; // 商
 
-            if ((divisor & (divisor - 1)) == 0) // 如果 divisor 是 2 的幂
+            // 如果 divisor 是 2 的幂，直接右移来进行除法运算；
+            // 否则，进行逐位除法
+            if ((divisor & (divisor - 1)) == 0) 
             {
-                // 直接右移相应位数来进行除法运算
                 quotient = remainder >> GetTrailingZeroCount(divisor);
                 remainder = remainder & (divisor - 1);
             }
@@ -158,7 +159,6 @@
                     bitptr -= 4;
                 }
 
-                // 逐位除法
                 while (remainder != 0 && bitptr >= 0)
                 {
                     int shift = GetLeadingZeroCount(remainder);
@@ -171,7 +171,7 @@
                     remainder = remainder % divisor;
                     quotient += quot << bitptr;
 
-                    if ((quot & ~(0xFFFFFFFFFFFFFFFF >> bitptr)) != 0)
+                    if ((quot & ~(FULL_BIT_MASK >> bitptr)) != 0)
                     {
                         return IsSameSign(a, b) ? MaxValue : MinValue;
                     }
