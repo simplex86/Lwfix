@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Lwkit.Fixed
+﻿namespace Lwkit.Fixed
 {
     /// <summary>
     /// 定点数 - 比较
@@ -78,7 +76,7 @@ namespace Lwkit.Fixed
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals([NotNullWhen(true)] object? other)
+        public override bool Equals(object? other)
         {
             return base.Equals(other);
         }

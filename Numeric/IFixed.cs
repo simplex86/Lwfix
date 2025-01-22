@@ -291,15 +291,5 @@ namespace Lwkit.Fixed
         double ToDouble();
 
         #endregion
-
-        #region frac
-
-        /// <summary>
-        /// 是否是小数
-        /// </summary>
-        /// <returns></returns>
-        bool IsFractional();
-
-        #endregion
     }
 }

@@ -130,24 +130,5 @@
         {
             return value.GetHashCode();
         }
-
-        /// <summary>
-        /// 是否为小数
-        /// </summary>
-        /// <returns></returns>
-        public bool IsFractional()
-        {
-            return IsFractional(value);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool IsFractional(long value)
-        {
-            return (value & FRACTIONAL_MASK) != 0;
-        }
     }
 }
