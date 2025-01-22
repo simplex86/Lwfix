@@ -35,8 +35,7 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, float b)
         {
-            var r = Mul(a.value, (long)(b * FRACTIONAL_MULTIPLIER));
-            return From(r);
+            return Mul(a.value, (long)(b * FRACTIONAL_MULTIPLIER));
         }
 
         /// <summary>
@@ -58,8 +57,7 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, double b)
         {
-            var r = Mul(a.value, (long)(b * FRACTIONAL_MULTIPLIER));
-            return From(r);
+            return Mul(a.value, (long)(b * FRACTIONAL_MULTIPLIER));
         }
 
         /// <summary>
@@ -81,8 +79,7 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, Fixed32 b)
         {
-            var r = Mul(a.value, b.value);
-            return From(r);
+            return Mul(a.value, b.value);
         }
 
         /// <summary>
@@ -91,20 +88,20 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        private static long Mul(long a, long b)
+        private static Fixed32 Mul(long a, long b)
         {
             // 整数部分
             var aint = a >> INTEGRAL_BITS;
             var bint = b >> INTEGRAL_BITS;
             // 小数部分
-            var afrac = (ulong)(a & FRACTIONAL_MASK);
-            var bfrac = (ulong)(b & FRACTIONAL_MASK);
+            var afrac = (a & FRACTIONAL_MASK);
+            var bfrac = (b & FRACTIONAL_MASK);
 
             var rint  = (aint * bint) << FRACTIONAL_BITS; // 整数的积
             var rfrac = (afrac * bfrac) >> FRACTIONAL_BITS; // 小数的积
-            var rcrs  = (aint * (long)bfrac + bint * (long)afrac); // 交叉部分
+            var rcrs  = (aint * bfrac + bint * afrac); // 交叉部分
 
-            return rint + rcrs + (long)rfrac;
+            return From(rint + rcrs + rfrac);
         }
     }
 }
