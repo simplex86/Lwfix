@@ -8,7 +8,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private int value = 0;
+        internal int value = 0;
 
         /// <summary>
         /// 总位宽

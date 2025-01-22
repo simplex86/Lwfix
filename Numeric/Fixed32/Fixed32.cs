@@ -8,7 +8,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private long value = 0;
+        internal long value = 0;
 
         /// <summary>
         /// 总位宽
@@ -109,11 +109,11 @@
         /// <summary>
         /// 最大值
         /// </summary>
-        public static Fixed32 MaxValue => new Fixed32(int.MaxValue);
+        public static Fixed32 MaxValue => From(long.MaxValue);
         /// <summary>
         /// 最小值
         /// </summary>
-        public static Fixed32 MinValue => new Fixed32(int.MinValue);
+        public static Fixed32 MinValue => From(long.MinValue + 1);
         /// <summary>
         /// 
         /// </summary>
@@ -135,16 +135,16 @@
         /// </summary>
         public readonly static Fixed32 NegativeOne = new Fixed32(-1);
         /// <summary>
-        /// 
+        /// 非数字
         /// </summary>
-        public readonly static Fixed32 NaN = new Fixed32(1d / 0d);
+        public readonly static Fixed32 NaN = From(long.MinValue);
         /// <summary>
         /// 精度
         /// </summary>
         public readonly static Fixed32 Epsilon = From(1);
 
         /// <summary>
-        /// 圆周率
+        /// 自然常数
         /// </summary>
         public readonly static Fixed32 E = new Fixed32(2.7182818284590452354);
         /// <summary>

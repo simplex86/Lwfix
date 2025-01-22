@@ -79,7 +79,7 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, long b)
         {
-            return new Fixed32() { value = a.value + (b << FRACTIONAL_BITS) };
+            return From(a.value + (b << FRACTIONAL_BITS));
         }
 
         /// <summary>
@@ -101,7 +101,7 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, float b)
         {
-            return a + (double)b;
+            return From(a.value + (long)(b * FRACTIONAL_MULTIPLIER));
         }
 
         /// <summary>
@@ -123,7 +123,7 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, double b)
         {
-            return new Fixed32() { value = a.value + (long)(b * FRACTIONAL_MULTIPLIER) };
+            return From(a.value + (long)(b * FRACTIONAL_MULTIPLIER));
         }
 
         /// <summary>

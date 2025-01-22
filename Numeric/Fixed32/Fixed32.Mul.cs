@@ -57,7 +57,7 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, int b)
         {
-            return a * new Fixed32(b);
+            return a * (long)b;
         }
 
         /// <summary>
@@ -79,7 +79,8 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, long b)
         {
-            return a * new Fixed32(b);
+            var r = Mul(a.value, b << INTEGRAL_BITS);
+            return From(r);
         }
 
         /// <summary>
@@ -101,7 +102,8 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, float b)
         {
-            return a * new Fixed32(b);
+            var r = Mul(a.value, (long)(b * FRACTIONAL_MULTIPLIER));
+            return From(r);
         }
 
         /// <summary>
@@ -121,6 +123,18 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        public static Fixed32 operator *(Fixed32 a, double b)
+        {
+            var r = Mul(a.value, (long)(b * FRACTIONAL_MULTIPLIER));
+            return From(r);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static Fixed32 operator *(double a, Fixed32 b)
         {
             return b * a;
@@ -132,9 +146,10 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Fixed32 operator *(Fixed32 a, double b)
+        public static Fixed32 operator *(Fixed32 a, Fixed32 b)
         {
-            return a * new Fixed32(b);
+            var r = Mul(a.value, b.value);
+            return From(r);
         }
 
         /// <summary>
@@ -143,12 +158,20 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Fixed32 operator *(Fixed32 a, Fixed32 b)
+        private static long Mul(long a, long b)
         {
-            var u = a.IsFractional() ? a.ToDouble() : a.ToLong();
-            var v = b.IsFractional() ? b.ToDouble() : b.ToLong();
+            // 整数部分
+            var aint = a >> INTEGRAL_BITS;
+            var bint = b >> INTEGRAL_BITS;
+            // 小数部分
+            var afrac = (ulong)(a & FRACTIONAL_MASK);
+            var bfrac = (ulong)(b & FRACTIONAL_MASK);
 
-            return new Fixed32(u * v);
+            var rint  = (aint * bint) << FRACTIONAL_BITS; // 整数的积
+            var rfrac = (afrac * bfrac) >> FRACTIONAL_BITS; // 小数的积
+            var rcrs  = (aint * (long)bfrac + bint * (long)afrac); // 交叉部分
+
+            return rint + rcrs + (long)rfrac;
         }
     }
 }
