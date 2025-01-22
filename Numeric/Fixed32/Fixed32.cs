@@ -30,6 +30,10 @@
         /// 小数部分的掩码
         /// </summary>
         private const long FRACTIONAL_MASK = (1L << FRACTIONAL_BITS) - 1L;
+        /// <summary>
+        /// 符号位的掩码
+        /// </summary>
+        private const long SIGN_BIT_MASK = unchecked((long)0x8000000000000000L);
 
         /// <summary>
         /// 
