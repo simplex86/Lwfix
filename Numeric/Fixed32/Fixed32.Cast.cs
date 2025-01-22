@@ -147,8 +147,8 @@
         /// <returns></returns>
         public override string ToString()
         {
-            return IsFractional() ? ToDouble().ToString()
-                                  : ToLong().ToString();
+            if (this == NaN) return "NaN";
+            return ToDouble().ToString();
         }
     }
 }
