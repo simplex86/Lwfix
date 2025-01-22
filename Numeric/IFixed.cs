@@ -20,38 +20,6 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static abstract T operator +(T a, byte b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(byte a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(T a, short b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(short a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         static abstract T operator +(T a, int b);
 
         /// <summary>
@@ -61,22 +29,6 @@ namespace Lwkit.Fixed
         /// <param name="b"></param>
         /// <returns></returns>
         static abstract T operator +(int a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(T a, long b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(long a, T b);
 
         /// <summary>
         /// 
@@ -128,38 +80,6 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static abstract T operator -(T a, byte b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(byte a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(T a, short b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(short a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         static abstract T operator -(T a, int b);
 
         /// <summary>
@@ -169,22 +89,6 @@ namespace Lwkit.Fixed
         /// <param name="b"></param>
         /// <returns></returns>
         static abstract T operator -(int a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(T a, long b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(long a, T b);
 
         /// <summary>
         /// 
@@ -236,38 +140,6 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static abstract T operator *(T a, byte b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(byte a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(T a, short b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(short a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         static abstract T operator *(T a, int b);
 
         /// <summary>
@@ -277,22 +149,6 @@ namespace Lwkit.Fixed
         /// <param name="b"></param>
         /// <returns></returns>
         static abstract T operator *(int a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(T a, long b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(long a, T b);
 
         /// <summary>
         /// 
@@ -344,38 +200,6 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static abstract T operator /(T a, byte b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(byte a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(T a, short b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(short a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         static abstract T operator /(T a, int b);
 
         /// <summary>
@@ -385,22 +209,6 @@ namespace Lwkit.Fixed
         /// <param name="b"></param>
         /// <returns></returns>
         static abstract T operator /(int a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(T a, long b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(long a, T b);
 
         /// <summary>
         /// 
@@ -481,16 +289,6 @@ namespace Lwkit.Fixed
         /// </summary>
         /// <returns></returns>
         double ToDouble();
-
-        #endregion
-
-        #region frac
-
-        /// <summary>
-        /// 是否是小数
-        /// </summary>
-        /// <returns></returns>
-        bool IsFractional();
 
         #endregion
     }

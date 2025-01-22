@@ -8,7 +8,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private long value = 0;
+        internal long value = 0;
 
         /// <summary>
         /// 总位宽
@@ -30,6 +30,10 @@
         /// 小数部分的掩码
         /// </summary>
         private const long FRACTIONAL_MASK = (1L << FRACTIONAL_BITS) - 1L;
+        /// <summary>
+        /// 符号位的掩码
+        /// </summary>
+        private const long SIGN_BIT_MASK = unchecked((long)0x8000000000000000L);
 
         /// <summary>
         /// 
@@ -43,39 +47,9 @@
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public Fixed32(byte value)
-            : this((long)value)
-        {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        public Fixed32(short value)
-            : this((long)value)
-        {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
         public Fixed32(int value)
-            : this((long)value)
         {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        public Fixed32(long value)
-        {
-            this.value = value << FRACTIONAL_BITS;
+            this.value = (long)value << FRACTIONAL_BITS;
         }
 
         /// <summary>
@@ -109,11 +83,11 @@
         /// <summary>
         /// 最大值
         /// </summary>
-        public static Fixed32 MaxValue => new Fixed32(int.MaxValue);
+        public static Fixed32 MaxValue => From(long.MaxValue); // 0x7FFFFFFFFFFFFFFF
         /// <summary>
         /// 最小值
         /// </summary>
-        public static Fixed32 MinValue => new Fixed32(int.MinValue);
+        public static Fixed32 MinValue => From(long.MinValue + 1); // 0x8000000000000001
         /// <summary>
         /// 
         /// </summary>
@@ -135,16 +109,16 @@
         /// </summary>
         public readonly static Fixed32 NegativeOne = new Fixed32(-1);
         /// <summary>
-        /// 
+        /// 非数字
         /// </summary>
-        public readonly static Fixed32 NaN = new Fixed32(1d / 0d);
+        public readonly static Fixed32 NaN = From(long.MinValue); // 0x8000000000000000
         /// <summary>
         /// 精度
         /// </summary>
         public readonly static Fixed32 Epsilon = From(1);
 
         /// <summary>
-        /// 圆周率
+        /// 自然常数
         /// </summary>
         public readonly static Fixed32 E = new Fixed32(2.7182818284590452354);
         /// <summary>
@@ -159,25 +133,6 @@
         public override int GetHashCode()
         {
             return value.GetHashCode();
-        }
-
-        /// <summary>
-        /// 是否为小数
-        /// </summary>
-        /// <returns></returns>
-        public bool IsFractional()
-        {
-            return IsFractional(value);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool IsFractional(long value)
-        {
-            return (value & FRACTIONAL_MASK) != 0;
         }
     }
 }
