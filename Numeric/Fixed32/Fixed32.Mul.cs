@@ -13,7 +13,7 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, int b)
         {
-            return a * (long)b;
+            return Mul(a.value, (long)b << INTEGRAL_BITS);
         }
 
         /// <summary>
