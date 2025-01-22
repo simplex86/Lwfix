@@ -11,50 +11,6 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Fixed32 operator *(Fixed32 a, byte b)
-        {
-            return a * (long)b;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static Fixed32 operator *(byte a, Fixed32 b)
-        {
-            return b * a;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static Fixed32 operator *(Fixed32 a, short b)
-        {
-            return a * (long)b;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static Fixed32 operator *(short a, Fixed32 b)
-        {
-            return b * a;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, int b)
         {
             return a * (long)b;
@@ -67,29 +23,6 @@
         /// <param name="b"></param>
         /// <returns></returns>
         public static Fixed32 operator *(int a, Fixed32 b)
-        {
-            return b * a;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static Fixed32 operator *(Fixed32 a, long b)
-        {
-            var r = Mul(a.value, b << INTEGRAL_BITS);
-            return From(r);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static Fixed32 operator *(long a, Fixed32 b)
         {
             return b * a;
         }

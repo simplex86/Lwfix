@@ -43,39 +43,9 @@
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public Fixed32(byte value)
-            : this((long)value)
-        {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        public Fixed32(short value)
-            : this((long)value)
-        {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
         public Fixed32(int value)
-            : this((long)value)
         {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        public Fixed32(long value)
-        {
-            this.value = value << FRACTIONAL_BITS;
+            this.value = (long)value << FRACTIONAL_BITS;
         }
 
         /// <summary>
@@ -109,11 +79,11 @@
         /// <summary>
         /// 最大值
         /// </summary>
-        public static Fixed32 MaxValue => From(long.MaxValue);
+        public static Fixed32 MaxValue => From(long.MaxValue); // 0x7FFFFFFFFFFFFFFF
         /// <summary>
         /// 最小值
         /// </summary>
-        public static Fixed32 MinValue => From(long.MinValue + 1);
+        public static Fixed32 MinValue => From(long.MinValue + 1); // 0x8000000000000001
         /// <summary>
         /// 
         /// </summary>
@@ -137,7 +107,7 @@
         /// <summary>
         /// 非数字
         /// </summary>
-        public readonly static Fixed32 NaN = From(long.MinValue);
+        public readonly static Fixed32 NaN = From(long.MinValue); // 0x8000000000000000
         /// <summary>
         /// 精度
         /// </summary>
