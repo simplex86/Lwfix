@@ -26,18 +26,23 @@
         /// 小数精度
         /// </summary>
         internal const double FRACTIONAL_MULTIPLIER = uint.MaxValue + 1.0;
+
         /// <summary>
-        /// 小数部分的掩码
+        /// 所有位的掩码
         /// </summary>
-        internal const long FRACTIONAL_MASK = (1L << FRACTIONAL_BITS) - 1L;
+        internal const ulong FULL_BIT_MASK = 0xFFFFFFFFFFFFFFFF;
         /// <summary>
         /// 符号位的掩码
         /// </summary>
         internal const long SIGN_BIT_MASK = unchecked((long)0x8000000000000000L);
         /// <summary>
-        /// 所有位的掩码
+        /// 整数部分的掩码
         /// </summary>
-        internal const ulong FULL_BIT_MASK = 0xFFFFFFFFFFFFFFFF;
+        internal const long INTEGRAL_MASK = FRACTIONAL_MASK << INTEGRAL_BITS;
+        /// <summary>
+        /// 小数部分的掩码
+        /// </summary>
+        internal const long FRACTIONAL_MASK = (1L << FRACTIONAL_BITS) - 1L;
 
         /// <summary>
         /// 
