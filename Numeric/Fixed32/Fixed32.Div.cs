@@ -101,9 +101,10 @@
 
             // 如果 divisor 是 2 的幂，直接右移来进行除法运算；
             // 否则，进行逐位除法
-            if ((divisor & (divisor - 1)) == 0) 
+            if ((divisor & (divisor - 1)) == 0)
             {
-                quotient = remainder >> GetTrailingZeroCount(divisor);
+                var shift = GetTrailingZeroCount(divisor) - FRACTIONAL_BITS;
+                quotient = shift >= 0 ? remainder >> shift : remainder << -shift;
                 remainder = remainder & (divisor - 1);
             }
             else
@@ -118,7 +119,7 @@
 
                 while (remainder != 0 && bitptr >= 0)
                 {
-                    int shift = GetLeadingZeroCount(remainder);
+                    var shift = GetLeadingZeroCount(remainder);
                     if (shift > bitptr) shift = bitptr;
                     
                     remainder <<= shift;
