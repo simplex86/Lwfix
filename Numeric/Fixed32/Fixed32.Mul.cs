@@ -102,26 +102,6 @@
             var rcrs = (aint * (long)bfrac + bint * (long)afrac); // 交叉部分
 
             return From(rint + rcrs + (long)rfrac);
-            //var xl = x;
-            //var yl = y;
-
-            //var xlo = (ulong)(xl & 0x00000000FFFFFFFF);
-            //var xhi = xl >> FRACTIONAL_BITS;
-            //var ylo = (ulong)(yl & 0x00000000FFFFFFFF);
-            //var yhi = yl >> FRACTIONAL_BITS;
-
-            //var lolo = xlo * ylo;
-            //var lohi = (long)xlo * yhi;
-            //var hilo = xhi * (long)ylo;
-            //var hihi = xhi * yhi;
-
-            //var loResult = lolo >> FRACTIONAL_BITS;
-            //var midResult1 = lohi;
-            //var midResult2 = hilo;
-            //var hiResult = hihi << FRACTIONAL_BITS;
-
-            //var sum = (long)loResult + midResult1 + midResult2 + hiResult;
-            //return From(sum);
         }
     }
 }
