@@ -21,6 +21,8 @@
         /// <returns></returns>
         internal static int GetLeadingZeroCount(ulong n)
         {
+            if (n == 0) return 64;
+
             var count = 0;
             {
                 while ((n & 0xF000000000000000) == 0) { count += 4; n <<= 4; }
@@ -30,7 +32,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 获取尾部零的数量
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -41,7 +43,7 @@
             var count = 0;
             {
                 while ((n & 0xF) == 0) { count += 4; n >>= 4; }
-                while ((n & 0x1) == 0) { count += 1; n >>= 1; }
+                while ((n & 0x2) == 0) { count += 1; n >>= 1; }
             }
             return count;
         }
