@@ -76,5 +76,16 @@
         {
             return n.Sqrt();
         }
+
+        /// <summary>
+        /// 是否近似
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool Approximately(Fixed32 a, Fixed32 b)
+        {
+            return Abs(b - a) < Fixed32.Epsilon;
+        }
     }
 }
