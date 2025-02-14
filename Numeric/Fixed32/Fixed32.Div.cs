@@ -103,7 +103,7 @@
             // 否则，进行逐位除法
             if ((divisor & (divisor - 1)) == 0)
             {
-                var shift = GetTrailingZeroCount(divisor) - FRACTIONAL_BITS;
+                var shift = GetTrailingZeroCount(divisor) - FRACTIONAL_BITS - 1;
                 quotient = shift >= 0 ? remainder >> shift : remainder << -shift;
                 remainder = remainder & (divisor - 1);
             }

@@ -1,7 +1,7 @@
 ﻿namespace Lwkit.Fixed
 {
     /// <summary>
-    /// 
+    /// 常规
     /// </summary>
     public static partial class Mathf
     {
@@ -68,6 +68,38 @@
         }
 
         /// <summary>
+        /// 幂
+        /// </summary>
+        /// <param name="m">底数</param>
+        /// <param name="n">指数</param>
+        /// <returns></returns>
+        public static Fixed32 Pow(Fixed32 m, int n)
+        {
+            return m.Power(n);
+        }
+
+        /// <summary>
+        /// 幂
+        /// </summary>
+        /// <param name="m">底数</param>
+        /// <param name="n">指数</param>
+        /// <returns></returns>
+        public static Fixed32 Pow(Fixed32 m, Fixed32 n)
+        {
+            return m.Power(n);
+        }
+
+        /// <summary>
+        /// e的x次方
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static Fixed32 Exp(Fixed32 x)
+        {
+            return x.Exp();
+        }
+
+        /// <summary>
         /// 开方
         /// </summary>
         /// <param name="a"></param>
@@ -78,14 +110,46 @@
         }
 
         /// <summary>
-        /// 是否近似
+        /// n的自然对数（以e为底）
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static Fixed32 Log(Fixed32 n)
+        {
+            return n.Log();
+        }
+
+        /// <summary>
+        /// 以2为底n的对数
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static Fixed32 Log2(Fixed32 n)
+        {
+            return n.Log2();
+        }
+
+        /// <summary>
+        /// 倒数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Fixed32 Reciprocal(Fixed32 n)
+        {
+            return n.Reciprocal();
+        }
+
+        /// <summary>
+        /// 是否近似（相等）
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
         public static bool Approximately(Fixed32 a, Fixed32 b)
         {
-            return Abs(b - a) < Fixed32.Epsilon;
+            return a == b;
         }
     }
 }

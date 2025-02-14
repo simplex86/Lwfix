@@ -43,7 +43,7 @@
             var count = 0;
             {
                 while ((n & 0xF) == 0) { count += 4; n >>= 4; }
-                while ((n & 0x2) == 0) { count += 1; n >>= 1; }
+                while ((n & 0x1) == 0) { count += 1; n >>= 1; }
             }
             return count;
         }

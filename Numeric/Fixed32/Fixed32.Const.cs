@@ -26,6 +26,10 @@
         /// </summary>
         public readonly static Fixed32 Zero = new Fixed32(0);
         /// <summary>
+        /// 
+        /// </summary>
+        public readonly static Fixed32 Half = From(1L << 31);
+        /// <summary>
         /// 1
         /// </summary>
         public readonly static Fixed32 One = new Fixed32(1);
@@ -33,6 +37,10 @@
         /// -1
         /// </summary>
         public readonly static Fixed32 NegativeOne = new Fixed32(-1);
+        /// <summary>
+        /// ln(2)
+        /// </summary>
+        public readonly static Fixed32 LN2 = From(2977044472);
         /// <summary>
         /// 非数字
         /// </summary>
@@ -45,10 +53,10 @@
         /// <summary>
         /// 自然常数
         /// </summary>
-        public readonly static Fixed32 E = new Fixed32(2.7182818284590452354);
+        public readonly static Fixed32 E = From(11674931554);
         /// <summary>
         /// 圆周率
         /// </summary>
-        public readonly static Fixed32 PI = new Fixed32(3.14159265358979323846);
+        public readonly static Fixed32 PI = From(13493037705);
     }
 }
