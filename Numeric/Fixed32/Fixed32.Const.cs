@@ -42,6 +42,10 @@
         /// </summary>
         public readonly static Fixed32 LN2 = From(2977044472);
         /// <summary>
+        /// ln(10)
+        /// </summary>
+        public readonly static Fixed32 LN10 = From(9889527671);
+        /// <summary>
         /// 非数字
         /// </summary>
         public readonly static Fixed32 NaN = From(long.MinValue); // 0x8000000000000000

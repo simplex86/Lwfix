@@ -132,6 +132,17 @@
         }
 
         /// <summary>
+        /// 以10为底n的对数
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static Fixed32 Log10(Fixed32 n)
+        {
+            return n.Log10();
+        }
+
+        /// <summary>
         /// 倒数
         /// </summary>
         /// <param name="value"></param>
