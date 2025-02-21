@@ -36,38 +36,6 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static abstract T operator +(T a, float b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(float a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(T a, double b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator +(double a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         static abstract T operator +(T a, T b);
 
         #endregion
@@ -89,38 +57,6 @@ namespace Lwkit.Fixed
         /// <param name="b"></param>
         /// <returns></returns>
         static abstract T operator -(int a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(T a, float b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(float a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(T a, double b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator -(double a, T b);
 
         /// <summary>
         /// 
@@ -156,38 +92,6 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static abstract T operator *(T a, float b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(float a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(T a, double b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator *(double a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         static abstract T operator *(T a, T b);
 
         #endregion
@@ -216,39 +120,35 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static abstract T operator /(T a, float b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(float a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(T a, double b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        static abstract T operator /(double a, T b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         static abstract T operator /(T a, T b);
+
+        #endregion
+
+        #region mod
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        static abstract T operator %(T a, int b);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        static abstract T operator %(int a, T b);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        static abstract T operator %(T a, T b);
 
         #endregion
 
