@@ -46,7 +46,7 @@
         /// <returns></returns>
         private static Fixed32 Div(long a, long b)
         {
-            if (b == 0) return NaN;
+            if (b == 0) throw new DivideByZeroException("Attempted to divide by zero.");
 
             var am = a >> (TOTAL_BITS - 1);
             var bm = b >> (TOTAL_BITS - 1);
