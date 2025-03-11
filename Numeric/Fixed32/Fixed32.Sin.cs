@@ -20,7 +20,7 @@
             var sign = ToQuadrant(normalized, out var reference);
             var result = Evaluate(reference);
 
-            return sign ? result : result * -1;
+            return sign ? result : -result;
         }
 
         /// <summary>
