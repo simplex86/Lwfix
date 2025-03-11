@@ -50,5 +50,25 @@
         {
             return Fixed32.From(n.value & Fixed32.FRACTIONAL_MASK);
         }
+
+        /// <summary>
+        /// 角度转弧度
+        /// </summary>
+        /// <param name="degree"></param>
+        /// <returns></returns>
+        public static Fixed32 DegreeToRadian(Fixed32 degree)
+        {
+            return (degree / 180) * PI;
+        }
+
+        /// <summary>
+        /// 弧度转角度
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        public static Fixed32 RadianToDegree(Fixed32 radian)
+        {
+            return (radian / PI) * 180;
+        }
     }
 }

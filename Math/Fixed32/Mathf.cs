@@ -6,6 +6,15 @@
     public static partial class Mathf
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public readonly static Fixed32 PI = Fixed32.PI;
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly static Fixed32 E = Fixed32.E;
+
+        /// <summary>
         /// 绝对值
         /// </summary>
         /// <param name="n"></param>

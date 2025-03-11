@@ -55,12 +55,20 @@
         public readonly static Fixed32 Epsilon = From(EPSILON_VALUE);
 
         /// <summary>
-        /// 自然常数
+        /// 自然常数e
         /// </summary>
         public readonly static Fixed32 E = From(11674931554);
         /// <summary>
-        /// 圆周率
+        /// 圆周率π
         /// </summary>
         public readonly static Fixed32 PI = From(13493037705);
+        /// <summary>
+        /// π/2
+        /// </summary>
+        public readonly static Fixed32 Half_PI = From(6746518852);
+        /// <summary>
+        /// 2π
+        /// </summary>
+        public readonly static Fixed32 Two_PI = From(26986075409);
     }
 }
