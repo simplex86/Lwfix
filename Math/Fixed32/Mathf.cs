@@ -171,5 +171,45 @@
         {
             return a == b;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        public static Fixed32 Sin(Fixed32 radian)
+        {
+            return Fixed32.Sin(radian);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        public static Fixed32 FastSin(Fixed32 radian)
+        {
+            return Fixed32.FastSin(radian);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        public static Fixed32 Cos(Fixed32 radian)
+        {
+            return Fixed32.Cos(radian);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        public static Fixed32 FastCos(Fixed32 radian)
+        {
+            return Fixed32.FastCos(radian);
+        }
     }
 }

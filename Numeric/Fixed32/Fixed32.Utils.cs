@@ -60,55 +60,26 @@
         }
 
         /// <summary>
-        /// 角度规范化到[-2π, 2π]
+        /// 角度规范化到[0, 2π]
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
         internal static Fixed32 NormalizeRadian(Fixed32 radian)
         {
-            // 周期数：n = radian / (2π)
-            var cycles = radian.value / Two_PI.value;
-            // 减去整数周期：radian = radian - n * 2π
-            return From(radian.value - cycles * Two_PI.value);
+            long remainder = radian.value % Two_PI.value;
+            if (remainder < 0) remainder += Two_PI.value;
+
+            return From(remainder);
         }
 
         /// <summary>
-        /// 象限映射和符号处理
+        /// 
         /// </summary>
-        /// <param name="angle"></param>
-        /// <param name="reference"></param>
-        /// <returns></returns>
-        internal static bool ToQuadrant(Fixed32 angle, out Fixed32 reference)
-        {
-            // 确定象限
-            var quadrant = (angle.value << 1) / PI.value;
-
-            // 计算参考角
-            var refvalue = angle.value;
-            var sign = true;
-
-            switch (quadrant)
-            {
-                case 0: // 第一象限 [0, π/2)
-                    sign = false;
-                    break;
-                case 1: // 第二象限 [π/2, π)
-                    refvalue = PI.value - refvalue;
-                    sign = true;
-                    break;
-                case 2: // 第三象限 [π, 3π/2)
-                    refvalue -= PI.value;
-                    sign = true;
-                    break;
-                case 3: // 第四象限 [3π/2, 2π)
-                    refvalue = Two_PI.value - refvalue;
-                    sign = false;
-                    break;
-            }
-
-            reference = From(refvalue);
-            return sign;
-        }
+        private readonly static Fixed32 D2R = From(74961321);
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly static Fixed32 R2D = From(246083499208);
 
         /// <summary>
         /// 角度转弧度
@@ -117,7 +88,7 @@
         /// <returns></returns>
         public static Fixed32 DegreeToRadian(Fixed32 degree)
         {
-            return (degree / 180) * PI;
+            return degree * D2R;
         }
 
         /// <summary>
@@ -127,7 +98,7 @@
         /// <returns></returns>
         public static Fixed32 RadianToDegree(Fixed32 radian)
         {
-            return (radian / PI) * 180;
+            return radian * R2D;
         }
     }
 }

@@ -58,7 +58,7 @@
         /// <returns></returns>
         public static Fixed32 DegreeToRadian(Fixed32 degree)
         {
-            return (degree / 180) * PI;
+            return Fixed32.DegreeToRadian(degree);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@
         /// <returns></returns>
         public static Fixed32 RadianToDegree(Fixed32 radian)
         {
-            return (radian / PI) * 180;
+            return Fixed32.RadianToDegree(radian);
         }
     }
 }
