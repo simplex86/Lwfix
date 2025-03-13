@@ -11,7 +11,7 @@
         /// <returns></returns>
         internal bool IsFractional()
         {
-            return (value & FRACTIONAL_MASK) != 0;
+            return (rawvalue & FRACTIONAL_MASK) != 0;
         }
 
         /// <summary>
@@ -66,8 +66,8 @@
         /// <returns></returns>
         internal static Fixed32 NormalizeRadian(Fixed32 radian)
         {
-            long remainder = radian.value % Two_PI.value;
-            if (remainder < 0) remainder += Two_PI.value;
+            long remainder = radian.rawvalue % Two_PI.rawvalue;
+            if (remainder < 0) remainder += Two_PI.rawvalue;
 
             return From(remainder);
         }

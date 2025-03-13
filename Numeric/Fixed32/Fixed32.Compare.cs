@@ -13,7 +13,7 @@
         /// <returns></returns>
         public static bool operator ==(Fixed32 a, Fixed32 b)
         {
-            return a.value == b.value;
+            return a.rawvalue == b.rawvalue;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@
         /// <returns></returns>
         public static bool operator !=(Fixed32 a, Fixed32 b)
         {
-            return a.value != b.value;
+            return a.rawvalue != b.rawvalue;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@
         /// <returns></returns>
         public static bool operator >(Fixed32 a, Fixed32 b)
         {
-            return a.value > b.value;
+            return a.rawvalue > b.rawvalue;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@
         /// <returns></returns>
         public static bool operator <(Fixed32 a, Fixed32 b)
         {
-            return a.value < b.value;
+            return a.rawvalue < b.rawvalue;
         }
 
         /// <summary>
@@ -57,7 +57,7 @@
         /// <returns></returns>
         public static bool operator >=(Fixed32 a, Fixed32 b)
         {
-            return a.value >= b.value;
+            return a.rawvalue >= b.rawvalue;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@
         /// <returns></returns>
         public static bool operator <=(Fixed32 a, Fixed32 b)
         {
-            return a.value <= b.value;
+            return a.rawvalue <= b.rawvalue;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@
         /// <returns></returns>
         public bool Equals(Fixed32 other)
         {
-            return value == other.value;
+            return rawvalue == other.rawvalue;
         }
 
         /// <summary>

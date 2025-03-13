@@ -36,7 +36,7 @@
             var sign = false;
             reference = Zero;
 
-            var quadrant = (radian.value << 1) / PI.value;
+            var quadrant = (radian.rawvalue << 1) / PI.rawvalue;
             switch (quadrant)
             {
                 case 0: // 第一象限 [0, π/2)
@@ -92,7 +92,7 @@
             //var index = normalized.value >> 15;
             //if (index >= SinLut.Length) index = SinLut.Length - 1;
             //if (normalized >= Half_PI)  index = SinLut.Length - 1 - index;
-            var index = reference.value >> 15;
+            var index = reference.rawvalue >> 15;
 
             var nearest = SinLut[index];
             if (sign) nearest = -nearest;

@@ -50,15 +50,15 @@
         /// <exception cref="ArgumentException"></exception>
         public Fixed32 Power(Fixed32 n)
         {
-            if (value == 0)
+            if (rawvalue == 0)
             {
-                if (n.value <= 0) throw new ArgumentException("0 的非正数次幂无定义");
+                if (n.rawvalue <= 0) throw new ArgumentException("0 的非正数次幂无定义");
                 return Zero;
             }
 
             if (n.IsFractional())
             {
-                if (value < 0) throw new ArgumentException("负数的非整数次幂无实数解");
+                if (rawvalue < 0) throw new ArgumentException("负数的非整数次幂无实数解");
                 return (n * Log()).Exp(); // m^n = e^(n * ln(m))
             }
 
@@ -73,7 +73,7 @@
         public Fixed32 Exp()
         {
             // 处理 x = 0 的快速路径
-            if (value == 0)
+            if (rawvalue == 0)
             {
                 return One;
             }

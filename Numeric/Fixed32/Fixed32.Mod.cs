@@ -13,7 +13,7 @@
         /// <returns></returns>
         public static Fixed32 operator %(Fixed32 a, int b)
         {
-            return Mod(a.value, (long)b << INTEGRAL_BITS);
+            return Mod(a.rawvalue, (long)b << INTEGRAL_BITS);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@
         /// <returns></returns>
         public static Fixed32 operator %(int a, Fixed32 b)
         {
-            return Mod((long)a << INTEGRAL_BITS, b.value);
+            return Mod((long)a << INTEGRAL_BITS, b.rawvalue);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@
         /// <returns></returns>
         public static Fixed32 operator %(Fixed32 a, Fixed32 b)
         {
-            return Mod(a.value, b.value);
+            return Mod(a.rawvalue, b.rawvalue);
         }
 
         /// <summary>
@@ -46,8 +46,8 @@
         /// <returns></returns>
         private static Fixed32 Mod(long a, long b)
         {
-            if (a == NaN.value || 
-                b == NaN.value)
+            if (a == NaN.rawvalue || 
+                b == NaN.rawvalue)
             {
                 return NaN;
             }

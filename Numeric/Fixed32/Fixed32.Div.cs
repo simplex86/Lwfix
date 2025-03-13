@@ -13,7 +13,7 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, int b)
         {
-            return Div(a.value, (long)b << INTEGRAL_BITS);
+            return Div(a.rawvalue, (long)b << INTEGRAL_BITS);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@
         /// <returns></returns>
         public static Fixed32 operator /(int a, Fixed32 b)
         {
-            return Div((long)a << INTEGRAL_BITS, b.value);
+            return Div((long)a << INTEGRAL_BITS, b.rawvalue);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, Fixed32 b)
         {
-            return Div(a.value, b.value);
+            return Div(a.rawvalue, b.rawvalue);
         }
 
         /// <summary>

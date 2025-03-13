@@ -12,7 +12,7 @@
         /// <exception cref="ArgumentException"></exception>
         public Fixed32 Log()
         {
-            if (value <= 0)
+            if (rawvalue <= 0)
                 throw new ArgumentException("自然对数对非正数无定义");
 
             // 1. 归一化到 [1, 2) 并记录指数
@@ -55,7 +55,7 @@
         /// <exception cref="ArgumentException"></exception>
         public Fixed32 Log2()
         {
-            if (value <= 0)
+            if (rawvalue <= 0)
             {
                 throw new ArgumentException("Log2 is undefined for non-positive values.");
             }

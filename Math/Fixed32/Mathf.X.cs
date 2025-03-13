@@ -38,7 +38,7 @@
         /// <returns></returns>
         public static Fixed32 Integral(Fixed32 n)
         {
-            return Fixed32.From(n.value & Fixed32.INTEGRAL_MASK);
+            return Fixed32.Integral(n);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@
         /// <returns></returns>
         public static Fixed32 Fractional(Fixed32 n)
         {
-            return Fixed32.From(n.value & Fixed32.FRACTIONAL_MASK);
+            return Fixed32.Fractional(n);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Fixed32 From(long value)
         {
-            return new Fixed32() { value = value };
+            return new Fixed32() { rawvalue = value };
         }
 
         /// <summary>
@@ -120,7 +120,7 @@
         /// <returns></returns>
         public long ToLong()
         {
-            return value >> FRACTIONAL_BITS;
+            return rawvalue >> FRACTIONAL_BITS;
         }
 
         /// <summary>
@@ -138,7 +138,7 @@
         /// <returns></returns>
         public double ToDouble()
         {
-            return value / FRACTIONAL_MULTIPLIER;
+            return rawvalue / FRACTIONAL_MULTIPLIER;
         }
 
         /// <summary>
@@ -149,6 +149,26 @@
         {
             if (this == NaN) return "NaN";
             return ToDouble().ToString();
+        }
+
+        /// <summary>
+        /// 获取整数部分
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Integral(Fixed32 n)
+        {
+            return From(n.rawvalue & INTEGRAL_MASK);
+        }
+
+        /// <summary>
+        /// 获取小数部分
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Fractional(Fixed32 n)
+        {
+            return From(n.rawvalue & FRACTIONAL_MASK);
         }
     }
 }

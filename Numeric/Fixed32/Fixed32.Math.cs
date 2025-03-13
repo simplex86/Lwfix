@@ -21,8 +21,8 @@
                 return MaxValue;
             }
 
-            var mask = value >> 63;
-            return From((value + mask) ^ mask);
+            var mask = rawvalue >> 63;
+            return From((rawvalue + mask) ^ mask);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         /// <returns></returns>
         public Fixed32 Floor()
         {
-            return From(value & INTEGRAL_MASK);
+            return From(rawvalue & INTEGRAL_MASK);
         }
 
         /// <summary>
@@ -49,12 +49,12 @@
         /// <returns></returns>
         public Fixed32 Round()
         {
-            var frac = value & FRACTIONAL_MASK;
+            var frac = rawvalue & FRACTIONAL_MASK;
 
             if (frac < 0x80000000) return Floor();
             if (frac > 0x80000000) return Ceil();
 
-            return (value & One.value) == 0 ? Floor()
+            return (rawvalue & One.rawvalue) == 0 ? Floor()
                                             : Ceil();
         }
 
@@ -75,12 +75,12 @@
         /// <returns></returns>
         public Fixed32 Sqrt()
         {
-            if (value < 0)
+            if (rawvalue < 0)
             {
                 throw new Exception();
             }
 
-            var val = (ulong)value;
+            var val = (ulong)rawvalue;
             var bit = 1UL << (TOTAL_BITS - 2);
             while (bit > val) bit >>= 2;
 
