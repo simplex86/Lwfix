@@ -211,5 +211,25 @@
         {
             return Fixed32.FastCos(radian);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        public static Fixed32 Tan(Fixed32 radian)
+        {
+            return Fixed32.Tan(radian);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        public static Fixed32 FastTan(Fixed32 radian)
+        {
+            return Fixed32.FastTan(radian);
+        }
     }
 }
