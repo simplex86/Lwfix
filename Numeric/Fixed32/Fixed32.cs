@@ -8,7 +8,7 @@
         /// <summary>
         /// 
         /// </summary>
-        internal long rawvalue { get; private set; } = 0;
+        private long rawvalue = 0;
 
         /// <summary>
         /// 总位宽

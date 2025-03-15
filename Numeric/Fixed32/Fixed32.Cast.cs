@@ -10,9 +10,19 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Fixed32 From(long value)
+        public static Fixed32 FromRaw(long value)
         {
             return new Fixed32() { rawvalue = value };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static long ToRaw(Fixed32 value)
+        {
+            return value.rawvalue;
         }
 
         /// <summary>
@@ -158,7 +168,7 @@
         /// <returns></returns>
         public static Fixed32 Integral(Fixed32 n)
         {
-            return From(n.rawvalue & INTEGRAL_MASK);
+            return FromRaw(n.rawvalue & INTEGRAL_MASK);
         }
 
         /// <summary>
@@ -168,7 +178,7 @@
         /// <returns></returns>
         public static Fixed32 Fractional(Fixed32 n)
         {
-            return From(n.rawvalue & FRACTIONAL_MASK);
+            return FromRaw(n.rawvalue & FRACTIONAL_MASK);
         }
     }
 }

@@ -13,7 +13,7 @@
         /// <returns></returns>
         public static Fixed32 operator -(Fixed32 a, int b)
         {
-            return From(a.rawvalue - ((long)b <<  INTEGRAL_BITS));
+            return FromRaw(a.rawvalue - ((long)b <<  INTEGRAL_BITS));
         }
 
         /// <summary>
@@ -24,7 +24,7 @@
         /// <returns></returns>
         public static Fixed32 operator -(int a, Fixed32 b)
         {
-            return From(((long)a << INTEGRAL_BITS) - b.rawvalue);
+            return FromRaw(((long)a << INTEGRAL_BITS) - b.rawvalue);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@
         /// <returns></returns>
         public static Fixed32 operator -(Fixed32 a, Fixed32 b)
         {
-            return From(a.rawvalue - b.rawvalue);
+            return FromRaw(a.rawvalue - b.rawvalue);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@
         /// <returns></returns>
         public static Fixed32 operator -(Fixed32 b)
         {
-            return From(-b.rawvalue);
+            return FromRaw(-b.rawvalue);
         }
     }
 }

@@ -46,23 +46,12 @@
         /// <returns></returns>
         private static Fixed32 Mod(long a, long b)
         {
-            if (a == NaN.rawvalue || 
-                b == NaN.rawvalue)
+            if (a == MinValue.rawvalue && b == -1)
             {
-                return NaN;
+                return 0;
             }
 
-            // 整数部分
-            var aint = a >> INTEGRAL_BITS;
-            var bint = b >> INTEGRAL_BITS;
-            // 小数部分
-            var afrac = (a & FRACTIONAL_MASK);
-            var bfrac = (b & FRACTIONAL_MASK);
-
-            var mint = (aint % bint) << INTEGRAL_BITS;
-            var mfrac = afrac % bfrac;
-
-            return From(mint + mfrac);
+            return FromRaw(a % b);
         }
     }
 }

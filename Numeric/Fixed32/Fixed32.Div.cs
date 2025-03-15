@@ -107,7 +107,7 @@
                 result = -result;
             }
 
-            return From(result);
+            return FromRaw(result);
         }
     }
 }

@@ -64,22 +64,33 @@
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
-        internal static Fixed32 NormalizeRadian(Fixed32 radian)
+        public static Fixed32 NormalizeRadian(Fixed32 radian)
         {
-            long remainder = radian.rawvalue % Two_PI.rawvalue;
-            if (remainder < 0) remainder += Two_PI.rawvalue;
+            return NormalizeRadian(radian, Two_PI);
+        }
 
-            return From(remainder);
+        /// <summary>
+        /// 角度规范化
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        internal static Fixed32 NormalizeRadian(Fixed32 radian, Fixed32 unit)
+        {
+            long remainder = radian.rawvalue % unit.rawvalue;
+            if (remainder < 0) remainder += unit.rawvalue;
+
+            return FromRaw(remainder);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private readonly static Fixed32 D2R = From(74961321);
+        private readonly static Fixed32 D2R = FromRaw(74961321);
         /// <summary>
         /// 
         /// </summary>
-        private readonly static Fixed32 R2D = From(246083499208);
+        private readonly static Fixed32 R2D = FromRaw(246083499208);
 
         /// <summary>
         /// 角度转弧度

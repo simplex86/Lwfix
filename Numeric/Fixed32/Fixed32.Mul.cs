@@ -57,7 +57,7 @@
             var rfrac = (afrac * bfrac) >> FRACTIONAL_BITS; // 小数的积
             var rcrs = (aint * (long)bfrac + bint * (long)afrac); // 交叉部分
 
-            return From(rint + rcrs + (long)rfrac);
+            return FromRaw(rint + rcrs + (long)rfrac);
         }
     }
 }

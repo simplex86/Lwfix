@@ -8,7 +8,7 @@
         /// <summary>
         /// 总位宽
         /// </summary>
-        internal const byte HALF_TOTAL_BITS = TOTAL_BITS / 2;
+        private const byte HALF_TOTAL_BITS = TOTAL_BITS / 2;
 
         /// <summary>
         /// 绝对值
@@ -22,7 +22,7 @@
             }
 
             var mask = rawvalue >> 63;
-            return From((rawvalue + mask) ^ mask);
+            return FromRaw((rawvalue + mask) ^ mask);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         /// <returns></returns>
         public Fixed32 Floor()
         {
-            return From(rawvalue & INTEGRAL_MASK);
+            return FromRaw(rawvalue & INTEGRAL_MASK);
         }
 
         /// <summary>
@@ -55,18 +55,21 @@
             if (frac > 0x80000000) return Ceil();
 
             return (rawvalue & One.rawvalue) == 0 ? Floor()
-                                            : Ceil();
+                                                  : Ceil();
         }
 
         /// <summary>
         /// 倒数
         /// </summary>
-        /// <param name="value"></param>
         /// <returns></returns>
         public Fixed32 Reciprocal()
         {
-            return (this == Zero) ? NaN
-                                  : One / this;
+            if (this == Zero)
+            {
+                throw new DivideByZeroException("Attempted to find the reciprocal of zero.");
+            }
+            
+            return One / this;
         }
 
         /// <summary>
@@ -120,7 +123,7 @@
             }
 
             if (val > res) res++;
-            return From((long)res);
+            return FromRaw((long)res);
         }
     }
 }

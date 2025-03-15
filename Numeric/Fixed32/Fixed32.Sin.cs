@@ -5,11 +5,11 @@
     /// </summary>
     public partial struct Fixed32
     {
-        private static readonly Fixed32 C3  = From(715827882); // 1/(3!) 
-        private static readonly Fixed32 C5  = From(35791394);  // 1/(5!) 
-        private static readonly Fixed32 C7  = From(852176);    // 1/(7!) 
-        private static readonly Fixed32 C9  = From(11836);     // 1/(9!) 
-        private static readonly Fixed32 C11 = From(108);       // 1/(11!)
+        private static readonly Fixed32 C3  = FromRaw(715827882); // 1/(3!) 
+        private static readonly Fixed32 C5  = FromRaw(35791394);  // 1/(5!) 
+        private static readonly Fixed32 C7  = FromRaw(852176);    // 1/(7!) 
+        private static readonly Fixed32 C9  = FromRaw(11836);     // 1/(9!) 
+        private static readonly Fixed32 C11 = FromRaw(108);       // 1/(11!)
 
         /// <summary>
         /// 
@@ -19,8 +19,8 @@
         public static Fixed32 Sin(Fixed32 radian)
         {
             var normalized = NormalizeRadian(radian);
-            var sign = ToFirstQuadrant(normalized, out var reference);
-            var result = TaylorEvaluate(reference);
+            var referenced = ReduceRadian4Sin(normalized, out var sign);
+            var result = TaylorEvaluate4Sin(referenced);
 
             return sign ? -result : result;
         }
@@ -29,18 +29,18 @@
         /// 泰勒展开在接近2π时误差极大，进一步利用对称性缩减到[0, π/2]
         /// </summary>
         /// <param name="radian"></param>
-        /// <param name="reference"></param>
+        /// <param name="sign"></param>
         /// <returns></returns>
-        internal static bool ToFirstQuadrant(Fixed32 radian, out Fixed32 reference)
+        internal static Fixed32 ReduceRadian4Sin(Fixed32 radian, out bool sign)
         {
-            var sign = false;
-            reference = Zero;
+            sign = false;
 
+            var reference = radian;
             var quadrant = (radian.rawvalue << 1) / PI.rawvalue;
+
             switch (quadrant)
             {
                 case 0: // 第一象限 [0, π/2)
-                    reference = radian;
                     break;
                 case 1: // 第二象限 [π/2, π)
                     reference = PI - radian;
@@ -58,7 +58,7 @@
                     break;
             }
 
-            return sign;
+            return reference;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        private static Fixed32 TaylorEvaluate(Fixed32 x)
+        private static Fixed32 TaylorEvaluate4Sin(Fixed32 x)
         {
             var x1  = x;
             var x2  = x1 * x1;
@@ -76,7 +76,7 @@
             var x9  = x7 * x2;
             var x11 = x9 * x2;
 
-            return x - x3 * C3 + x5 * C5 - x7 * C7 + x9 * C9 - x11 * C11;
+            return x1 - x3 * C3 + x5 * C5 - x7 * C7 + x9 * C9 - x11 * C11;
         }
 
         /// <summary>
@@ -87,17 +87,15 @@
         public static Fixed32 FastSin(Fixed32 radian)
         {
             var normalized = NormalizeRadian(radian);
-            var sign = ToFirstQuadrant(normalized, out var reference);
+            var referenced = ReduceRadian4Sin(normalized, out var sign);
 
-            //var index = normalized.value >> 15;
-            //if (index >= SinLut.Length) index = SinLut.Length - 1;
-            //if (normalized >= Half_PI)  index = SinLut.Length - 1 - index;
-            var index = reference.rawvalue >> 15;
+            var index = referenced.rawvalue >> 15;
+            if (index >= SinLut.Length) index = SinLut.Length - 1;
 
             var nearest = SinLut[index];
             if (sign) nearest = -nearest;
 
-            return From(nearest);
+            return FromRaw(nearest);
         }
     }
 }

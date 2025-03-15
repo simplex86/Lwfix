@@ -8,11 +8,11 @@
         /// <summary>
         /// 最大值
         /// </summary>
-        public static Fixed32 MaxValue => From(long.MaxValue); // 0x7FFFFFFFFFFFFFFF
+        public static Fixed32 MaxValue => FromRaw(long.MaxValue); // 0x7FFFFFFFFFFFFFFF
         /// <summary>
         /// 最小值
         /// </summary>
-        public static Fixed32 MinValue => From(long.MinValue + 1); // 0x8000000000000001
+        public static Fixed32 MinValue => FromRaw(long.MinValue + 1); // 0x8000000000000001
         /// <summary>
         /// 
         /// </summary>
@@ -28,7 +28,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public readonly static Fixed32 Half = From(1L << 31);
+        public readonly static Fixed32 Half = FromRaw(1L << 31);
         /// <summary>
         /// 1
         /// </summary>
@@ -40,35 +40,39 @@
         /// <summary>
         /// ln(2)
         /// </summary>
-        public readonly static Fixed32 LN2 = From(2977044472);
+        public readonly static Fixed32 LN2 = FromRaw(2977044472);
         /// <summary>
         /// ln(10)
         /// </summary>
-        public readonly static Fixed32 LN10 = From(9889527671);
+        public readonly static Fixed32 LN10 = FromRaw(9889527671);
         /// <summary>
         /// 非数字
         /// </summary>
-        public readonly static Fixed32 NaN = From(long.MinValue); // 0x8000000000000000
+        public readonly static Fixed32 NaN = FromRaw(long.MinValue); // 0x8000000000000000
         /// <summary>
         /// 精度
         /// </summary>
-        public readonly static Fixed32 Epsilon = From(EPSILON_VALUE);
+        public readonly static Fixed32 Epsilon = FromRaw(EPSILON_VALUE);
 
         /// <summary>
         /// 自然常数e
         /// </summary>
-        public readonly static Fixed32 E = From(11674931554);
+        public readonly static Fixed32 E = FromRaw(11674931554);
         /// <summary>
         /// 圆周率π
         /// </summary>
-        public readonly static Fixed32 PI = From(13493037705);
+        public readonly static Fixed32 PI = FromRaw(13493037705);
         /// <summary>
-        /// π/2
+        /// π/ 2
         /// </summary>
-        public readonly static Fixed32 Half_PI = From(6746518852);
+        public readonly static Fixed32 Half_PI = FromRaw(6746518852);
+        /// <summary>
+        /// π/ 4
+        /// </summary>
+        public readonly static Fixed32 Quarter_PI = FromRaw(3373259426);
         /// <summary>
         /// 2π
         /// </summary>
-        public readonly static Fixed32 Two_PI = From(26986075409);
+        public readonly static Fixed32 Two_PI = FromRaw(26986075409);
     }
 }
