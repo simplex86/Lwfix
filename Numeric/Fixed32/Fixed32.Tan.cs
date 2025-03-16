@@ -21,6 +21,15 @@
         public static Fixed32 Tan(Fixed32 radian)
         {
             var normalized = NormalizeRadian(radian, PI);
+
+            if (normalized == Half_PI)
+            {
+                //throw new DivideByZeroException("Attempted to divide by zero.");
+            }
+                
+            if (normalized == Zero)       return Zero;
+            if (normalized == Quarter_PI) return One;
+        
             var referenced = ReduceRadian4Tan(normalized, out var sign);
 
             var result = Zero;
@@ -30,8 +39,8 @@
             }
             else
             {
-                var temp = TaylorEvaluate4Tan(referenced - Quarter_PI);
-                result = (One + temp) / (One - temp);
+                var temp = TaylorEvaluate4Tan(Half_PI - referenced);
+                result = temp.Reciprocal();
             }
 
             return sign ? -result : result;
@@ -48,7 +57,7 @@
             sign = false;
 
             var referenced = radian;
-            if (referenced >= Half_PI)
+            if (referenced > Half_PI)
             {
                 sign = true;
                 referenced = PI - referenced;

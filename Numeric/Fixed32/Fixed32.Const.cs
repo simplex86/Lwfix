@@ -38,6 +38,10 @@
         /// </summary>
         public readonly static Fixed32 NegativeOne = new Fixed32(-1);
         /// <summary>
+        /// 1
+        /// </summary>
+        public readonly static Fixed32 Two = new Fixed32(2);
+        /// <summary>
         /// ln(2)
         /// </summary>
         public readonly static Fixed32 LN2 = FromRaw(2977044472);
