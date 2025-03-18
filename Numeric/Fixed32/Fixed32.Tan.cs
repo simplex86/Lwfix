@@ -14,7 +14,8 @@
         private static readonly Fixed32 T15 = FromRaw(6252761);    // 929569/638512875
 
         /// <summary>
-        /// 
+        /// 正切
+        /// 注：越接近π/2误差越大
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
@@ -22,11 +23,7 @@
         {
             var normalized = NormalizeRadian(radian, PI);
 
-            if (normalized == Half_PI)
-            {
-                //throw new DivideByZeroException("Attempted to divide by zero.");
-            }
-                
+            if (normalized == Half_PI)    return MaxValue;
             if (normalized == Zero)       return Zero;
             if (normalized == Quarter_PI) return One;
         
@@ -47,7 +44,7 @@
         }
 
         /// <summary>
-        /// 泰勒展开在接近π/ 2时误差极大，进一步缩减到[0, π/4]
+        /// 泰勒展开
         /// </summary>
         /// <param name="radian"></param>
         /// <param name="reference"></param>
@@ -87,13 +84,32 @@
         }
 
         /// <summary>
-        /// 
+        /// 快速计算正切
+        /// 注：越接近π/2误差越大，且误差大于Tan函数
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
         public static Fixed32 FastTan(Fixed32 radian)
         {
-            return Zero;
+            var normalized = NormalizeRadian(radian, PI);
+            var referenced = ReduceRadian4Tan(normalized, out var sign);
+
+            if (referenced == Half_PI)    return MaxValue;
+            if (referenced == Zero)       return Zero;
+            if (referenced == Quarter_PI) return One;
+
+            var index = referenced * (TanLut.Length - 1) / Half_PI;
+            var round = index.Round();
+            var error = index - round;
+
+            var nearest1 = FromRaw(TanLut[(int)round]);
+            var nearest2 = FromRaw(TanLut[(int)round + error.Sign()]);
+
+            var delta = error * (nearest1 - nearest2).Abs();
+            var interpolated = nearest1.rawvalue + delta.rawvalue;
+            if (sign) interpolated = -interpolated;
+
+            return FromRaw(interpolated);
         }
     }
 }

@@ -12,7 +12,7 @@
         private static readonly Fixed32 C11 = FromRaw(108);       // 1/(11!)
 
         /// <summary>
-        /// 
+        /// 正弦
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
@@ -80,7 +80,8 @@
         }
 
         /// <summary>
-        /// 
+        /// 快速计算正弦
+        /// 注：误差大于Sin函数
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>

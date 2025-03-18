@@ -147,5 +147,15 @@
             if (val > res) res++;
             return FromRaw((long)res);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int Sign()
+        {
+            if (rawvalue == 0) return 0;
+            return rawvalue < 0 ? -1 : 1;
+        }
     }
 }
