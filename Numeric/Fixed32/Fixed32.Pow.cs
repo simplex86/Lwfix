@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public Fixed32 Power(int n)
+        public Fixed32 Pow(int n)
         {
             if (n == 0 || this == One)
             {
@@ -48,7 +48,7 @@
         /// <param name="n"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public Fixed32 Power(Fixed32 n)
+        public Fixed32 Pow(Fixed32 n)
         {
             if (rawvalue == 0)
             {
@@ -62,7 +62,7 @@
                 return (n * Log()).Exp(); // m^n = e^(n * ln(m))
             }
 
-            return Power(n.ToInt());
+            return Pow(n.ToInt());
         }
 
         /// <summary>

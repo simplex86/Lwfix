@@ -43,9 +43,12 @@
         /// </summary>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Fixed32 operator -(Fixed32 b)
+        public static Fixed32 operator -(Fixed32 n)
         {
-            return FromRaw(-b.rawvalue);
+            if (n == NaN)      return NaN;
+            if (n == MaxValue) return MinValue;
+            if (n == MinValue) return MaxValue;
+            return FromRaw(-n.rawvalue);
         }
     }
 }
