@@ -11,26 +11,33 @@
 
         /// <summary>
         /// 余切
+        /// TODO：通过泰勒展开求解，但误差较大
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
+        //public static Fixed32 Cot(Fixed32 radian)
+        //{
+        //    var normalized = NormalizeRadian(radian, PI);
+        //
+        //    if (normalized == Zero) return MaxValue;
+        //    if (normalized == PI) return MinValue;
+        //    if (normalized == Half_PI) return Zero;
+        //
+        //    var referenced = ReduceRadian4Cot(normalized, out var sign);
+        //    var result = TaylorEvaluate4Cot(referenced);
+        //
+        //    return sign ? -result : result;
+        //}
+
+        /// <summary>
+        /// 余切
         /// 注：越接近π误差越大
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
         public static Fixed32 Cot(Fixed32 radian)
         {
-            //var normalized = NormalizeRadian(radian, PI);
-
-            //if (normalized == Zero)       return MaxValue;
-            //if (normalized == PI)         return MinValue;
-            //if (normalized == Half_PI)    return Zero;
-
-            //var referenced = ReduceRadian4Cot(normalized, out var sign);
-            //var result = TaylorEvaluate4Cot(referenced);
-
-            //return sign ? -result : result;
-
-
-            // Note: 以上代码通过Cot的泰勒展开求解，但误差较大。故通过cot(x) = 1/tan(x)求解
-
+            // cot(x) = 1/tan(x)
             var tan = Tan(radian);
             if (tan.rawvalue == 0)
             {
@@ -77,7 +84,6 @@
 
         /// <summary>
         /// 快速计算余切
-        /// 注：越接近π/2误差越大，且误差大于Cot函数
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>

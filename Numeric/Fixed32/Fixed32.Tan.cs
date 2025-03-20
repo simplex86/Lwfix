@@ -69,12 +69,12 @@
         /// <returns></returns>
         private static Fixed32 TaylorEvaluate4Tan(Fixed32 x)
         {
-            var x1 = x;
-            var x2 = x1 * x1;
-            var x3 = x1 * x2;
-            var x5 = x3 * x2;
-            var x7 = x5 * x2;
-            var x9 = x7 * x2;
+            var x1  = x;
+            var x2  = x1 * x1;
+            var x3  = x1 * x2;
+            var x5  = x3 * x2;
+            var x7  = x5 * x2;
+            var x9  = x7 * x2;
             var x11 = x9 * x2;
             var x13 = x11 * x2;
             var x15 = x13 * x2;
@@ -154,6 +154,47 @@
             if (invert) result = Half_PI - result;
 
             return neg ? -result : result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static Fixed32 Atan2(Fixed32 y, Fixed32 x)
+        {
+            var yl = y.rawvalue;
+            var xl = x.rawvalue;
+
+            if (xl == 0)
+            {
+                if (yl > 0)  return Half_PI;
+                if (yl == 0) return Zero;
+                return -Half_PI;
+            }
+            
+            var z = y / x;
+            var sm = TPN2 * 28;
+            // Deal with overflow
+            if (One + sm * z * z == MaxValue)
+            {
+                return y < Zero ? -Half_PI : Half_PI;
+            }
+
+            var atan = Zero;
+            if (Abs(z) < One)
+            {
+                atan = z / (One + sm * z * z);
+                if (xl < 0) return (yl < 0) ? atan - PI : atan + PI;
+            }
+            else
+            {
+                atan = Half_PI - z / (z * z + sm);
+                if (yl < 0) return atan - PI;
+            }
+
+            return atan;
         }
     }
 }

@@ -6,7 +6,7 @@
     public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
-        /// 总位宽
+        /// 半位宽
         /// </summary>
         private const byte HALF_TOTAL_BITS = TOTAL_BITS / 2;
 
@@ -58,6 +58,25 @@
         /// 
         /// </summary>
         /// <returns></returns>
+        public int FloorToInt()
+        {
+            return Floor().ToInt();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int FloorToInt(Fixed32 n)
+        {
+            return n.FloorToInt();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Fixed32 Ceil()
         {
             return IsFractional() ? (this + One).Floor() : this;
@@ -71,6 +90,25 @@
         public static Fixed32 Ceil(Fixed32 n)
         {
             return n.Ceil();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int CeilToInt()
+        {
+            return Ceil().ToInt();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int CeilToInt(Fixed32 n)
+        {
+            return n.CeilToInt();
         }
 
         /// <summary>
@@ -89,7 +127,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 四舍五入
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -97,6 +135,57 @@
         {
             return n.Round();
         }
+
+        /// <summary>
+        /// 四舍五入
+        /// </summary>
+        /// <returns></returns>
+        public int RoundToInt()
+        {
+            return Round().ToInt();
+        }
+
+        /// <summary>
+        /// 四舍五入
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int RoundToInt(Fixed32 n)
+        {
+            return n.RoundToInt();
+        }
+
+        /// <summary>
+        /// 倒数
+        /// TODO: 用牛顿迭代求解，但不知为啥误差比较大
+        /// </summary>
+        /// <returns></returns>
+        //public Fixed32 Reciprocal()
+        //{
+        //    if (rawvalue == 0)
+        //    {
+        //        throw new DivideByZeroException("Cannot compute reciprocal of zero.");
+        //    }
+        //
+        //    // 1. 处理符号和绝对值
+        //    var negative = rawvalue < 0;
+        //    var value = (ulong)(negative ? -rawvalue : rawvalue);
+        //
+        //    // 2. 计算初始近似值（基于整数部分的倒数）
+        //    var integer = value >> 32; // 提取整数部分的高32位
+        //    if (integer == 0) integer = 1; // 防止除零
+        //
+        //    // 初始值公式: initial = (2^64 / integer) >> 32 (转换为 Q32.32)
+        //    ulong quotient = (0x1000000000000000UL / integer) >> 32;
+        //    var x = FromRaw((long)(quotient >> 32));
+        //
+        //    // 3. 牛顿迭代（3次迭代达到Q32.32精度）
+        //    x = x * (Two - (this * x)); // 第1次迭代
+        //    x = x * (Two - (this * x)); // 第2次迭代
+        //    x = x * (Two - (this * x)); // 第3次迭代
+        //
+        //    return negative ? -x : x;
+        //}
 
         /// <summary>
         /// 倒数
@@ -109,26 +198,6 @@
                 throw new DivideByZeroException("Cannot compute reciprocal of zero.");
             }
 
-            //// 1. 处理符号和绝对值
-            //var negative = rawvalue < 0;
-            //var value = (ulong)(negative ? -rawvalue : rawvalue);
-
-            //// 2. 计算初始近似值（基于整数部分的倒数）
-            //var integer = value >> 32; // 提取整数部分的高32位
-            //if (integer == 0) integer = 1; // 防止除零
-
-            //// 初始值公式: initial = (2^64 / integer) >> 32 (转换为 Q32.32)
-            //ulong quotient = (0x1000000000000000UL / integer) >> 32;
-            //var x = FromRaw((long)(quotient >> 32));
-
-            //// 3. 牛顿迭代（3次迭代达到Q32.32精度）
-            //x = x * (Two - (this * x)); // 第1次迭代
-            //x = x * (Two - (this * x)); // 第2次迭代
-            //x = x * (Two - (this * x)); // 第3次迭代
-
-            //return negative ? -x : x;
-
-            // NOTE: 用牛顿迭代误差比较大，还不知道问题在哪里，先用简单的除法实现
             return One / this;
         }
 
@@ -293,8 +362,8 @@
         /// <returns></returns>
         public static Fixed32 Clamp01(Fixed32 value)
         {
-            if (value < Fixed32.Zero) return Fixed32.Zero;
-            if (value > Fixed32.One) return Fixed32.One;
+            if (value < Zero) return Zero;
+            if (value > One) return One;
 
             return value;
         }
@@ -312,8 +381,8 @@
         {
             // All transformed to Fixed32 not to lose precission
             // Otherwise, for high numbers of param:amount the result is NaN instead of Infinity
-            if (amount == Fixed32.Zero) return value1;
-            if (amount == Fixed32.One) return value2;
+            if (amount == Zero) return value1;
+            if (amount == One)  return value2;
 
             var s1 = amount;
             var s2 = s1 * s1;
@@ -336,7 +405,7 @@
         public static Fixed32 Lerp(Fixed32 value1, Fixed32 value2, Fixed32 amount)
         {
             if (value1 == value2 ||
-                amount == Fixed32.Zero)
+                amount == Zero)
             {
                 return value1;
             }
@@ -353,7 +422,7 @@
         /// <returns></returns>
         public static Fixed32 InverseLerp(Fixed32 value1, Fixed32 value2, Fixed32 amount)
         {
-            if (value1 == value2) return Fixed32.Zero;
+            if (value1 == value2) return Zero;
             return Clamp01((amount - value1) / (value2 - value1));
         }
 
@@ -367,7 +436,128 @@
         public static Fixed32 SmoothStep(Fixed32 value1, Fixed32 value2, Fixed32 amount)
         {
             amount = Clamp01(amount);
-            return Hermite(value1, Fixed32.Zero, value2, Fixed32.Zero, amount);
+            return Hermite(value1, Zero, value2, Zero, amount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <param name="maxDelta"></param>
+        /// <returns></returns>
+        public static Fixed32 MoveTowards(Fixed32 current, Fixed32 target, Fixed32 maxDelta)
+        {
+            if (Abs(target - current) <= maxDelta) return target;
+            return current + Sign(target - current) * maxDelta;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <param name="maxDelta"></param>
+        /// <returns></returns>
+        public static Fixed32 MoveTowardsAngle(Fixed32 current, Fixed32 target, Fixed32 maxDelta)
+        {
+            target = current + DeltaAngle(current, target);
+            return MoveTowards(current, target, maxDelta);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static Fixed32 Repeat(Fixed32 t, Fixed32 length)
+        {
+            return t - Floor(t / length) * length;
+        }
+
+        /// <summary>
+        /// 两个角度之间的最小差（度）
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static Fixed32 DeltaAngle(Fixed32 current, Fixed32 target)
+        {
+            var num = Repeat(target - current, N360);
+            return (num > N180) ? num - N360  : num;
+        }
+
+        /// <summary>
+        /// 0.48
+        /// </summary>
+        private readonly static Fixed32 P48  = FromRaw(0);
+        /// <summary>
+        /// 0.235
+        /// </summary>
+        private readonly static Fixed32 P235 = FromRaw(0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <param name="currentVelocity"></param>
+        /// <param name="smoothTime"></param>
+        /// <param name="maxSpeed"></param>
+        /// <param name="deltaTime"></param>
+        /// <returns></returns>
+        public static Fixed32 SmoothDamp(Fixed32 current, Fixed32 target, ref Fixed32 currentVelocity, Fixed32 smoothTime, Fixed32 maxSpeed, Fixed32 deltaTime)
+        {
+            smoothTime = Max(TPN4, smoothTime);
+            var max = maxSpeed * smoothTime;
+
+            var num1 = Two / smoothTime;
+            var num2 = num1 * deltaTime;
+            var num3 = Reciprocal(One + num2 + P48 * num2 * num2 + P235 * num2 * num2 * num2);
+            var num4 = Clamp(current - target, -max, max);
+            var num5 = target;
+            var num6 = (currentVelocity + num1 * num4) * deltaTime;
+
+            target = current - num4;
+            currentVelocity = (currentVelocity - num1 * num6) * num3;
+
+            var num7 = target + (num4 + num6) * num3;
+            if ((num5 - current > Zero) == (num7 > num5))
+            {
+                num7 = num5;
+                currentVelocity = (num7 - num5) / deltaTime;
+            }
+
+            return num7;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <param name="currentVelocity"></param>
+        /// <param name="smoothTime"></param>
+        /// <param name="maxSpeed"></param>
+        /// <returns></returns>
+        public static Fixed32 SmoothDamp(Fixed32 current, Fixed32 target, ref Fixed32 currentVelocity, Fixed32 smoothTime, Fixed32 maxSpeed)
+        {
+            return SmoothDamp(current, target, ref currentVelocity, smoothTime, maxSpeed, TPN2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <param name="currentVelocity"></param>
+        /// <param name="smoothTime"></param>
+        /// <returns></returns>
+        public static Fixed32 SmoothDamp(Fixed32 current, Fixed32 target, ref Fixed32 currentVelocity, Fixed32 smoothTime)
+        {
+            var positiveInfinity = -MaxValue;
+            return SmoothDamp(current, target, ref currentVelocity, smoothTime, positiveInfinity, TPN2);
         }
     }
 }

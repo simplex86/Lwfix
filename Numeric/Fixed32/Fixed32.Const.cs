@@ -78,5 +78,40 @@
         /// 2π
         /// </summary>
         public readonly static Fixed32 Two_PI = FromRaw(26986075409);
+
+        /// <summary>
+        /// 10^-1
+        /// </summary>
+        public static readonly Fixed32 TPN1 = FromRaw(429496730);
+        /// <summary>
+        /// 10^-2
+        /// </summary>
+        public static readonly Fixed32 TPN2 = FromRaw(42949673);
+        /// <summary>
+        /// 10^-3
+        /// </summary>
+        public static readonly Fixed32 TPN3 = FromRaw(4294967);
+        /// <summary>
+        /// 10^-4
+        /// </summary>
+        public static readonly Fixed32 TPN4 = FromRaw(429497);
+
+        /// <summary>
+        /// 180
+        /// </summary>
+        public static readonly Fixed32 N180 = FromRaw(773094113280);
+        /// <summary>
+        /// 360
+        /// </summary>
+        public static readonly Fixed32 N360 = FromRaw(1546188226560);
+
+        /// <summary>
+        /// 正无穷
+        /// </summary>
+        public static readonly Fixed32 PositiveInfinity = MaxValue;
+        /// <summary>
+        /// 负无穷
+        /// </summary>
+        public static readonly Fixed32 NegativeInfinity = MinValue;
     }
 }

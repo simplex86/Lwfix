@@ -98,5 +98,77 @@
             // e^x = e^(k * ln(2) + r) = 2^k * e^r
             return pow * sum;
         }
+
+        /// <summary>
+        /// 是否为2的幂
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsPowerOfTwo(Fixed32 value)
+        {
+            if (value.rawvalue <= 0) return false;
+            return (value.rawvalue & (value.rawvalue - 1)) == 0;
+        }
+
+        /// <summary>
+        /// 最接近的2的幂
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 ClosestPowerOfTwo(Fixed32 value)
+        {
+            // 非正数的情况，返回最小的2^0
+            if (value.rawvalue <= 0)
+            {
+                return One;
+            }
+
+            var raw = (ulong)value.rawvalue;
+            var pos = TOTAL_BITS - 1;
+
+            // 找到最高有效位的位置
+            while (pos >= 0 && (raw & (1UL << pos)) == 0)
+            {
+                pos--;
+            }
+
+            var k = pos - FRACTIONAL_BITS; // 计算指数k=最高位-定点数偏移
+            var lower = (long)(1UL << (k + FRACTIONAL_BITS)); // 下界2^k的Q32.32表示
+
+            // 检查上界2^(k+1)是否可表示
+            var valid = (k + FRACTIONAL_BITS + 1) < 64;
+            var upper = valid ? (long)(1UL << (k + FRACTIONAL_BITS + 1)) : -1;
+
+            // 比较距离选择最近值
+            if (valid)
+            {
+                var diffLower = value.rawvalue - lower;
+                var diffUpper = upper - value.rawvalue;
+
+                return (diffLower < diffUpper) ? FromRaw(lower)
+                                               : FromRaw(upper);
+            }
+
+            return FromRaw(lower); // 上界溢出时返回下界
+        }
+
+        /// <summary>
+        /// 下一个2的幂
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Fixed32 NextPowerOfTwo(Fixed32 value)
+        {
+            var raw = (ulong)value.rawvalue;
+            var pos = TOTAL_BITS - 1;
+
+            // 找到最高有效位的位置
+            while (pos >= 0 && (raw & (1UL << pos)) == 0)
+            {
+                pos--;
+            }
+
+            return FromRaw(1 << (pos + 1));
+        }
     }
 }
