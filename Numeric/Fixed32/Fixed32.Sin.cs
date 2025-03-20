@@ -98,5 +98,15 @@
 
             return FromRaw(nearest);
         }
+
+        /// <summary>
+        /// 反正弦
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Fixed32 Asin(Fixed32 value)
+        {
+            return Half_PI - Acos(value);
+        }
     }
 }

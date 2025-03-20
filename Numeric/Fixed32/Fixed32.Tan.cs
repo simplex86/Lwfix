@@ -22,12 +22,11 @@
         public static Fixed32 Tan(Fixed32 radian)
         {
             var normalized = NormalizeRadian(radian, PI);
-
-            if (normalized == Half_PI)    return MaxValue;
-            if (normalized == Zero)       return Zero;
-            if (normalized == Quarter_PI) return One;
-        
             var referenced = ReduceRadian4Tan(normalized, out var sign);
+
+            if (referenced == Zero)       return Zero;
+            if (referenced == Half_PI)    return sign ? MinValue : MaxValue;
+            if (referenced == Quarter_PI) return sign ? NegativeOne : One;
 
             var result = Zero;
             if (referenced < Quarter_PI)
@@ -94,9 +93,9 @@
             var normalized = NormalizeRadian(radian, PI);
             var referenced = ReduceRadian4Tan(normalized, out var sign);
 
-            if (referenced == Half_PI)    return MaxValue;
             if (referenced == Zero)       return Zero;
-            if (referenced == Quarter_PI) return One;
+            if (referenced == Half_PI)    return sign ? MinValue : MaxValue;
+            if (referenced == Quarter_PI) return sign ? NegativeOne : One;
 
             var index = referenced * (TanLut.Length - 1) / Half_PI;
             var round = index.Round();
@@ -110,6 +109,51 @@
             if (sign) interpolated = -interpolated;
 
             return FromRaw(interpolated);
+        }
+
+        /// <summary>
+        /// 反余切
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Fixed32 Atan(Fixed32 z)
+        {
+            if (z.rawvalue == 0) return Zero;
+
+            // Force positive values for argument: Atan(-z) = -Atan(z).
+            var neg = z.rawvalue < 0;
+            if (neg) z = -z;
+
+            var invert = z > One;
+            if (invert) z = z.Reciprocal();
+
+            var result = One;
+            var term = One;
+            var two = Two;
+            var three = new Fixed32(3);
+
+            var sq = z * z;
+            var sq2 = sq * two;
+            var sqp1 = sq + One;
+            var sq12 = sqp1 * two;
+            var dividend = sq2;
+            var divisor = sqp1 * three;
+
+            for (var i = 2; i < 30; ++i)
+            {
+                term *= dividend / divisor;
+                result += term;
+
+                dividend += sq2;
+                divisor += sq12;
+
+                if (term.rawvalue == 0) break;
+            }
+
+            result = result * z / sqp1;
+            if (invert) result = Half_PI - result;
+
+            return neg ? -result : result;
         }
     }
 }
