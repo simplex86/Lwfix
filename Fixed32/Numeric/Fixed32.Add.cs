@@ -3,10 +3,10 @@
     /// <summary>
     /// 定点数 - 加法
     /// </summary>
-    public partial struct Fixed32
+    public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
-        /// 
+        /// 加法
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -17,7 +17,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 加法
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -28,7 +28,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 加法
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>

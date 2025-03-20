@@ -3,7 +3,7 @@
     /// <summary>
     /// 定点数 - 正弦
     /// </summary>
-    public partial struct Fixed32
+    public partial struct Fixed32 : IFixed<Fixed32>
     {
         private static readonly Fixed32 C3  = FromRaw(715827882); // 1/(3!) 
         private static readonly Fixed32 C5  = FromRaw(35791394);  // 1/(5!) 

@@ -3,7 +3,7 @@
     /// <summary>
     /// 定点数 - 余弦
     /// </summary>
-    public partial struct Fixed32
+    public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
         /// 余弦

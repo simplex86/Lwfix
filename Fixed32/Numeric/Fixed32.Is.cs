@@ -3,8 +3,17 @@
     /// <summary>
     /// 定点数 - 检测
     /// </summary>
-    public partial struct Fixed32
+    public partial struct Fixed32 : IFixed<Fixed32>
     {
+        /// <summary>
+        /// 是否为小数
+        /// </summary>
+        /// <returns></returns>
+        internal bool IsFractional()
+        {
+            return (rawvalue & FRACTIONAL_MASK) != 0;
+        }
+
         /// <summary>
         /// 是否为正负无穷
         /// </summary>

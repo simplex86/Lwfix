@@ -3,7 +3,7 @@
     /// <summary>
     /// 定点数 - 正切
     /// </summary>
-    public partial struct Fixed32
+    public partial struct Fixed32 : IFixed<Fixed32>
     {
         private static readonly Fixed32 T3  = FromRaw(1431655765); // 1/3 
         private static readonly Fixed32 T5  = FromRaw(572662306);  // 2/15
@@ -15,7 +15,8 @@
 
         /// <summary>
         /// 正切
-        /// 注：越接近π/2误差越大
+        /// 注：将radian规范化到[-π/2, π/2]范围内，其值越接近(±π/2)误差越大。
+        /// 经测试，与(±π/2)差值小于0.0017时，误差将大于0.1
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
@@ -84,7 +85,8 @@
 
         /// <summary>
         /// 快速计算正切
-        /// 注：越接近π/2误差越大，且误差大于Tan函数
+        /// 注：将radian规范化到[-π/2, π/2]范围内，其值越接近(±π/2)误差越大。
+        /// 误差大于Tan函数，但计算速度比Tan函数更快
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>

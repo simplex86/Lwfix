@@ -6,15 +6,6 @@
     public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
-        /// 是否为小数
-        /// </summary>
-        /// <returns></returns>
-        internal bool IsFractional()
-        {
-            return (rawvalue & FRACTIONAL_MASK) != 0;
-        }
-
-        /// <summary>
         /// 获取前导零的数量
         /// </summary>
         /// <param name="n"></param>
@@ -77,7 +68,7 @@
         /// <returns></returns>
         internal static Fixed32 NormalizeRadian(Fixed32 radian, Fixed32 unit)
         {
-            long remainder = radian.rawvalue % unit.rawvalue;
+            var remainder = radian.rawvalue % unit.rawvalue;
             if (remainder < 0) remainder += unit.rawvalue;
 
             return FromRaw(remainder);

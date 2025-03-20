@@ -3,7 +3,7 @@
     /// <summary>
     /// 定点数 - 类型转换
     /// </summary>
-    public partial struct Fixed32
+    public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
         /// 
@@ -157,8 +157,19 @@
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == NaN) return "NaN";
-            return ToDouble().ToString();
+            if (IsNaN()) return "NaN";
+            return IsFractional() ? ToDouble().ToString()
+                                  : ToLong().ToString();
+        }
+
+        /// <summary>
+        /// 获取整数部分
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public Fixed32 Integral()
+        {
+            return FromRaw(rawvalue & INTEGRAL_MASK);
         }
 
         /// <summary>
@@ -169,6 +180,16 @@
         public static Fixed32 Integral(Fixed32 n)
         {
             return FromRaw(n.rawvalue & INTEGRAL_MASK);
+        }
+
+        /// <summary>
+        /// 获取小数部分
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public Fixed32 Fractional()
+        {
+            return FromRaw(rawvalue & FRACTIONAL_MASK);
         }
 
         /// <summary>

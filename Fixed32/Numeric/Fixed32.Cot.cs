@@ -3,7 +3,7 @@
     /// <summary>
     /// 定点数 - 余切
     /// </summary>
-    public partial struct Fixed32
+    public partial struct Fixed32 : IFixed<Fixed32>
     {
         private static readonly Fixed32 K1  = FromRaw(1431655765); // 1/3 
         private static readonly Fixed32 K3  = FromRaw(95443718);  // 1/45
