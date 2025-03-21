@@ -63,7 +63,7 @@
         /// <param name="value"></param>
         public Fixed32(int value)
         {
-            this.rawvalue = (long)value << FRACTIONAL_BITS;
+            rawvalue = (long)value << FRACTIONAL_BITS;
         }
 
         /// <summary>
@@ -82,7 +82,7 @@
         /// <param name="value"></param>
         public Fixed32(double value)
         {
-            this.rawvalue = (long)(value * FRACTIONAL_MULTIPLIER);
+            rawvalue = (long)(value * FRACTIONAL_MULTIPLIER);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@
         /// <param name="other"></param>
         public Fixed32(Fixed32 other)
         {
-            this.rawvalue = other.rawvalue;
+            rawvalue = other.rawvalue;
         }
 
         /// <summary>

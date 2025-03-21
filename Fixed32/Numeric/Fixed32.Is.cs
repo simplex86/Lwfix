@@ -6,6 +6,25 @@
     public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool IsZero()
+        {
+            return rawvalue == 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static bool IsZero(Fixed32 n)
+        {
+            return n.IsZero();
+        }
+
+        /// <summary>
         /// 是否为小数
         /// </summary>
         /// <returns></returns>
@@ -88,6 +107,44 @@
         public static bool IsNaN(Fixed32 value)
         {
             return value.IsNaN();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPositive()
+        {
+            return rawvalue >= 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsPositive(Fixed32 value)
+        {
+            return value.IsPositive();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool IsNegative()
+        {
+            return rawvalue < 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsNegative(Fixed32 value)
+        {
+            return value.IsNegative();
         }
     }
 }

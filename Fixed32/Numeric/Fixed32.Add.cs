@@ -13,6 +13,7 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, int b)
         {
+            if (a.IsNaN()) return NaN;
             return FromRaw(a.rawvalue + ((long)b << INTEGRAL_BITS));
         }
 
@@ -35,6 +36,7 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return NaN;
             return FromRaw(a.rawvalue + b.rawvalue);
         }
     }

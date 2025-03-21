@@ -6,20 +6,38 @@
     public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
-        /// n次方
+        /// n次幂
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
         public Fixed32 Pow(int n)
         {
-            if (n == 0 || this == One)
+            if (IsNaN())
             {
+                if (n == 0) return One;
+                return NaN;
+            }
+
+            if (IsZero())
+            {
+                if (n < 0) return PositiveInfinity;
+                return Zero;
+            }
+
+            if (IsPositiveInfinity())
+            {
+                if (n < 0) return Zero;
+                if (n > 0) return PositiveInfinity;
                 return One;
             }
-            if (this == Zero)
+
+            if (IsNegativeInfinity())
             {
-                return n < 0 ? NaN : Zero;
+                if (n < 0) return Zero;
+                return (n % 2 == 0) ? PositiveInfinity : NegativeInfinity;
             }
+
+            if (IsNegative()) return NaN;
 
             var m = this;
             if (n < 0)
@@ -43,26 +61,48 @@
         }
 
         /// <summary>
-        /// n次方
+        /// m的n次幂
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Pow(Fixed32 m, int n)
+        {
+            return m.Pow(n);
+        }
+
+        /// <summary>
+        /// n次幂
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public Fixed32 Pow(Fixed32 n)
         {
-            if (rawvalue == 0)
+            if (IsZero())
             {
-                if (n.rawvalue <= 0) throw new ArgumentException("0 的非正数次幂无定义");
+                if (n.IsNegative()) throw new ArgumentException("0 的非正数次幂无定义");
                 return Zero;
             }
 
             if (n.IsFractional())
             {
-                if (rawvalue < 0) throw new ArgumentException("负数的非整数次幂无实数解");
+                if (IsNegative()) throw new ArgumentException("负数的非整数次幂无实数解");
                 return (n * Log()).Exp(); // m^n = e^(n * ln(m))
             }
 
             return Pow(n.ToInt());
+        }
+
+        /// <summary>
+        /// m的n次幂
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Pow(Fixed32 m, Fixed32 n)
+        {
+            return m.Pow(n);
         }
 
         /// <summary>
@@ -73,7 +113,7 @@
         public Fixed32 Exp()
         {
             // 处理 x = 0 的快速路径
-            if (rawvalue == 0)
+            if (IsZero())
             {
                 return One;
             }
@@ -100,30 +140,48 @@
         }
 
         /// <summary>
+        /// e的m次幂
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public static Fixed32 Exp(Fixed32 m)
+        {
+            return m.Exp();
+        }
+
+        /// <summary>
+        /// 是否为2的幂
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPowerOfTwo()
+        {
+            if (rawvalue <= 0) return false;
+            return (rawvalue & (rawvalue - 1)) == 0;
+        }
+
+        /// <summary>
         /// 是否为2的幂
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static bool IsPowerOfTwo(Fixed32 value)
         {
-            if (value.rawvalue <= 0) return false;
-            return (value.rawvalue & (value.rawvalue - 1)) == 0;
+            return value.IsPowerOfTwo();
         }
 
         /// <summary>
         /// 最接近的2的幂
         /// </summary>
-        /// <param name="n"></param>
         /// <returns></returns>
-        public static Fixed32 ClosestPowerOfTwo(Fixed32 value)
+        public Fixed32 ClosestPowerOfTwo()
         {
             // 非正数的情况，返回最小的2^0
-            if (value.rawvalue <= 0)
+            if (rawvalue <= 0)
             {
                 return One;
             }
 
-            var raw = (ulong)value.rawvalue;
+            var raw = (ulong)rawvalue;
             var pos = TOTAL_BITS - 1;
 
             // 找到最高有效位的位置
@@ -142,8 +200,8 @@
             // 比较距离选择最近值
             if (valid)
             {
-                var diffLower = value.rawvalue - lower;
-                var diffUpper = upper - value.rawvalue;
+                var diffLower = rawvalue - lower;
+                var diffUpper = upper - rawvalue;
 
                 return (diffLower < diffUpper) ? FromRaw(lower)
                                                : FromRaw(upper);
@@ -153,13 +211,22 @@
         }
 
         /// <summary>
-        /// 下一个2的幂
+        /// 最接近的2的幂
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Fixed32 NextPowerOfTwo(Fixed32 value)
+        public static Fixed32 ClosestPowerOfTwo(Fixed32 value)
         {
-            var raw = (ulong)value.rawvalue;
+            return value.ClosestPowerOfTwo();
+        }
+
+        /// <summary>
+        /// 下一个2的幂
+        /// </summary>
+        /// <returns></returns>
+        public Fixed32 NextPowerOfTwo()
+        {
+            var raw = (ulong)rawvalue;
             var pos = TOTAL_BITS - 1;
 
             // 找到最高有效位的位置
@@ -169,6 +236,16 @@
             }
 
             return FromRaw(1 << (pos + 1));
+        }
+
+        /// <summary>
+        /// 下一个2的幂
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Fixed32 NextPowerOfTwo(Fixed32 value)
+        {
+            return value.NextPowerOfTwo();
         }
     }
 }

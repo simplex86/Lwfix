@@ -37,10 +37,10 @@
                 throw new ArgumentOutOfRangeException("Must between NegativeOne and One", "value");
             }
 
-            if (value.rawvalue == 0) return Half_PI;
+            if (value.IsZero()) return Half_PI;
 
             var result = Atan(Sqrt(One - value * value) / value);
-            return value.rawvalue < 0 ? result + PI : result;
+            return value.IsNegative() ? result + PI : result;
         }
     }
 }

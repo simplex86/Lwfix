@@ -39,9 +39,9 @@
         {
             // cot(x) = 1/tan(x)
             var tan = Tan(radian);
-            if (tan.rawvalue == 0)
+            if (tan.IsZero())
             {
-                return (radian.rawvalue < 0) ? MinValue : MaxValue;
+                return radian.IsNegative() ? MinValue : MaxValue;
             }
 
             return tan.Reciprocal();
@@ -90,9 +90,9 @@
         public static Fixed32 FastCot(Fixed32 radian)
         {
             var tan = FastTan(radian);
-            if (tan.rawvalue == 0)
+            if (tan.IsZero())
             {
-                return (radian.rawvalue < 0) ? MinValue : MaxValue;
+                return radian.IsNegative() ? MinValue : MaxValue;
             }
 
             return tan.Reciprocal();

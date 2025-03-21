@@ -63,7 +63,7 @@
         /// </summary>
         public readonly static Fixed32 E = FromRaw(11674931554);
         /// <summary>
-        /// 圆周率π
+        /// π
         /// </summary>
         public readonly static Fixed32 PI = FromRaw(13493037705);
         /// <summary>

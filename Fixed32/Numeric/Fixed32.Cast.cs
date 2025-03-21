@@ -103,7 +103,7 @@
         /// <returns></returns>
         public byte ToByte()
         {
-            return (byte)ToLong();
+            return IsNaN() ? (byte)0 : (byte)ToLong();
         }
 
         /// <summary>
@@ -112,7 +112,7 @@
         /// <returns></returns>
         public short ToShort()
         {
-            return (short)ToLong();
+            return IsNaN() ? (short)0 : (short)ToLong();
         }
 
         /// <summary>
@@ -121,7 +121,7 @@
         /// <returns></returns>
         public int ToInt()
         {
-            return (int)ToLong();
+            return IsNaN() ? 0 : (int)ToLong();
         }
 
         /// <summary>
@@ -130,6 +130,7 @@
         /// <returns></returns>
         public long ToLong()
         {
+            if (IsNaN()) return 0L;
             return rawvalue >> FRACTIONAL_BITS;
         }
 
@@ -139,6 +140,7 @@
         /// <returns></returns>
         public float ToFloat()
         {
+            if (IsNaN()) return float.NaN;
             return (float)ToDouble();
         }
 
@@ -148,6 +150,7 @@
         /// <returns></returns>
         public double ToDouble()
         {
+            if (IsNaN()) return double.NaN;
             return rawvalue / FRACTIONAL_MULTIPLIER;
         }
 
@@ -158,6 +161,9 @@
         public override string ToString()
         {
             if (IsNaN()) return "NaN";
+            if (IsPositiveInfinity()) return "+Infinity";
+            if (IsNegativeInfinity()) return "-Infinity";
+
             return IsFractional() ? ToDouble().ToString()
                                   : ToLong().ToString();
         }
@@ -169,6 +175,7 @@
         /// <returns></returns>
         public Fixed32 Integral()
         {
+            if (IsNaN()) return NaN;
             return FromRaw(rawvalue & INTEGRAL_MASK);
         }
 
@@ -179,7 +186,7 @@
         /// <returns></returns>
         public static Fixed32 Integral(Fixed32 n)
         {
-            return FromRaw(n.rawvalue & INTEGRAL_MASK);
+            return n.Integral();
         }
 
         /// <summary>
@@ -189,6 +196,7 @@
         /// <returns></returns>
         public Fixed32 Fractional()
         {
+            if (IsNaN()) return NaN;
             return FromRaw(rawvalue & FRACTIONAL_MASK);
         }
 
@@ -199,7 +207,7 @@
         /// <returns></returns>
         public static Fixed32 Fractional(Fixed32 n)
         {
-            return FromRaw(n.rawvalue & FRACTIONAL_MASK);
+            return n.Fractional();
         }
     }
 }

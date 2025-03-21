@@ -49,6 +49,16 @@
         }
 
         /// <summary>
+        /// 自然对数（e为底）
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Log(Fixed32 n)
+        {
+            return n.Log();
+        }
+
+        /// <summary>
         /// 以2为底的对数
         /// </summary>
         /// <returns></returns>
@@ -96,12 +106,32 @@
         }
 
         /// <summary>
+        /// 以2为底的对数
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Log2(Fixed32 n)
+        {
+            return n.Log2();
+        }
+
+        /// <summary>
         /// 以10为底的对数
         /// </summary>
         /// <returns></returns>
         public Fixed32 Log10()
         {
             return Log() / LN10;
+        }
+
+        /// <summary>
+        /// 以10为底的对数
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Log10(Fixed32 n)
+        {
+            return n.Log10();
         }
     }
 }

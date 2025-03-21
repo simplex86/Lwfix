@@ -13,6 +13,7 @@
         /// <returns></returns>
         public static bool operator ==(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return false;
             return a.rawvalue == b.rawvalue;
         }
 
@@ -24,6 +25,7 @@
         /// <returns></returns>
         public static bool operator !=(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return true;
             return a.rawvalue != b.rawvalue;
         }
 
@@ -35,6 +37,7 @@
         /// <returns></returns>
         public static bool operator >(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return false;
             return a.rawvalue > b.rawvalue;
         }
 
@@ -46,6 +49,7 @@
         /// <returns></returns>
         public static bool operator <(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return false;
             return a.rawvalue < b.rawvalue;
         }
 
@@ -57,6 +61,7 @@
         /// <returns></returns>
         public static bool operator >=(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return false;
             return a.rawvalue >= b.rawvalue;
         }
 
@@ -68,6 +73,7 @@
         /// <returns></returns>
         public static bool operator <=(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return false;
             return a.rawvalue <= b.rawvalue;
         }
 

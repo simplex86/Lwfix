@@ -1,4 +1,6 @@
-﻿namespace Lwkit.Fixed
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Lwkit.Fixed
 {
     /// <summary>
     /// 定点数 - 数学
@@ -16,10 +18,8 @@
         /// <returns></returns>
         public Fixed32 Abs()
         {
-            if (this == MinValue)
-            {
-                return MaxValue;
-            }
+            if (IsNaN()) return NaN;
+            if (IsNegativeInfinity()) return PositiveInfinity;
 
             var mask = rawvalue >> 63;
             return FromRaw((rawvalue + mask) ^ mask);
@@ -41,6 +41,9 @@
         /// <returns></returns>
         public Fixed32 Floor()
         {
+            if (IsNaN()) return NaN;
+            if (IsNegativeInfinity()) return NegativeInfinity;
+
             return FromRaw(rawvalue & INTEGRAL_MASK);
         }
 
@@ -79,6 +82,9 @@
         /// <returns></returns>
         public Fixed32 Ceil()
         {
+            if (IsNaN()) return NaN;
+            if (IsPositiveInfinity()) return PositiveInfinity;
+
             return IsFractional() ? (this + One).Floor() : this;
         }
 
@@ -117,6 +123,10 @@
         /// <returns></returns>
         public Fixed32 Round()
         {
+            if (IsNaN()) return NaN;
+            if (IsPositiveInfinity()) return PositiveInfinity;
+            if (IsNegativeInfinity()) return NegativeInfinity;
+
             var frac = rawvalue & FRACTIONAL_MASK;
 
             if (frac < 0x80000000) return Floor();
@@ -162,7 +172,7 @@
         /// <returns></returns>
         //public Fixed32 Reciprocal()
         //{
-        //    if (rawvalue == 0)
+        //    if (IsZero())
         //    {
         //        throw new DivideByZeroException("Cannot compute reciprocal of zero.");
         //    }
@@ -193,10 +203,8 @@
         /// <returns></returns>
         public Fixed32 Reciprocal()
         {
-            if (rawvalue == 0)
-            {
-                throw new DivideByZeroException("Cannot compute reciprocal of zero.");
-            }
+            if (IsNaN()) return NaN;
+            if (IsZero()) throw new DivideByZeroException("Cannot compute reciprocal of zero.");
 
             return One / this;
         }
@@ -217,10 +225,9 @@
         /// <returns></returns>
         public Fixed32 Sqrt()
         {
-            if (rawvalue < 0)
-            {
-                throw new Exception();
-            }
+            if (IsNaN()) return NaN;
+            if (IsPositiveInfinity()) return PositiveInfinity;
+            if (IsZero()) return NaN;
 
             var val = (ulong)rawvalue;
             var bit = 1UL << (TOTAL_BITS - 2);
@@ -281,8 +288,10 @@
         /// <returns></returns>
         public int Sign()
         {
-            if (rawvalue == 0) return 0;
-            return rawvalue < 0 ? -1 : 1;
+            if (IsNaN()) throw new ArithmeticException("Function does not accept floating point Not - a - Number values.");
+            if (IsZero()) return 0;
+
+            return IsNegative() ? -1 : 1;
         }
 
         /// <summary>
@@ -303,6 +312,7 @@
         /// <returns></returns>
         public static Fixed32 Min(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return NaN;
             return a < b ? a : b;
         }
 
@@ -326,6 +336,7 @@
         /// <returns></returns>
         public static Fixed32 Max(Fixed32 a, Fixed32 b)
         {
+            if (a.IsNaN() || b.IsNaN()) return NaN;
             return a > b ? a : b;
         }
 
@@ -350,8 +361,13 @@
         /// <returns></returns>
         public static Fixed32 Clamp(Fixed32 value, Fixed32 min, Fixed32 max)
         {
-            if (value < min) return min;
-            if (value > max) return max;
+            if (value.IsNaN()) return NaN;
+
+            if (min.IsNaN()) min = NegativeInfinity;
+            if (max.IsNaN()) max = PositiveInfinity;
+
+            if (value < min)   return min;
+            if (value > max)   return max;
             return value;
         }
 
@@ -362,10 +378,7 @@
         /// <returns></returns>
         public static Fixed32 Clamp01(Fixed32 value)
         {
-            if (value < Zero) return Zero;
-            if (value > One) return One;
-
-            return value;
+            return Clamp(value, Zero, One);
         }
 
         /// <summary>

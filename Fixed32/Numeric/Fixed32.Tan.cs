@@ -120,10 +120,10 @@
         /// <returns></returns>
         public static Fixed32 Atan(Fixed32 z)
         {
-            if (z.rawvalue == 0) return Zero;
+            if (z.IsZero()) return Zero;
 
             // Force positive values for argument: Atan(-z) = -Atan(z).
-            var neg = z.rawvalue < 0;
+            var neg = z.IsNegative();
             if (neg) z = -z;
 
             var invert = z > One;
@@ -149,7 +149,7 @@
                 dividend += sq2;
                 divisor += sq12;
 
-                if (term.rawvalue == 0) break;
+                if (term.IsZero()) break;
             }
 
             result = result * z / sqp1;
