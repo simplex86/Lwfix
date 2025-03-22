@@ -161,8 +161,8 @@
         public override string ToString()
         {
             if (IsNaN()) return "NaN";
-            if (IsPositiveInfinity()) return "+Infinity";
-            if (IsNegativeInfinity()) return "-Infinity";
+            if (IsPositiveInfinity()) return "+∞";
+            if (IsNegativeInfinity()) return "-∞";
 
             return IsFractional() ? ToDouble().ToString()
                                   : ToLong().ToString();
