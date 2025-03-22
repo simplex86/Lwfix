@@ -6,7 +6,7 @@
     public partial struct Fixed32 : IFixed<Fixed32>
     {
         /// <summary>
-        /// 
+        /// 是否为0
         /// </summary>
         /// <returns></returns>
         public bool IsZero()
@@ -15,7 +15,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 是否为0
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -25,12 +25,41 @@
         }
 
         /// <summary>
-        /// 是否为小数
+        /// 是否为最大值
         /// </summary>
         /// <returns></returns>
-        internal bool IsFractional()
+        public bool IsMaxValue()
         {
-            return (rawvalue & FRACTIONAL_MASK) != 0;
+            return rawvalue == MaxValue.rawvalue;
+        }
+
+        /// <summary>
+        /// 是否为最大值
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static bool IsMaxValue(Fixed32 n)
+        {
+            return n.IsMaxValue();
+        }
+
+        /// <summary>
+        /// 是否为最小值
+        /// </summary>
+        /// <returns></returns>
+        public bool IsMinValue()
+        {
+            return rawvalue == MinValue.rawvalue;
+        }
+
+        /// <summary>
+        /// 是否为最小值
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static bool IsMinValue(Fixed32 n)
+        {
+            return n.IsMinValue();
         }
 
         /// <summary>
@@ -110,7 +139,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 是否为正数
         /// </summary>
         /// <returns></returns>
         public bool IsPositive()
@@ -119,7 +148,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 是否为正数
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -129,7 +158,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 是否为负数
         /// </summary>
         /// <returns></returns>
         public bool IsNegative()
@@ -138,13 +167,22 @@
         }
 
         /// <summary>
-        /// 
+        /// 是否为负数
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static bool IsNegative(Fixed32 value)
         {
             return value.IsNegative();
+        }
+
+        /// <summary>
+        /// 是否为小数
+        /// </summary>
+        /// <returns></returns>
+        internal bool IsFractional()
+        {
+            return (rawvalue & FRACTIONAL_MASK) != 0;
         }
     }
 }
