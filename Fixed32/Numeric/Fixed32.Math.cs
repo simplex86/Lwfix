@@ -19,7 +19,9 @@ namespace Lwkit.Fixed
         public Fixed32 Abs()
         {
             if (IsNaN()) return NaN;
+            if (IsPositive()) return this;
             if (IsNegativeInfinity()) return PositiveInfinity;
+            if (IsMinValue()) return MaxValue;
 
             var mask = rawvalue >> 63;
             return FromRaw((rawvalue + mask) ^ mask);
@@ -204,7 +206,8 @@ namespace Lwkit.Fixed
         public Fixed32 Reciprocal()
         {
             if (IsNaN()) return NaN;
-            if (IsZero()) throw new DivideByZeroException("Cannot compute reciprocal of zero.");
+            if (IsZero()) return PositiveInfinity;
+            if (IsInfinity()) return Zero;
 
             return One / this;
         }
@@ -288,7 +291,7 @@ namespace Lwkit.Fixed
         /// <returns></returns>
         public int Sign()
         {
-            if (IsNaN()) throw new ArithmeticException("Function does not accept floating point Not - a - Number values.");
+            if (IsNaN()) throw new ArithmeticException("Function does not accept floating point Not-a-Number values.");
             if (IsZero()) return 0;
 
             return IsNegative() ? -1 : 1;
@@ -569,8 +572,7 @@ namespace Lwkit.Fixed
         /// <returns></returns>
         public static Fixed32 SmoothDamp(Fixed32 current, Fixed32 target, ref Fixed32 currentVelocity, Fixed32 smoothTime)
         {
-            var positiveInfinity = -MaxValue;
-            return SmoothDamp(current, target, ref currentVelocity, smoothTime, positiveInfinity, TPN2);
+            return SmoothDamp(current, target, ref currentVelocity, smoothTime, MinValue, TPN2);
         }
     }
 }
