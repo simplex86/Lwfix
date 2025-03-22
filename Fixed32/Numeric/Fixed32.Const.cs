@@ -8,11 +8,11 @@
         /// <summary>
         /// 最大值
         /// </summary>
-        public static Fixed32 MaxValue => FromRaw(long.MaxValue); // 0x7FFFFFFFFFFFFFFF
+        public static Fixed32 MaxValue => FromRaw(long.MaxValue - 1); // 0x7FFFFFFFFFFFFFFE
         /// <summary>
         /// 最小值
         /// </summary>
-        public static Fixed32 MinValue => FromRaw(long.MinValue + 1); // 0x8000000000000001
+        public static Fixed32 MinValue => FromRaw(long.MinValue + 2); // 0x8000000000000002
         /// <summary>
         /// 
         /// </summary>
@@ -108,10 +108,10 @@
         /// <summary>
         /// 正无穷
         /// </summary>
-        public static readonly Fixed32 PositiveInfinity = MaxValue;
+        public static readonly Fixed32 PositiveInfinity = FromRaw(long.MaxValue); // 0x7FFFFFFFFFFFFFFF;
         /// <summary>
         /// 负无穷
         /// </summary>
-        public static readonly Fixed32 NegativeInfinity = MinValue;
+        public static readonly Fixed32 NegativeInfinity = FromRaw(long.MinValue + 1); // 0x8000000000000001
     }
 }
