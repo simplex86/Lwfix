@@ -28,7 +28,7 @@
         /// 是否为最大值
         /// </summary>
         /// <returns></returns>
-        public bool IsMaxValue()
+        public bool IsMax()
         {
             return rawvalue == MaxValue.rawvalue;
         }
@@ -38,16 +38,16 @@
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static bool IsMaxValue(Fixed32 n)
+        public static bool IsMax(Fixed32 n)
         {
-            return n.IsMaxValue();
+            return n.IsMax();
         }
 
         /// <summary>
         /// 是否为最小值
         /// </summary>
         /// <returns></returns>
-        public bool IsMinValue()
+        public bool IsMin()
         {
             return rawvalue == MinValue.rawvalue;
         }
@@ -57,9 +57,9 @@
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static bool IsMinValue(Fixed32 n)
+        public static bool IsMin(Fixed32 n)
         {
-            return n.IsMinValue();
+            return n.IsMin();
         }
 
         /// <summary>

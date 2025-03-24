@@ -21,7 +21,7 @@ namespace Lwkit.Fixed
             if (IsNaN()) return NaN;
             if (IsPositive()) return this;
             if (IsNegativeInfinity()) return PositiveInfinity;
-            if (IsMinValue()) return MaxValue;
+            if (IsMin()) return MaxValue;
 
             var mask = rawvalue >> 63;
             return FromRaw((rawvalue + mask) ^ mask);

@@ -20,9 +20,9 @@
             // 负无穷减任何数，得负无穷
             if (a.IsNegativeInfinity()) return NegativeInfinity;
             // 最小值减正数，得最小值
-            if (a.IsMinValue() && b > 0) return NegativeInfinity;
+            if (a.IsMin() && b > 0) return NegativeInfinity;
             // 最大值减负数，得最大值
-            if (a.IsMaxValue() && b < 0) return PositiveInfinity;
+            if (a.IsMax() && b < 0) return PositiveInfinity;
 
             //return FromRaw(a.rawvalue - ((long)b <<  INTEGRAL_BITS));
             var result = Sub(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
@@ -44,9 +44,9 @@
             // 任何数减负无穷，得正无穷
             if (b.IsNegativeInfinity()) return PositiveInfinity;
             // 正数减最小值，得正无穷
-            if (b.IsMinValue() && a > 0) return PositiveInfinity;
+            if (b.IsMin() && a > 0) return PositiveInfinity;
             // 负数减最大值，得负无穷
-            if (b.IsMaxValue() && a < 0) return NegativeInfinity;
+            if (b.IsMax() && a < 0) return NegativeInfinity;
 
             //return FromRaw(((long)a << INTEGRAL_BITS) - b.rawvalue);
             var result = Sub((long)a << INTEGRAL_BITS, b.rawvalue, out var _);

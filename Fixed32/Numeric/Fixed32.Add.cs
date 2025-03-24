@@ -20,9 +20,9 @@
             // 负无穷加任何数，得负无穷
             if (a.IsNegativeInfinity()) return NegativeInfinity;
             // 最大值加正数，得正无穷
-            if (a.IsMaxValue() && b > 0) return PositiveInfinity;
+            if (a.IsMax() && b > 0) return PositiveInfinity;
             // 最小值加负数，得负无穷
-            if (a.IsMinValue() && b < 0) return NegativeInfinity;
+            if (a.IsMin() && b < 0) return NegativeInfinity;
 
             //return FromRaw(a.rawvalue + ((long)b << INTEGRAL_BITS));
             var result = Add(a.rawvalue, ((long)b) << INTEGRAL_BITS, out var _);
@@ -54,9 +54,9 @@
             if (a.IsPositiveInfinity() && b.IsNegativeInfinity()) return NaN;
             if (a.IsNegativeInfinity() && b.IsPositiveInfinity()) return NaN;
             // 最大值加正数，得最大值
-            if (a.IsMaxValue() && b.IsPositive()) return MaxValue;
+            if (a.IsMax() && b.IsPositive()) return MaxValue;
             // 最小值加负数，得最小值
-            if (a.IsMinValue() && b.IsNegative()) return MinValue;
+            if (a.IsMin() && b.IsNegative()) return MinValue;
             // 正无穷加任何数，得正无穷
             if (a.IsPositiveInfinity() || b.IsPositiveInfinity()) return PositiveInfinity;
             // 负无穷加任何数，得负无穷
