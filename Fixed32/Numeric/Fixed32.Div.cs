@@ -13,7 +13,15 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, int b)
         {
+            // 任意数除以NaN，得NaN
             if (a.IsNaN()) return NaN;
+            // 零除以零，得NaN
+            if (a.IsZero() && b == 0) return NaN;
+            // 正数除以零，得正无穷
+            if (a.IsZero() && int.IsPositive(b)) return PositiveInfinity;
+            // 负数除以零，得负无穷
+            if (a.IsZero() && int.IsNegative(b)) return NegativeInfinity;
+
             return Div(a.rawvalue, (long)b << INTEGRAL_BITS);
         }
 
@@ -25,7 +33,15 @@
         /// <returns></returns>
         public static Fixed32 operator /(int a, Fixed32 b)
         {
+            // 任意数除以NaN，得NaN
             if (b.IsNaN()) return NaN;
+            // 零除以零，得NaN
+            if (a == 0 && b.IsZero()) return NaN;
+            // 正数除以零，得正无穷
+            if (int.IsPositive(a) && b.IsZero()) return PositiveInfinity;
+            // 负数除以零，得负无穷
+            if (int.IsNegative(a) && b.IsZero()) return NegativeInfinity;
+
             return Div((long)a << INTEGRAL_BITS, b.rawvalue);
         }
 
@@ -37,7 +53,15 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, Fixed32 b)
         {
+            // 任意有一个数是NaN，得NaN
             if (a.IsNaN() || b.IsNaN()) return NaN;
+            // 零除以零，得NaN
+            if (a.IsZero() && b.IsZero()) return NaN;
+            // 正数除以零，得正无穷
+            if (a.IsPositive() && b.IsZero()) return PositiveInfinity;
+            // 负数除以零，得负无穷
+            if (a.IsNegative() && b.IsZero()) return NegativeInfinity;
+
             return Div(a.rawvalue, b.rawvalue);
         }
 
@@ -49,8 +73,6 @@
         /// <returns></returns>
         private static Fixed32 Div(long a, long b)
         {
-            if (b == 0) throw new DivideByZeroException("Attempted to divide by zero.");
-
             var am = a >> (TOTAL_BITS - 1);
             var bm = b >> (TOTAL_BITS - 1);
 

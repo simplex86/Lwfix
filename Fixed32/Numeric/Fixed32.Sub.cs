@@ -24,9 +24,7 @@
             // 最大值减负数，得最大值
             if (a.IsMax() && b < 0) return PositiveInfinity;
 
-            //return FromRaw(a.rawvalue - ((long)b <<  INTEGRAL_BITS));
-            var result = Sub(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
-            return FromRaw(result);
+            return Sub(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
         }
 
         /// <summary>
@@ -48,9 +46,7 @@
             // 负数减最大值，得负无穷
             if (b.IsMax() && a < 0) return NegativeInfinity;
 
-            //return FromRaw(((long)a << INTEGRAL_BITS) - b.rawvalue);
-            var result = Sub((long)a << INTEGRAL_BITS, b.rawvalue, out var _);
-            return FromRaw(result);
+            return Sub((long)a << INTEGRAL_BITS, b.rawvalue, out var _);
         }
 
         /// <summary>
@@ -63,6 +59,8 @@
         {
             // NaN减任何数，得NaN
             if (a.IsNaN() || b.IsNaN()) return NaN;
+            // 正无穷减正无穷，得NaN
+            if (a.IsPositiveInfinity() && b.IsPositiveInfinity()) return NaN;
             // 负无穷减负无穷，得NaN
             if (a.IsNegativeInfinity() && b.IsNegativeInfinity()) return NaN;
             // 负无穷减任何数，得负无穷
@@ -70,8 +68,7 @@
             // 任何数减负无穷，得正无穷
             if (b.IsNegativeInfinity()) return PositiveInfinity;
 
-            var result = Sub(a.rawvalue, b.rawvalue, out var _);
-            return FromRaw(result);
+            return Sub(a.rawvalue, b.rawvalue, out var _);
         }
 
         /// <summary>
@@ -95,18 +92,23 @@
         /// <param name="b"></param>
         /// <param name="r"></param>
         /// <returns></returns>
-        private static long Sub(long a, long b, out bool overflow)
+        private static Fixed32 Sub(long a, long b, out bool overflow)
         {
             overflow = false;
             var r = OverflowSub(a, b, ref overflow);
 
-            if (!overflow)
+            if (overflow)
             {
-                if (r < MinValue.rawvalue) r = NegativeInfinity.rawvalue;
-                if (r > MaxValue.rawvalue) r = PositiveInfinity.rawvalue;
+                if (a > 0) return PositiveInfinity;
+                return NegativeInfinity;
+            }
+            else
+            {
+                if (r < MinValue.rawvalue) return NegativeInfinity;
+                if (r > MaxValue.rawvalue) return PositiveInfinity;
             }
 
-            return r;
+            return FromRaw(r);
         }
 
         /// <summary>
