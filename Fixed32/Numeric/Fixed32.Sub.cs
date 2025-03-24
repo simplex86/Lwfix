@@ -97,24 +97,29 @@
         /// <returns></returns>
         private static long Sub(long a, long b, out bool overflow)
         {
-            var r = a - b;
-
             overflow = false;
-            if ((a ^ b) < 0) // 符号不同
-            {
-                overflow = (a > 0 && r < 0) || (a < 0 && r > 0);// 相加后的符号是否改变（溢出标志）
-                if (overflow)
-                {
-                    return (a < 0) ? NegativeInfinity.rawvalue
-                                   : PositiveInfinity.rawvalue;
-                }
-            }
+            var r = OverflowSub(a, b, ref overflow);
 
             if (!overflow)
             {
                 if (r < MinValue.rawvalue) r = NegativeInfinity.rawvalue;
                 if (r > MaxValue.rawvalue) r = PositiveInfinity.rawvalue;
             }
+
+            return r;
+        }
+
+        /// <summary>
+        /// 计算减法，并获知结果是否溢出
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="overflow"></param>
+        /// <returns></returns>
+        private static long OverflowSub(long a, long b, ref bool overflow)
+        {
+            var r = a - b;
+            overflow |= (((a ^ b) & (a ^ r)) & long.MinValue) != 0;
 
             return r;
         }
