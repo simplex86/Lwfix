@@ -14,6 +14,10 @@
         public static Fixed32 operator %(Fixed32 a, int b)
         {
             if (a.IsNaN()) return NaN;
+            if (a.IsInfinity()) return NaN;
+            if (a.IsMin()) return Zero;
+            if (b == -1) return Zero;
+
             return Mod(a.rawvalue, (long)b << INTEGRAL_BITS);
         }
 
@@ -26,6 +30,9 @@
         public static Fixed32 operator %(int a, Fixed32 b)
         {
             if (b.IsNaN()) return NaN;
+            if (b == NegativeOne) return Zero;
+            if (b.IsMax() || b.IsMin() || b.IsInfinity()) return new Fixed32(a);
+
             return Mod((long)a << INTEGRAL_BITS, b.rawvalue);
         }
 
@@ -38,6 +45,11 @@
         public static Fixed32 operator %(Fixed32 a, Fixed32 b)
         {
             if (a.IsNaN() || b.IsNaN()) return NaN;
+            if (a.IsInfinity()) return NaN;
+            if (a.IsMin()) return Zero;
+            if (b == NegativeOne) return Zero;
+            if (b.IsMax() || b.IsMin() || b.IsInfinity()) return new Fixed32(a);
+
             return Mod(a.rawvalue, b.rawvalue);
         }
 

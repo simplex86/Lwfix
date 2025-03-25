@@ -14,6 +14,10 @@
         public static Fixed32 operator *(Fixed32 a, int b)
         {
             if (a.IsNaN()) return NaN;
+            if (a.IsZero() || b.IsZero()) return Zero;
+            if (a.IsPositiveInfinity()) return b.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
+
             return Mul(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
         }
 
@@ -36,7 +40,13 @@
         /// <returns></returns>
         public static Fixed32 operator *(Fixed32 a, Fixed32 b)
         {
-            if (a.IsNaN() || b.IsNaN()) return NaN;
+            if (a.IsNaN()  || b.IsNaN()) return NaN;
+            if (a.IsZero() || b.IsZero()) return Zero;
+            if (a.IsPositiveInfinity()) return b.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            if (b.IsPositiveInfinity()) return a.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
+            if (b.IsNegativeInfinity()) return a.IsPositive() ? NegativeInfinity : PositiveInfinity;
+
             return Mul(a.rawvalue, b.rawvalue, out var _);
         }
 
@@ -50,7 +60,6 @@
         private static Fixed32 Mul(long a, long b, out bool overflow)
         {
             overflow = false;
-            if (a == 0 || b == 0) return Zero;
 
             var aint = a >> FRACTIONAL_BITS;
             var bint = b >> FRACTIONAL_BITS;

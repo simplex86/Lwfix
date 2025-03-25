@@ -15,14 +15,18 @@
         {
             // 任意数除以NaN，得NaN
             if (a.IsNaN()) return NaN;
-            // 零除以零，得NaN
-            if (a.IsZero() && b == 0) return NaN;
-            // 正数除以零，得正无穷
-            if (a.IsZero() && int.IsPositive(b)) return PositiveInfinity;
-            // 负数除以零，得负无穷
-            if (a.IsZero() && int.IsNegative(b)) return NegativeInfinity;
+            // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
+            if (b.IsZero())
+            {
+                if (a.IsZero()) return NaN;
+                return a.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            }
+            // 正无穷，除以正数得正无穷；除以负数得负无穷
+            if (a.IsPositiveInfinity()) return b.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            // 负无穷，除以正数得负无穷；除以负数得正无穷
+            if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
 
-            return Div(a.rawvalue, (long)b << INTEGRAL_BITS);
+            return Div(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
         }
 
         /// <summary>
@@ -35,14 +39,16 @@
         {
             // 任意数除以NaN，得NaN
             if (b.IsNaN()) return NaN;
-            // 零除以零，得NaN
-            if (a == 0 && b.IsZero()) return NaN;
-            // 正数除以零，得正无穷
-            if (int.IsPositive(a) && b.IsZero()) return PositiveInfinity;
-            // 负数除以零，得负无穷
-            if (int.IsNegative(a) && b.IsZero()) return NegativeInfinity;
+            // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
+            if (b.IsZero())
+            {
+                if (a.IsZero()) return NaN;
+                return a.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            }
+            // 任何数除以无穷大，得零
+            if (b.IsInfinity()) return Zero;
 
-            return Div((long)a << INTEGRAL_BITS, b.rawvalue);
+            return Div((long)a << INTEGRAL_BITS, b.rawvalue, out var _);
         }
 
         /// <summary>
@@ -55,14 +61,20 @@
         {
             // 任意有一个数是NaN，得NaN
             if (a.IsNaN() || b.IsNaN()) return NaN;
-            // 零除以零，得NaN
-            if (a.IsZero() && b.IsZero()) return NaN;
-            // 正数除以零，得正无穷
-            if (a.IsPositive() && b.IsZero()) return PositiveInfinity;
-            // 负数除以零，得负无穷
-            if (a.IsNegative() && b.IsZero()) return NegativeInfinity;
+            // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
+            if (b.IsZero())
+            {
+                if (a.IsZero()) return NaN;
+                return a.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            }
+            // 任何数除以无穷大，得零；无穷大除以无穷大，得NaN
+            if (b.IsInfinity()) return a.IsInfinity() ? NaN : Zero;
+            // 正无穷，除以正数得正无穷；除以负数得负无穷
+            if (a.IsPositiveInfinity()) return b.IsPositive() ? PositiveInfinity : NegativeInfinity;
+            // 负无穷，除以正数得负无穷；除以负数得正无穷
+            if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
 
-            return Div(a.rawvalue, b.rawvalue);
+            return Div(a.rawvalue, b.rawvalue, out var _);
         }
 
         /// <summary>
@@ -71,8 +83,10 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        private static Fixed32 Div(long a, long b)
+        private static Fixed32 Div(long a, long b, out bool overflow)
         {
+            overflow = false;
+
             var am = a >> (TOTAL_BITS - 1);
             var bm = b >> (TOTAL_BITS - 1);
 
@@ -110,9 +124,11 @@
                     remainder = remainder % divisor;
                     quotient += quot << bitptr;
 
+                    // overflow
                     if ((quot & ~(FULL_BIT_MASK >> bitptr)) != 0)
                     {
-                        return IsSameSign(a, b) ? MaxValue : MinValue;
+                        overflow = true;
+                        return IsSameSign(a, b) ? PositiveInfinity : NegativeInfinity;
                     }
 
                     remainder <<= 1;
