@@ -139,7 +139,7 @@
         }
 
         /// <summary>
-        /// 是否为正数
+        /// 是否为正数（包括0）
         /// </summary>
         /// <returns></returns>
         public bool IsPositive()
@@ -148,7 +148,7 @@
         }
 
         /// <summary>
-        /// 是否为正数
+        /// 是否为正数（包括0）
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

@@ -13,6 +13,8 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, int b)
         {
+            // 零加上任何数，都等于该数本身
+            if (b.IsZero()) return a;
             // NaN加任何数，得NaN
             if (a.IsNaN()) return NaN;
             // 正无穷加任何数，得正无穷
@@ -20,9 +22,9 @@
             // 负无穷加任何数，得负无穷
             if (a.IsNegativeInfinity()) return NegativeInfinity;
             // 最大值加正数，得正无穷
-            if (a.IsMax() && b > 0) return PositiveInfinity;
+            if (a.IsMax() && b.IsPositive()) return PositiveInfinity;
             // 最小值加负数，得负无穷
-            if (a.IsMin() && b < 0) return NegativeInfinity;
+            if (a.IsMin() && b.IsNegative()) return NegativeInfinity;
 
             //return FromRaw(a.rawvalue + ((long)b << INTEGRAL_BITS));
             return Add(a.rawvalue, ((long)b) << INTEGRAL_BITS, out var _);
@@ -47,6 +49,9 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, Fixed32 b)
         {
+            // 零加上任何数，都等于该数本身
+            if (a.IsZero()) return b;
+            if (b.IsZero()) return a;
             // NaN加任何数，得NaN
             if (a.IsNaN() || b.IsNaN()) return NaN;
             // 正负无穷相加，得NaN
