@@ -18,7 +18,8 @@
             if (a.IsPositiveInfinity()) return b.IsPositive() ? PositiveInfinity : NegativeInfinity;
             if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
 
-            return Mul(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
+            var b_rawvalue = Int32ToRaw(b);
+            return Mul(a.rawvalue, b_rawvalue, out var _);
         }
 
         /// <summary>

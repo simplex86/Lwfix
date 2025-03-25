@@ -28,7 +28,8 @@
             // 最大值减负数，得最大值
             if (a.IsMax() && b.IsNegative()) return PositiveInfinity;
 
-            return Sub(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
+            var b_rawvalue = Int32ToRaw(b);
+            return Sub(a.rawvalue, b_rawvalue, out var _);
         }
 
         /// <summary>
@@ -54,7 +55,8 @@
             // 负数减最大值，得负无穷
             if (b.IsMax() && a.IsNegative()) return NegativeInfinity;
 
-            return Sub((long)a << INTEGRAL_BITS, b.rawvalue, out var _);
+            var a_rawvalue = Int32ToRaw(a);
+            return Sub(a_rawvalue, b.rawvalue, out var _);
         }
 
         /// <summary>
@@ -79,6 +81,10 @@
             if (a.IsNegativeInfinity() || b.IsPositiveInfinity()) return NegativeInfinity;
             // 正无穷减任何数 或 任何数减负无穷，得正无穷
             if (a.IsPositiveInfinity() || b.IsNegativeInfinity()) return PositiveInfinity;
+            // 最小值减正数，得负无穷
+            if (a.IsMin() && b.IsPositive()) return NegativeInfinity;
+            // 最大值减负数，得正无穷
+            if (a.IsMax() && b.IsNegative()) return PositiveInfinity;
             // 正数减最小值，得正无穷
             if (b.IsMin() && a.IsPositive()) return PositiveInfinity;
             // 负数减最大值，得负无穷

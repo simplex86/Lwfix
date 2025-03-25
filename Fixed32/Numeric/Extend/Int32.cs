@@ -30,5 +30,25 @@
         {
             return value < 0;
         }
+
+        /// <summary>
+        /// 是否为最大值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsMax(this Int32 value)
+        {
+            return value == int.MaxValue;
+        }
+
+        /// <summary>
+        /// 是否为最小值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsMin(this Int32 value)
+        {
+            return value == int.MinValue;
+        }
     }
 }

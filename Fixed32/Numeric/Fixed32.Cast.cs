@@ -28,6 +28,26 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static long Int32ToRaw(int value)
+        {
+            return Math.Clamp((long)value << INTEGRAL_BITS, MIN_RAW_VALUE, MAX_RAW_VALUE);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static long DoubleToRaw(double value)
+        {
+            return Math.Clamp((long)(value * FRACTIONAL_MULTIPLIER + 0.5), MIN_RAW_VALUE, MAX_RAW_VALUE);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="n"></param>
         public static explicit operator byte(Fixed32 n) => n.ToByte();
 

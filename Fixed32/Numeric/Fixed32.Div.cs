@@ -26,7 +26,8 @@
             // 负无穷，除以正数得负无穷；除以负数得正无穷
             if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
 
-            return Div(a.rawvalue, (long)b << INTEGRAL_BITS, out var _);
+            var b_rawvalue = Int32ToRaw(b);
+            return Div(a.rawvalue, b_rawvalue, out var _);
         }
 
         /// <summary>
@@ -48,7 +49,8 @@
             // 任何数除以无穷大，得零
             if (b.IsInfinity()) return Zero;
 
-            return Div((long)a << INTEGRAL_BITS, b.rawvalue, out var _);
+            var a_rawvalue = Int32ToRaw(a);
+            return Div(a_rawvalue, b.rawvalue, out var _);
         }
 
         /// <summary>
