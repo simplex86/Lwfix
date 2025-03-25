@@ -63,7 +63,7 @@
         /// <param name="value"></param>
         public Fixed32(int value)
         {
-            rawvalue = (long)value << FRACTIONAL_BITS;
+            rawvalue = Math.Clamp((long)value << FRACTIONAL_BITS, MIN_RAW_VALUE, MAX_RAW_VALUE);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@
         /// <param name="value"></param>
         public Fixed32(double value)
         {
-            rawvalue = (long)(value * FRACTIONAL_MULTIPLIER);
+            rawvalue = Math.Clamp((long)(value * FRACTIONAL_MULTIPLIER + 0.5), MIN_RAW_VALUE, MAX_RAW_VALUE);
         }
 
         /// <summary>

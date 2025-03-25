@@ -5,14 +5,17 @@
     /// </summary>
     public partial struct Fixed32 : IFixed<Fixed32>
     {
+        private const long MAX_RAW_VALUE = long.MaxValue - 1; // 0x7FFFFFFFFFFFFFFE
+        private const long MIN_RAW_VALUE = long.MinValue + 2; // 0x8000000000000002
+
         /// <summary>
         /// 最大值
         /// </summary>
-        public static Fixed32 MaxValue => FromRaw(long.MaxValue - 1); // 0x7FFFFFFFFFFFFFFE
+        public static Fixed32 MaxValue => FromRaw(MAX_RAW_VALUE);
         /// <summary>
         /// 最小值
         /// </summary>
-        public static Fixed32 MinValue => FromRaw(long.MinValue + 2); // 0x8000000000000002
+        public static Fixed32 MinValue => FromRaw(MIN_RAW_VALUE);
         /// <summary>
         /// 
         /// </summary>
