@@ -13,19 +13,6 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, int b)
         {
-            // 任意数除以NaN，得NaN
-            if (a.IsNaN()) return NaN;
-            // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
-            if (b.IsZero())
-            {
-                if (a.IsZero()) return NaN;
-                return a.IsPositive() ? PositiveInfinity : NegativeInfinity;
-            }
-            // 正无穷，除以正数得正无穷；除以负数得负无穷
-            if (a.IsPositiveInfinity()) return b.IsPositive() ? PositiveInfinity : NegativeInfinity;
-            // 负无穷，除以正数得负无穷；除以负数得正无穷
-            if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
-
             var b_rawvalue = Int32ToRaw(b);
             return Div(a.rawvalue, b_rawvalue, out var _);
         }
@@ -38,17 +25,6 @@
         /// <returns></returns>
         public static Fixed32 operator /(int a, Fixed32 b)
         {
-            // 任意数除以NaN，得NaN
-            if (b.IsNaN()) return NaN;
-            // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
-            if (b.IsZero())
-            {
-                if (a.IsZero()) return NaN;
-                return a.IsPositive() ? PositiveInfinity : NegativeInfinity;
-            }
-            // 任何数除以无穷大，得零
-            if (b.IsInfinity()) return Zero;
-
             var a_rawvalue = Int32ToRaw(a);
             return Div(a_rawvalue, b.rawvalue, out var _);
         }
@@ -61,21 +37,6 @@
         /// <returns></returns>
         public static Fixed32 operator /(Fixed32 a, Fixed32 b)
         {
-            // 任意有一个数是NaN，得NaN
-            if (a.IsNaN() || b.IsNaN()) return NaN;
-            // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
-            if (b.IsZero())
-            {
-                if (a.IsZero()) return NaN;
-                return a.IsPositive() ? PositiveInfinity : NegativeInfinity;
-            }
-            // 任何数除以无穷大，得零；无穷大除以无穷大，得NaN
-            if (b.IsInfinity()) return a.IsInfinity() ? NaN : Zero;
-            // 正无穷，除以正数得正无穷；除以负数得负无穷
-            if (a.IsPositiveInfinity()) return b.IsPositive() ? PositiveInfinity : NegativeInfinity;
-            // 负无穷，除以正数得负无穷；除以负数得正无穷
-            if (a.IsNegativeInfinity()) return b.IsPositive() ? NegativeInfinity : PositiveInfinity;
-
             return Div(a.rawvalue, b.rawvalue, out var _);
         }
 
@@ -88,6 +49,11 @@
         private static Fixed32 Div(long a, long b, out bool overflow)
         {
             overflow = false;
+
+            if (PreprocessDiv(a, b, out var r))
+            {
+                return r;
+            }
 
             var am = a >> (TOTAL_BITS - 1);
             var bm = b >> (TOTAL_BITS - 1);
@@ -151,6 +117,39 @@
             }
 
             return FromRaw(result);
+        }
+
+        /// <summary>
+        /// 预处理特殊边界值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private static bool PreprocessDiv(long a, long b, out Fixed32 r)
+        {
+            // 任意有一个数是NaN，得NaN
+            if (a == NaN.rawvalue || b == NaN.rawvalue) { r = NaN; return true; }
+            // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
+            if (b == 0)
+            {
+                if (a == 0) { r = NaN; return true; }
+                r = a > 0 ? PositiveInfinity : NegativeInfinity; 
+                return true;
+            }
+            // 任何数除以无穷大，得零；无穷大除以无穷大，得NaN
+            if (b == PositiveInfinity.rawvalue || b == NegativeInfinity.rawvalue)
+            {
+                r = (a == PositiveInfinity.rawvalue || a == NegativeInfinity.rawvalue) ? NaN : Zero;
+                return true;
+            }
+            // 正无穷，除以正数得正无穷；除以负数得负无穷
+            if (a == PositiveInfinity.rawvalue) { r = b > 0 ? PositiveInfinity : NegativeInfinity; return true; }
+            // 负无穷，除以正数得负无穷；除以负数得正无穷
+            if (a == NegativeInfinity.rawvalue) { r = b > 0 ? NegativeInfinity : PositiveInfinity; return true; }
+
+            r = Zero;
+            return false;
         }
     }
 }

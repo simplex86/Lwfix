@@ -13,21 +13,6 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, int b)
         {
-            // 零加上任何数，都等于该数本身
-            if (b.IsZero()) return a;
-            // NaN加任何数，得NaN
-            if (a.IsNaN()) return NaN;
-            // 正无穷加任何数，得正无穷
-            if (a.IsPositiveInfinity()) return PositiveInfinity;
-            // 负无穷加任何数，得负无穷
-            if (a.IsNegativeInfinity()) return NegativeInfinity;
-            // 最大值加正数，得正无穷
-            if (a.IsMax() && b.IsPositive()) return PositiveInfinity;
-            if (b.IsMax() && a.IsPositive()) return PositiveInfinity;
-            // 最小值加负数，得负无穷
-            if (a.IsMin() && b.IsNegative()) return NegativeInfinity;
-            if (b.IsMin() && a.IsNegative()) return NegativeInfinity;
-
             var b_rawvalue = Int32ToRaw(b);
             return Add(a.rawvalue, b_rawvalue, out var _);
         }
@@ -51,25 +36,6 @@
         /// <returns></returns>
         public static Fixed32 operator +(Fixed32 a, Fixed32 b)
         {
-            // 零加上任何数，都等于该数本身
-            if (a.IsZero()) return b;
-            if (b.IsZero()) return a;
-            // NaN加任何数，得NaN
-            if (a.IsNaN() || b.IsNaN()) return NaN;
-            // 正负无穷相加，得NaN
-            if (a.IsPositiveInfinity() && b.IsNegativeInfinity()) return NaN;
-            if (a.IsNegativeInfinity() && b.IsPositiveInfinity()) return NaN;
-            // 最大值加正数，得正无穷
-            if (a.IsMax() && b.IsPositive()) return PositiveInfinity;
-            if (b.IsMax() && a.IsPositive()) return PositiveInfinity;
-            // 最小值加负数，得负无穷
-            if (a.IsMin() && b.IsNegative()) return NegativeInfinity;
-            if (b.IsMin() && a.IsNegative()) return NegativeInfinity;
-            // 正无穷加任何数，得正无穷
-            if (a.IsPositiveInfinity() || b.IsPositiveInfinity()) return PositiveInfinity;
-            // 负无穷加任何数，得负无穷
-            if (a.IsNegativeInfinity() || b.IsNegativeInfinity()) return NegativeInfinity;
-
             return Add(a.rawvalue, b.rawvalue, out var _);
         }
 
@@ -83,8 +49,13 @@
         private static Fixed32 Add(long a, long b, out bool overflow)
         {
             overflow = false;
-            var r = OverflowAdd(a, b, ref overflow);
 
+            if (PreprocessAdd(a, b, out var r))
+            {
+                return r;
+            }
+            
+            var c = OverflowAdd(a, b, ref overflow);
             if (overflow)
             {
                 if (a > 0) return PositiveInfinity;
@@ -92,11 +63,40 @@
             }
             else
             {
-                if (r < MinValue.rawvalue) return NegativeInfinity;
-                if (r > MaxValue.rawvalue) return PositiveInfinity;
+                if (c < MinValue.rawvalue) return NegativeInfinity;
+                if (c > MaxValue.rawvalue) return PositiveInfinity;
             }
 
-            return FromRaw(r);
+            return FromRaw(c);
+        }
+
+        /// <summary>
+        /// 预处理特殊边界值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private static bool PreprocessAdd(long a, long b, out Fixed32 r)
+        {
+            // NaN加任何数，得NaN
+            if (a == NaN.rawvalue || b == NaN.rawvalue) { r = NaN; return true; }
+            // 正负无穷相加，得NaN
+            if (a == PositiveInfinity.rawvalue && b == NegativeInfinity.rawvalue) { r = NaN; return true; }
+            if (a == NegativeInfinity.rawvalue && b == PositiveInfinity.rawvalue) { r = NaN; return true; }
+            // 最大值加正数，得正无穷
+            if (a == MaxValue.rawvalue && b > 0) { r = PositiveInfinity; return true; }
+            if (b == MaxValue.rawvalue && a > 0) { r = PositiveInfinity; return true; }
+            // 最小值加负数，得负无穷
+            if (a == MinValue.rawvalue && b < 0) { r = NegativeInfinity; return true; }
+            if (b == MinValue.rawvalue && a < 0) { r = NegativeInfinity; return true; }
+            // 正无穷加任何数，得正无穷
+            if (a == PositiveInfinity.rawvalue || b == PositiveInfinity.rawvalue) { r = PositiveInfinity; return true; }
+            // 负无穷加任何数，得负无穷
+            if (a == NegativeInfinity.rawvalue || b == NegativeInfinity.rawvalue) { r = NegativeInfinity; return true; }
+
+            r = Zero;
+            return false;
         }
 
         /// <summary>
