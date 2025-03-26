@@ -134,10 +134,10 @@
             var two = Two;
             var three = new Fixed32(3);
 
-            var sq = z * z;
-            var sq2 = sq * two;
-            var sqp1 = sq + One;
-            var sq12 = sqp1 * two;
+            var sq1 = z * z;
+            var sq2 = sq1 * two;
+            var sqp1 = sq1 + One;
+            var sqp2 = sqp1 * two;
             var dividend = sq2;
             var divisor = sqp1 * three;
 
@@ -147,7 +147,7 @@
                 result += term;
 
                 dividend += sq2;
-                divisor += sq12;
+                divisor += sqp2;
 
                 if (term.IsZero()) break;
             }
