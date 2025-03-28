@@ -171,6 +171,9 @@
         public double ToDouble()
         {
             if (IsNaN()) return double.NaN;
+            if (IsPositiveInfinity()) return double.PositiveInfinity;
+            if (IsNegativeInfinity()) return double.NegativeInfinity;
+
             return rawvalue / FRACTIONAL_MULTIPLIER;
         }
 

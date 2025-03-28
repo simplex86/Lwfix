@@ -13,12 +13,8 @@
         /// <returns></returns>
         public static Fixed32 operator %(Fixed32 a, int b)
         {
-            if (a.IsNaN()) return NaN;
-            if (a.IsInfinity()) return NaN;
-            if (a.IsMin()) return Zero;
-            if (b == -1) return Zero;
-
-            return Mod(a.rawvalue, (long)b << INTEGRAL_BITS);
+            var b_rawvalue = Int32ToRaw(b);
+            return Mod(a.rawvalue, b_rawvalue);
         }
 
         /// <summary>
@@ -29,11 +25,8 @@
         /// <returns></returns>
         public static Fixed32 operator %(int a, Fixed32 b)
         {
-            if (b.IsNaN()) return NaN;
-            if (b == NegativeOne) return Zero;
-            if (b.IsMax() || b.IsMin() || b.IsInfinity()) return new Fixed32(a);
-
-            return Mod((long)a << INTEGRAL_BITS, b.rawvalue);
+            var a_rawvalue = Int32ToRaw(a);
+            return Mod(a_rawvalue, b.rawvalue);
         }
 
         /// <summary>
@@ -44,12 +37,6 @@
         /// <returns></returns>
         public static Fixed32 operator %(Fixed32 a, Fixed32 b)
         {
-            if (a.IsNaN() || b.IsNaN()) return NaN;
-            if (a.IsInfinity()) return NaN;
-            if (a.IsMin()) return Zero;
-            if (b == NegativeOne) return Zero;
-            if (b.IsMax() || b.IsMin() || b.IsInfinity()) return new Fixed32(a);
-
             return Mod(a.rawvalue, b.rawvalue);
         }
 
@@ -61,12 +48,31 @@
         /// <returns></returns>
         private static Fixed32 Mod(long a, long b)
         {
-            if (a == MinValue.rawvalue && b == -1)
+            if (PreprocessMod(a, b, out var r))
             {
-                return 0;
+                return r;
             }
 
             return FromRaw(a % b);
+        }
+
+        /// <summary>
+        /// 预处理特殊边界值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private static bool PreprocessMod(long a, long b, out Fixed32 r)
+        {
+            if (a == NaN.rawvalue || b == NaN.rawvalue) { r = NaN; return true; }
+            if (a == PositiveInfinity.rawvalue || a == NegativeInfinity.rawvalue) { r = NaN; return true; }
+            if (a == MinValue.rawvalue) { r = Zero; return true; }
+            if (b == NegativeOne.rawvalue) { r = Zero; return true; }
+            if (b == MaxValue.rawvalue || b == MinValue.rawvalue || b == PositiveInfinity.rawvalue || b == NegativeInfinity.rawvalue) { r = new Fixed32(a); return true; }
+
+            r = Zero;
+            return false;
         }
     }
 }

@@ -12,6 +12,11 @@
         /// <returns></returns>
         public static Fixed32 Cos(Fixed32 radian)
         {
+            if (PreprocessSin(radian, out var r))
+            {
+                return r;
+            }
+
             return Sin(radian + Half_PI);
         }
 
@@ -22,7 +27,33 @@
         /// <returns></returns>
         public static Fixed32 FastCos(Fixed32 radian)
         {
+            if (PreprocessSin(radian, out var r))
+            {
+                return r;
+            }
+
             return FastSin(radian + Half_PI);
+        }
+
+        /// <summary>
+        /// 预处理特殊边界值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private static bool PreprocessCos(Fixed32 radian, out Fixed32 r)
+        {
+            if (radian == NaN ||
+                radian == PositiveInfinity ||
+                radian == NegativeInfinity)
+            {
+                r = NaN;
+                return true;
+            }
+
+            r = Zero;
+            return false;
         }
 
         /// <summary>

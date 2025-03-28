@@ -18,6 +18,11 @@
         /// <returns></returns>
         public static Fixed32 Sin(Fixed32 radian)
         {
+            if (PreprocessSin(radian,out var r))
+            {
+                return r;
+            }
+
             var normalized = NormalizeRadian(radian);
             var referenced = ReduceRadian4Sin(normalized, out var sign);
             var result = TaylorEvaluate4Sin(referenced);
@@ -87,6 +92,11 @@
         /// <returns></returns>
         public static Fixed32 FastSin(Fixed32 radian)
         {
+            if (PreprocessSin(radian, out var r))
+            {
+                return r;
+            }
+
             var normalized = NormalizeRadian(radian);
             var referenced = ReduceRadian4Sin(normalized, out var sign);
 
@@ -97,6 +107,27 @@
             if (sign) nearest = -nearest;
 
             return FromRaw(nearest);
+        }
+
+        /// <summary>
+        /// 预处理特殊边界值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private static bool PreprocessSin(Fixed32 radian, out Fixed32 r)
+        {
+            if (radian == NaN || 
+                radian == PositiveInfinity || 
+                radian == NegativeInfinity) 
+            { 
+                r = NaN; 
+                return true; 
+            }
+
+            r = Zero;
+            return false;
         }
 
         /// <summary>

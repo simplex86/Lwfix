@@ -22,6 +22,11 @@
         /// <returns></returns>
         public static Fixed32 Tan(Fixed32 radian)
         {
+            if (PreprocessTan(radian, out var r))
+            {
+                return r;
+            }
+
             var normalized = NormalizeRadian(radian, PI);
             var referenced = ReduceRadian4Tan(normalized, out var sign);
 
@@ -92,6 +97,11 @@
         /// <returns></returns>
         public static Fixed32 FastTan(Fixed32 radian)
         {
+            if (PreprocessTan(radian, out var r))
+            {
+                return r;
+            }
+
             var normalized = NormalizeRadian(radian, PI);
             var referenced = ReduceRadian4Tan(normalized, out var sign);
 
@@ -111,6 +121,27 @@
             if (sign) interpolated = -interpolated;
 
             return FromRaw(interpolated);
+        }
+
+        /// <summary>
+        /// 预处理特殊边界值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private static bool PreprocessTan(Fixed32 radian, out Fixed32 r)
+        {
+            if (radian == NaN ||
+                radian == PositiveInfinity ||
+                radian == NegativeInfinity)
+            {
+                r = NaN;
+                return true;
+            }
+
+            r = Zero;
+            return false;
         }
 
         /// <summary>
