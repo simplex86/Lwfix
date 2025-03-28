@@ -5,49 +5,67 @@
     /// </summary>
     public partial struct Fixed32 : IFixed<Fixed32>
     {
+        /************************************************************************
+         * 精度较低，弃用
+         * 
         /// <summary>
         /// 自然对数（e为底）
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
         public Fixed32 Log()
         {
-            if (rawvalue <= 0)
-                throw new ArgumentException("自然对数对非正数无定义");
+            if (ProprocessLog(rawvalue, out var r))
+            {
+                return r;
+            }
 
             // 1. 归一化到 [1, 2) 并记录指数
             var exponent = 0;
             var mantissa = this;
-            var two = One + One;
 
-            while (mantissa >= two)
+            while (mantissa >= Two)
             {
-                mantissa = mantissa / two;
+                mantissa = mantissa / Two;
                 exponent++;
             }
             while (mantissa < One)
             {
-                mantissa = mantissa * two;
+                mantissa = mantissa * Two;
                 exponent--;
             }
-            var e = LN2 * new Fixed32(exponent);
+            var e = Ln2 * exponent;
 
             // 2. 计算 ln(mantissa) 的泰勒级数展开
             var x = mantissa - One;
             var p = x;
-            var r = x;
+            var c = x;
 
-            for (int i = 2; i < 50; i++)
+            for (int i = 2; i < 300; i++)
             {
                 p = p * x;
-                r = (i % 2 == 0) ? r - p / new Fixed32(i)
-                                 : r + p / new Fixed32(i);
+                c = (i % 2 == 0) ? c - p / i
+                                 : c + p / i;
             }
 
             // 3. ln(n) = ln(mantissa) + exponent * ln(2)
-            return r + e;
+            return c + e;
         }
+        * 
+        ************************************************************************/
 
+        /// <summary>
+        /// 自然对数（e为底）
+        /// </summary>
+        /// <returns></returns>
+        public Fixed32 Log()
+        {
+            if (ProprocessLog(rawvalue, out var r))
+            {
+                return r;
+            }
+
+            return Log2() * Ln2;
+        }
         /// <summary>
         /// 自然对数（e为底）
         /// </summary>
@@ -58,6 +76,9 @@
             return n.Log();
         }
 
+        /************************************************************************
+         * 精度较低，弃用
+         * 
         /// <summary>
         /// 以2为底的对数
         /// </summary>
@@ -65,44 +86,87 @@
         /// <exception cref="ArgumentException"></exception>
         public Fixed32 Log2()
         {
-            if (rawvalue <= 0)
+            if (ProprocessLog(rawvalue, out var r))
             {
-                throw new ArgumentException("Log2 is undefined for non-positive values.");
+                return r;
             }
 
             // 1. 归一化到 [1, 2) 并记录指数
             var exponent = 0;
             var mantissa = this;
-            var two = One + One;
-            var one = One;
 
             // 2.计算 ln(mantissa) 的泰勒级数展开
-            while (mantissa >= two)
+            while (mantissa >= Two)
             {
-                mantissa = mantissa / two;
+                mantissa = mantissa / Two;
                 exponent++;
             }
-            while (mantissa < one)
+            while (mantissa < One)
             {
-                mantissa = mantissa * two;
+                mantissa = mantissa * Two;
                 exponent--;
             }
-            var e = new Fixed32(exponent);
 
             // Now mantissa is in [1, 2)
             var x = mantissa - One;
             var p = x;
-            var r = x;
+            var c = x;
 
-            for (int i = 2; i < 50; i++)
+            for (int i = 2; i < 300; i++)
             {
                 p = p * x;
-                r = (i % 2 == 0) ? r - p / new Fixed32(i)
-                                 : r + p / new Fixed32(i);
+                c = (i % 2 == 0) ? c - p / i
+                                 : c + p / i;
             }
-            r = r / LN2;
+            c = c / Ln2;
 
-            return r + e;
+            return c + exponent;
+        }
+        * 
+        ************************************************************************/
+
+        /// <summary>
+        /// 以2为底的对数
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public Fixed32 Log2()
+        {
+            if (ProprocessLog(rawvalue, out var r))
+            {
+                return r;
+            }
+
+            var b = 1L << (FRACTIONAL_BITS - 1);
+            var y = 0L;
+
+            var rawX = rawvalue;
+            while (rawX < One.rawvalue)
+            {
+                rawX <<= 1;
+                y -= One.rawvalue;
+            }
+
+            while (rawX >= Two.rawvalue)
+            {
+                rawX >>= 1;
+                y += One.rawvalue;
+            }
+
+            var z = FromRaw(rawX);
+
+            for (int i = 0; i < FRACTIONAL_BITS; i++)
+            {
+                z = z * z;
+                if (z.rawvalue >= Two.rawvalue)
+                {
+                    z = FromRaw(z.rawvalue >> 1);
+                    y += b;
+                }
+                b >>= 1;
+            }
+
+            return FromRaw(y);
         }
 
         /// <summary>
@@ -121,7 +185,7 @@
         /// <returns></returns>
         public Fixed32 Log10()
         {
-            return Log() / LN10;
+            return Log() / Ln10;
         }
 
         /// <summary>
@@ -132,6 +196,22 @@
         public static Fixed32 Log10(Fixed32 n)
         {
             return n.Log10();
+        }
+
+        /// <summary>
+        /// 预处理特殊边界值
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private bool ProprocessLog(long n, out Fixed32 r)
+        {
+            if (n < 0 || n == NaN.rawvalue) { r = NaN; return true; }
+            if (n == 0) { r = NegativeInfinity; return true; }
+            if (n == PositiveInfinity.rawvalue) { r = PositiveInfinity; return true; }
+
+            r = Zero;
+            return false;
         }
     }
 }
