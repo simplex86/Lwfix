@@ -47,11 +47,11 @@
         /// <summary>
         /// ln(2)
         /// </summary>
-        public readonly static Fixed32 LN2 = FromRaw(2977044472);
+        public readonly static Fixed32 Ln2 = FromRaw(2977044472);
         /// <summary>
         /// ln(10)
         /// </summary>
-        public readonly static Fixed32 LN10 = FromRaw(9889527671);
+        public readonly static Fixed32 Ln10 = FromRaw(9889527671);
         /// <summary>
         /// 非数字
         /// </summary>

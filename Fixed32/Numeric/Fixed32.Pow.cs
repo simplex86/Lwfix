@@ -12,52 +12,31 @@
         /// <returns></returns>
         public Fixed32 Pow(int n)
         {
-            if (IsNaN())
+            var n_rawvalue = Int32ToRaw(n);
+            if (PreprocessLog(rawvalue, n_rawvalue, out var r))
             {
-                if (n == 0) return One;
-                return NaN;
+                return r;
             }
-
-            if (IsZero())
-            {
-                if (n < 0) return PositiveInfinity;
-                return Zero;
-            }
-
-            if (IsPositiveInfinity())
-            {
-                if (n < 0) return Zero;
-                if (n > 0) return PositiveInfinity;
-                return One;
-            }
-
-            if (IsNegativeInfinity())
-            {
-                if (n < 0) return Zero;
-                return (n % 2 == 0) ? PositiveInfinity : NegativeInfinity;
-            }
-
-            if (IsNegative()) return NaN;
-
+        
             var m = this;
             if (n < 0)
             {
                 m = Reciprocal();
                 n = -n;
             }
-
-            var r = One;
+        
+            var c = One;
             while (n > 0)
             {
                 if (n % 2 == 1)
                 {
-                    r *= m;
+                    c *= m;
                 }
                 m *= m;
                 n /= 2;
             }
-
-            return r;
+        
+            return c;
         }
 
         /// <summary>
@@ -76,18 +55,11 @@
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
         public Fixed32 Pow(Fixed32 n)
         {
-            if (IsZero())
-            {
-                if (n.IsNegative()) throw new ArgumentException("0 的非正数次幂无定义");
-                return Zero;
-            }
-
             if (n.IsFractional())
             {
-                if (IsNegative()) throw new ArgumentException("负数的非整数次幂无实数解");
+                if (IsNegative()) return NaN;
                 return (n * Log()).Exp(); // m^n = e^(n * ln(m))
             }
 
@@ -106,47 +78,60 @@
         }
 
         /// <summary>
-        /// e的幂
+        /// 预处理特殊边界值
         /// </summary>
-        /// <param name="x"></param>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <param name="r"></param>
         /// <returns></returns>
-        public Fixed32 Exp()
+        private static bool PreprocessLog(long m, long n, out Fixed32 r)
         {
-            // 处理 x = 0 的快速路径
-            if (IsZero())
+            // 有NaN参与的运算，都等于NaN
+            if (m == NaN.rawvalue || n == NaN.rawvalue) { r = NaN; return true; }
+            // 任何数（非NaN）的0次幂，都等于1
+            if (n == Zero.rawvalue) { r = One; return true; }
+            // 负数的小数次幂，等于NaN
+            if (m < 0 && (n & FRACTIONAL_MASK) != 0) { r = NaN; return true; }
+            if (m == Zero.rawvalue) { r = (n < 0) ? PositiveInfinity : Zero; return true; }
+            if (m == NegativeOne.rawvalue && (n == PositiveInfinity.rawvalue || n == NegativeInfinity.rawvalue)) { r = One; return true; }
+            if (m > NegativeOne.rawvalue && m < One.rawvalue)
             {
-                return One;
+                if (n == PositiveInfinity.rawvalue) { r = Zero; return true; }
+                if (n == NegativeInfinity.rawvalue) { r = PositiveInfinity; return true; }
+            }
+            else if (m < NegativeOne.rawvalue || m > One.rawvalue)
+            {
+                if (n == PositiveInfinity.rawvalue) { r = PositiveInfinity; return true; }
+                if (n == NegativeInfinity.rawvalue) { r = Zero; return true; }
             }
 
-            // 分解 x = k * ln(2) + r，其中 |r| ≤ 0.5 * ln(2)
-            var k = (this / LN2).Round();
-            var r = this - k * LN2;
+            r = Zero;
+            return false;
+        }
+
+        public Fixed32 Pow2(Fixed32 x)
+        {
+            var s = x.IsNegative();
+            x = x.Abs();
+
+            var integer = x.ToInt();
+            x = x.Fractional();
 
             // 计算 e^r 的泰勒级数展开
             var ter = One;
             var sum = One;
-            for (int i = 1; i < 50; i++) // 迭代多次确保精度
+            var idx = 0;
+            while (ter != Zero)
             {
-                ter = ter * r / new Fixed32(i);
+                idx++;
+                ter = ter * x * Ln2 / new Fixed32(idx);
                 sum += ter;
             }
 
-            var t = k.ToInt();
-            var pow = (t >= 0) ? new Fixed32(1 << t)
-                               : One / new Fixed32(1 << -t);
+            sum = FromRaw(sum.rawvalue << integer);
+            if (s) sum = sum.Reciprocal();
 
-            // e^x = e^(k * ln(2) + r) = 2^k * e^r
-            return pow * sum;
-        }
-
-        /// <summary>
-        /// e的m次幂
-        /// </summary>
-        /// <param name="m"></param>
-        /// <returns></returns>
-        public static Fixed32 Exp(Fixed32 m)
-        {
-            return m.Exp();
+            return sum;
         }
 
         /// <summary>
