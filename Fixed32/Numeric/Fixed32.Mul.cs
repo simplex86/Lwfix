@@ -121,14 +121,32 @@
         {
             // NaN乘以任何数，都等于NaN
             if (a == NaN.rawvalue  || b == NaN.rawvalue) { r = NaN; return true; }
-            // 零乘以任何数，都等于零
-            if (a == Zero.rawvalue || b == Zero.rawvalue) { r = Zero; return true; }
             // 正无穷，乘以正数得正无穷，乘以负数得负无穷
-            if (a == PositiveInfinity.rawvalue) { r = b > 0 ? PositiveInfinity : NegativeInfinity; return true; }
-            if (b == PositiveInfinity.rawvalue) { r = a > 0 ? PositiveInfinity : NegativeInfinity; return true; }
+            if (a == PositiveInfinity.rawvalue) 
+            {
+                if (b == 0) { r = NaN; return true; }
+                r = b > 0 ? PositiveInfinity : NegativeInfinity;
+                return true; 
+            }
+            if (b == PositiveInfinity.rawvalue) 
+            {
+                if (a == 0) { r = NaN; return true; }
+                r = a > 0 ? PositiveInfinity : NegativeInfinity; 
+                return true; 
+            }
             // 负无穷，乘以正数得负无穷，乘以负数得正无穷
-            if (a == NegativeInfinity.rawvalue) { r = b > 0 ? NegativeInfinity : PositiveInfinity; return true; }
-            if (b == NegativeInfinity.rawvalue) { r = a > 0 ? NegativeInfinity : PositiveInfinity; return true; }
+            if (a == NegativeInfinity.rawvalue)
+            {
+                if (b == 0) { r = NaN; return true; }
+                r = b < 0 ? PositiveInfinity : NegativeInfinity;
+                return true;
+            }
+            if (b == NegativeInfinity.rawvalue)
+            {
+                if (a == 0) { r = NaN; return true; }
+                r = a < 0 ? PositiveInfinity : NegativeInfinity;
+                return true;
+            }
 
             r = Zero;
             return false;
