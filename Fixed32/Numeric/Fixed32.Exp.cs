@@ -34,8 +34,8 @@
             var s = k.IsNegative();
             var t = k.Abs().ToInt();
 
-            var pow = 1 << t;
-            if (s) pow = 1 / pow;
+            var pow = new Fixed32(1 << t);
+            if (s) pow = pow.Reciprocal();
 
             // e^x = e^(k * ln(2) + r) = 2^k * e^r
             return pow * sum;
