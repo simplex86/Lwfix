@@ -81,23 +81,23 @@
         private static bool PreprocessSub(long a, long b, out Fixed32 r)
         {
             // NaN减任何数，得NaN
-            if (a == NaN.rawvalue || b == NaN.rawvalue) { r = NaN; return true; }
+            if (a.IsNaN() || b.IsNaN()) { r = NaN; return true; }
             // 正无穷减正无穷，得NaN
-            if (a == PositiveInfinity.rawvalue && b == PositiveInfinity.rawvalue) { r = NaN; return true; }
+            if (a.IsPositiveInfinity() && b.IsPositiveInfinity()) { r = NaN; return true; }
             // 负无穷减负无穷，得NaN
-            if (a == NegativeInfinity.rawvalue && b == NegativeInfinity.rawvalue) { r = NaN; return true; }
+            if (a.IsNegativeInfinity() && b.IsNegativeInfinity()) { r = NaN; return true; }
             // 负无穷减任何数 或 任何数减正无穷，得负无穷
-            if (a == NegativeInfinity.rawvalue || b == PositiveInfinity.rawvalue) { r = NegativeInfinity; return true; }
+            if (a.IsNegativeInfinity() || b.IsPositiveInfinity()) { r = NegativeInfinity; return true; }
             // 正无穷减任何数 或 任何数减负无穷，得正无穷
-            if (a == PositiveInfinity.rawvalue || b == NegativeInfinity.rawvalue) { r = PositiveInfinity; return true; }
+            if (a.IsPositiveInfinity() || b.IsNegativeInfinity()) { r = PositiveInfinity; return true; }
             // 最小值减正数，得负无穷
-            if (a == MinValue.rawvalue && b > 0) { r = NegativeInfinity; return true; }
+            if (a.IsMin() && b > 0) { r = NegativeInfinity; return true; }
             // 最大值减负数，得正无穷
-            if (a == MaxValue.rawvalue && b < 0) { r = PositiveInfinity; return true; }
+            if (a.IsMax() && b < 0) { r = PositiveInfinity; return true; }
             // 正数减最小值，得正无穷
-            if (b == MinValue.rawvalue && a > 0) { r = PositiveInfinity; return true; }
+            if (b.IsMin() && a > 0) { r = PositiveInfinity; return true; }
             // 负数减最大值，得负无穷
-            if (b == MaxValue.rawvalue && a < 0) { r = NegativeInfinity; return true; }
+            if (b.IsMax() && a < 0) { r = NegativeInfinity; return true; }
 
             r = Zero;
             return false;

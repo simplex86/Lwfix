@@ -120,30 +120,30 @@
         private static bool PreprocessMul(long a, long b, out Fixed32 r)
         {
             // NaN乘以任何数，都等于NaN
-            if (a == NaN.rawvalue  || b == NaN.rawvalue) { r = NaN; return true; }
+            if (a.IsNaN() || b.IsNaN()) { r = NaN; return true; }
             // 正无穷，乘以正数得正无穷，乘以负数得负无穷
-            if (a == PositiveInfinity.rawvalue) 
+            if (a.IsPositiveInfinity()) 
             {
-                if (b == 0) { r = NaN; return true; }
+                if (b.IsZero()) { r = NaN; return true; }
                 r = b > 0 ? PositiveInfinity : NegativeInfinity;
                 return true; 
             }
-            if (b == PositiveInfinity.rawvalue) 
+            if (b.IsPositiveInfinity()) 
             {
-                if (a == 0) { r = NaN; return true; }
+                if (a.IsZero()) { r = NaN; return true; }
                 r = a > 0 ? PositiveInfinity : NegativeInfinity; 
                 return true; 
             }
             // 负无穷，乘以正数得负无穷，乘以负数得正无穷
-            if (a == NegativeInfinity.rawvalue)
+            if (a.IsNegativeInfinity())
             {
-                if (b == 0) { r = NaN; return true; }
+                if (b.IsZero()) { r = NaN; return true; }
                 r = b < 0 ? PositiveInfinity : NegativeInfinity;
                 return true;
             }
-            if (b == NegativeInfinity.rawvalue)
+            if (b.IsNegativeInfinity())
             {
-                if (a == 0) { r = NaN; return true; }
+                if (a.IsZero()) { r = NaN; return true; }
                 r = a < 0 ? PositiveInfinity : NegativeInfinity;
                 return true;
             }

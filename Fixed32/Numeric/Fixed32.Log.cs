@@ -206,9 +206,9 @@
         /// <returns></returns>
         private bool ProprocessLog(long n, out Fixed32 r)
         {
-            if (n < 0 || n == NaN.rawvalue) { r = NaN; return true; }
-            if (n == 0) { r = NegativeInfinity; return true; }
-            if (n == PositiveInfinity.rawvalue) { r = PositiveInfinity; return true; }
+            if (n.IsNaN() || n < 0) { r = NaN; return true; }
+            if (n.IsZero()) { r = NegativeInfinity; return true; }
+            if (n.IsPositiveInfinity()) { r = PositiveInfinity; return true; }
 
             r = Zero;
             return false;

@@ -19,8 +19,14 @@
             if (min.IsNaN()) min = NegativeInfinity;
             if (max.IsNaN()) max = PositiveInfinity;
 
+            if (min > max)
+            {
+                throw new System.ArgumentException($"{min} cannot be greater than {max}");
+            }
+
             if (value < min)   return min;
             if (value > max)   return max;
+
             return value;
         }
 

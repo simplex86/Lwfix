@@ -65,11 +65,11 @@
         /// <returns></returns>
         private static bool PreprocessMod(long a, long b, out Fixed32 r)
         {
-            if (a == NaN.rawvalue || b == NaN.rawvalue) { r = NaN; return true; }
-            if (a == PositiveInfinity.rawvalue || a == NegativeInfinity.rawvalue) { r = NaN; return true; }
-            if (a == MinValue.rawvalue) { r = Zero; return true; }
-            if (b == NegativeOne.rawvalue) { r = Zero; return true; }
-            if (b == MaxValue.rawvalue || b == MinValue.rawvalue || b == PositiveInfinity.rawvalue || b == NegativeInfinity.rawvalue) { r = new Fixed32(a); return true; }
+            if (a.IsNaN() || b.IsNaN()) { r = NaN; return true; }
+            if (a.IsInfinity()) { r = NaN; return true; }
+            if (a.IsMin()) { r = Zero; return true; }
+            if (b.IsNegativeOne()) { r = Zero; return true; }
+            if (b.IsMinMax() || b.IsInfinity()) { r = new Fixed32(a); return true; }
 
             r = Zero;
             return false;

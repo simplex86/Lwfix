@@ -129,24 +129,24 @@
         private static bool PreprocessDiv(long a, long b, out Fixed32 r)
         {
             // 任意有一个数是NaN，得NaN
-            if (a == NaN.rawvalue || b == NaN.rawvalue) { r = NaN; return true; }
+            if (a.IsNaN() || b.IsNaN()) { r = NaN; return true; }
             // 零除以零，得NaN；正数除以零，得正无穷；负数除以零，得负无穷
-            if (b == 0)
+            if (b.IsZero())
             {
-                if (a == 0) { r = NaN; return true; }
+                if (a.IsZero()) { r = NaN; return true; }
                 r = a > 0 ? PositiveInfinity : NegativeInfinity; 
                 return true;
             }
             // 任何数除以无穷大，得零；无穷大除以无穷大，得NaN
-            if (b == PositiveInfinity.rawvalue || b == NegativeInfinity.rawvalue)
+            if (b.IsPositiveInfinity() || b.IsNegativeInfinity())
             {
-                r = (a == PositiveInfinity.rawvalue || a == NegativeInfinity.rawvalue) ? NaN : Zero;
+                r = (a.IsPositiveInfinity() || a.IsNegativeInfinity()) ? NaN : Zero;
                 return true;
             }
             // 正无穷，除以正数得正无穷；除以负数得负无穷
-            if (a == PositiveInfinity.rawvalue) { r = b > 0 ? PositiveInfinity : NegativeInfinity; return true; }
+            if (a.IsPositiveInfinity()) { r = b > 0 ? PositiveInfinity : NegativeInfinity; return true; }
             // 负无穷，除以正数得负无穷；除以负数得正无穷
-            if (a == NegativeInfinity.rawvalue) { r = b > 0 ? NegativeInfinity : PositiveInfinity; return true; }
+            if (a.IsNegativeInfinity()) { r = b > 0 ? NegativeInfinity : PositiveInfinity; return true; }
 
             r = Zero;
             return false;

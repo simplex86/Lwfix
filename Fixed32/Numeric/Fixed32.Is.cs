@@ -11,7 +11,7 @@
         /// <returns></returns>
         public bool IsZero()
         {
-            return rawvalue == 0;
+            return rawvalue.IsZero();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
         /// <returns></returns>
         public bool IsMax()
         {
-            return rawvalue == MaxValue.rawvalue;
+            return rawvalue.IsMax();
         }
 
         /// <summary>
@@ -49,7 +49,7 @@
         /// <returns></returns>
         public bool IsMin()
         {
-            return rawvalue == MinValue.rawvalue;
+            return rawvalue.IsMin();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@
         /// <returns></returns>
         public bool IsPositiveInfinity()
         {
-            return rawvalue == PositiveInfinity.rawvalue;
+            return rawvalue.IsPositiveInfinity();
         }
 
         /// <summary>
@@ -106,7 +106,7 @@
         /// <returns></returns>
         public bool IsNegativeInfinity()
         {
-            return rawvalue == NegativeInfinity.rawvalue;
+            return rawvalue.IsNegativeInfinity();
         }
 
         /// <summary>
@@ -125,7 +125,7 @@
         /// <returns></returns>
         public bool IsNaN()
         {
-            return rawvalue == NaN.rawvalue;
+            return rawvalue.IsNaN();
         }
 
         /// <summary>
@@ -182,7 +182,7 @@
         /// <returns></returns>
         internal bool IsFractional()
         {
-            return (rawvalue & FRACTIONAL_MASK) != 0;
+            return rawvalue.IsFractional();
         }
     }
 }

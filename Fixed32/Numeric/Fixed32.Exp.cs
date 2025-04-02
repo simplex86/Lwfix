@@ -58,12 +58,12 @@
         /// <param name="b"></param>
         /// <param name="r"></param>
         /// <returns></returns>
-        private static bool PreprocessExp(long n, out Fixed32 r)
+        private bool PreprocessExp(long n, out Fixed32 r)
         {
-            if (n == NaN.rawvalue) { r = NaN; return true; }
-            if (n == Zero.rawvalue) { r = One; return true; }
-            if (n == PositiveInfinity.rawvalue) { r = PositiveInfinity; return true; }
-            if (n == NegativeInfinity.rawvalue) { r = Zero; return true; }
+            if (n.IsNaN()) { r = NaN; return true; }
+            if (n.IsZero()) { r = One; return true; }
+            if (n.IsPositiveInfinity()) { r = PositiveInfinity; return true; }
+            if (n.IsNegativeInfinity()) { r = Zero; return true; }
 
             r = Zero;
             return false;

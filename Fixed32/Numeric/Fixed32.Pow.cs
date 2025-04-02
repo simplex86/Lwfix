@@ -87,22 +87,22 @@
         private static bool PreprocessLog(long m, long n, out Fixed32 r)
         {
             // 有NaN参与的运算，都等于NaN
-            if (m == NaN.rawvalue || n == NaN.rawvalue) { r = NaN; return true; }
+            if (m.IsNaN() || n.IsNaN()) { r = NaN; return true; }
             // 任何数（非NaN）的0次幂，都等于1
-            if (n == Zero.rawvalue) { r = One; return true; }
+            if (n.IsZero()) { r = One; return true; }
             // 负数的小数次幂，等于NaN
-            if (m < 0 && (n & FRACTIONAL_MASK) != 0) { r = NaN; return true; }
-            if (m == Zero.rawvalue) { r = (n < 0) ? PositiveInfinity : Zero; return true; }
-            if (m == NegativeOne.rawvalue && (n == PositiveInfinity.rawvalue || n == NegativeInfinity.rawvalue)) { r = One; return true; }
-            if (m > NegativeOne.rawvalue && m < One.rawvalue)
+            if (m < 0 && n.IsFractional()) { r = NaN; return true; }
+            if (m.IsZero()) { r = (n < 0) ? PositiveInfinity : Zero; return true; }
+            if (m.IsNegativeOne() && (n.IsInfinity())) { r = One; return true; }
+            if (m.IsPureFractional())
             {
-                if (n == PositiveInfinity.rawvalue) { r = Zero; return true; }
-                if (n == NegativeInfinity.rawvalue) { r = PositiveInfinity; return true; }
+                if (n.IsPositiveInfinity()) { r = Zero; return true; }
+                if (n.IsNegativeInfinity()) { r = PositiveInfinity; return true; }
             }
-            else if (m < NegativeOne.rawvalue || m > One.rawvalue)
+            else // if (!m.IsPureFractional())
             {
-                if (n == PositiveInfinity.rawvalue) { r = PositiveInfinity; return true; }
-                if (n == NegativeInfinity.rawvalue) { r = Zero; return true; }
+                if (n.IsPositiveInfinity()) { r = PositiveInfinity; return true; }
+                if (n.IsNegativeInfinity()) { r = Zero; return true; }
             }
 
             r = Zero;
