@@ -12,6 +12,8 @@
         private static readonly Fixed32 T11 = FromRaw(38067306);   // 1382/155925
         private static readonly Fixed32 T13 = FromRaw(15428072);   // 21844/6081075
         private static readonly Fixed32 T15 = FromRaw(6252761);    // 929569/638512875
+        private static readonly Fixed32 T17 = FromRaw(2534149);    // 
+        private static readonly Fixed32 T19 = FromRaw(1027052);    // 
 
         /// <summary>
         /// 正切
@@ -84,8 +86,19 @@
             var x11 = x9 * x2;
             var x13 = x11 * x2;
             var x15 = x13 * x2;
+            var x17 = x15 * x2;
+            var x19 = x17 * x2;
 
-            return x1 + x3 * T3 + x5 * T5 + x7 * T7 + x9 * T9 + x11 * T11 + x13 * T13 + x15 * T15;
+            return x1        + 
+                   x3  * T3  + 
+                   x5  * T5  + 
+                   x7  * T7  + 
+                   x9  * T9  + 
+                   x11 * T11 + 
+                   x13 * T13 + 
+                   x15 * T15 + 
+                   x17 * T17 + 
+                   x19 * T19;
         }
 
         /// <summary>
