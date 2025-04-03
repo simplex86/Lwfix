@@ -191,7 +191,7 @@
         /// 是否为小数
         /// </summary>
         /// <returns></returns>
-        internal bool IsFractional()
+        public bool IsFractional()
         {
             return rawvalue.IsFractional();
         }

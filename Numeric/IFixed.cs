@@ -192,6 +192,16 @@ namespace Lwkit.Fixed
 
         #endregion
 
+        #region abs
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        T Abs();
+
+        #endregion
+
         #region pow
 
         /// <summary>
@@ -260,6 +270,12 @@ namespace Lwkit.Fixed
         /// <returns></returns>
         T Round();
 
+        /// <summary>
+        /// 四舍五入，返回整数类型
+        /// </summary>
+        /// <returns></returns>
+        int RoundToInt();
+
         #endregion
 
         #region reciprocal
@@ -280,6 +296,12 @@ namespace Lwkit.Fixed
         /// <returns></returns>
         T Floor();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        int FloorToInt();
+
         #endregion
 
         #region ceil
@@ -289,6 +311,12 @@ namespace Lwkit.Fixed
         /// </summary>
         /// <returns></returns>
         T Ceil();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        int CeilToInt();
 
         #endregion
 
@@ -347,6 +375,22 @@ namespace Lwkit.Fixed
         /// </summary>
         /// <returns></returns>
         bool IsNegative();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        bool IsFractional();
+
+        #endregion
+
+        #region sign
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        int Sign();
 
         #endregion
     }

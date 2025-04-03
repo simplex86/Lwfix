@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static Fixed32 Sign(Fixed32 n)
+        public static int Sign(Fixed32 n)
         {
             return n.Sign();
         }
