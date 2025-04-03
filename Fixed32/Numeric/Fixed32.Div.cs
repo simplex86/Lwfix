@@ -96,7 +96,7 @@
                     if ((quot & ~(FULL_BIT_MASK >> bitptr)) != 0)
                     {
                         overflow = true;
-                        return IsSameSign(a, b) ? PositiveInfinity : NegativeInfinity;
+                        return IsSigns(a, b) ? PositiveInfinity : NegativeInfinity;
                     }
 
                     remainder <<= 1;
@@ -111,7 +111,7 @@
                 result += 1; // 则进位
             }
             // 符号相反，则取负
-            if (!IsSameSign(a, b))
+            if (!IsSigns(a, b))
             {
                 result = -result;
             }

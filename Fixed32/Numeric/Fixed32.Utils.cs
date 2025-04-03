@@ -45,7 +45,7 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        internal static bool IsSameSign(long a, long b)
+        internal static bool IsSigns(long a, long b)
         {
             return ((a ^ b) & SIGN_BIT_MASK) == 0;
         }

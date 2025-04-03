@@ -69,7 +69,7 @@
             c = OverflowAdd(c, term2, ref overflow);
             c = OverflowAdd(c, term1 << INTEGRAL_BITS, ref overflow);
 
-            var signs = IsSameSign(a, b); // 符号相同
+            var signs = IsSigns(a, b); // 符号相同
             if (signs)
             {
                 if (c < 0 || (overflow && a > 0)) return PositiveInfinity;

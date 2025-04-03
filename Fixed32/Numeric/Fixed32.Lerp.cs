@@ -41,6 +41,11 @@
         /// <returns></returns>
         public static Fixed32 Lerp(Fixed32 value1, Fixed32 value2, Fixed32 amount)
         {
+            if (PreprocessLerp(value1, value2, amount, out var r))
+            {
+                return r;
+            }
+
             if (value1 == value2 ||
                 amount == Zero)
             {
@@ -59,6 +64,11 @@
         /// <returns></returns>
         public static Fixed32 InverseLerp(Fixed32 value1, Fixed32 value2, Fixed32 amount)
         {
+            if (PreprocessLerp(value1, value2, amount, out var r))
+            {
+                return r;
+            }
+
             if (value1 == value2) return Zero;
             return Clamp01((amount - value1) / (value2 - value1));
         }
@@ -72,8 +82,45 @@
         /// <returns></returns>
         public static Fixed32 SmoothStep(Fixed32 value1, Fixed32 value2, Fixed32 amount)
         {
+            if (PreprocessLerp(value1, value2, amount, out var r))
+            {
+                return r;
+            }
+
             amount = Clamp01(amount);
             return Hermite(value1, Zero, value2, Zero, amount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <param name="amount"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        private static bool PreprocessLerp(Fixed32 value1, Fixed32 value2, Fixed32 amount, out Fixed32 r)
+        {
+            if (amount.IsNaN() || amount.IsInfinity())
+            {
+                r = NaN;
+                return true;
+            }
+
+            if (value1.IsNaN() || value2.IsNaN())
+            {
+                r = NaN;
+                return true;
+            }
+
+            if (value1.IsInfinity() && value2.IsInfinity())
+            {
+                r = IsSigns(value1, value2) ? value1 : NaN;
+                return true;
+            }
+
+            r = Zero;
+            return false;
         }
     }
 }

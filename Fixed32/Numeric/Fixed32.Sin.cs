@@ -118,9 +118,9 @@
         /// <returns></returns>
         private static bool PreprocessSin(Fixed32 radian, out Fixed32 r)
         {
-            if (radian == NaN || 
-                radian == PositiveInfinity || 
-                radian == NegativeInfinity) 
+            if (radian.IsNaN() || 
+                radian.IsPositiveInfinity() || 
+                radian.IsNegativeInfinity()) 
             { 
                 r = NaN; 
                 return true; 

@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Fixed32 Cos(Fixed32 radian)
         {
-            if (PreprocessSin(radian, out var r))
+            if (PreprocessCos(radian, out var r))
             {
                 return r;
             }
@@ -27,7 +27,7 @@
         /// <returns></returns>
         public static Fixed32 FastCos(Fixed32 radian)
         {
-            if (PreprocessSin(radian, out var r))
+            if (PreprocessCos(radian, out var r))
             {
                 return r;
             }
@@ -44,9 +44,9 @@
         /// <returns></returns>
         private static bool PreprocessCos(Fixed32 radian, out Fixed32 r)
         {
-            if (radian == NaN ||
-                radian == PositiveInfinity ||
-                radian == NegativeInfinity)
+            if (radian.IsNaN() ||
+                radian.IsPositiveInfinity() ||
+                radian.IsNegativeInfinity())
             {
                 r = NaN;
                 return true;

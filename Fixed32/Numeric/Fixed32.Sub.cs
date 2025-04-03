@@ -125,10 +125,10 @@
         /// <returns></returns>
         public static Fixed32 operator -(Fixed32 n)
         {
-            if (n == NaN) return NaN;
-            if (n == Zero) return Zero;
-            if (n == PositiveInfinity) return NegativeInfinity;
-            if (n == NegativeInfinity) return PositiveInfinity;
+            if (n.IsNaN()) return NaN;
+            if (n.IsZero()) return Zero;
+            if (n.IsPositiveInfinity()) return NegativeInfinity;
+            if (n.IsNegativeInfinity()) return PositiveInfinity;
 
             return FromRaw(-n.rawvalue);
         }
