@@ -120,6 +120,40 @@
         }
 
         /// <summary>
+        /// 获取前导零的数量
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        private static int GetLeadingZeroCount(ulong n)
+        {
+            if (n == 0) return 64;
+
+            var count = 0;
+            {
+                while ((n & 0xF000000000000000) == 0) { count += 4; n <<= 4; }
+                while ((n & 0x8000000000000000) == 0) { count += 1; n <<= 1; }
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 获取尾部零的数量
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        private static int GetTrailingZeroCount(ulong n)
+        {
+            if (n == 0) return 64;
+
+            var count = 0;
+            {
+                while ((n & 0xF) == 0) { count += 4; n >>= 4; }
+                while ((n & 0x1) == 0) { count += 1; n >>= 1; }
+            }
+            return count;
+        }
+
+        /// <summary>
         /// 预处理特殊边界值
         /// </summary>
         /// <param name="a"></param>
