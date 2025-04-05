@@ -27,7 +27,7 @@
         /// <returns></returns>
         public static Fixed32 Abs(Fixed32 n)
         {
-            return n.Abs();
+            return FMath.Abs(n);
         }
     }
 }

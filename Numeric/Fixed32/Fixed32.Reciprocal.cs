@@ -62,7 +62,7 @@
         /// <returns></returns>
         public static Fixed32 Reciprocal(Fixed32 n)
         {
-            return n.Reciprocal();
+            return FMath.Reciprocal(n);
         }
 
         /// <summary>

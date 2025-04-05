@@ -24,7 +24,18 @@
         /// <returns></returns>
         public static int Sign(Fixed32 n)
         {
-            return n.Sign();
+            return FMath.Sign(n);
+        }
+
+        /// <summary>
+        /// 符号是否相同
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool IsSigns(Fixed32 a, Fixed32 b)
+        {
+            return IsSigns(a.rawvalue, b.rawvalue);
         }
     }
 }

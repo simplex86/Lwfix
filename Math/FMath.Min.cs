@@ -1,9 +1,9 @@
 ﻿namespace Lwkit.Fixed
 {
     /// <summary>
-    /// 定点数 - 最小值
+    /// 函数库 - 最小值
     /// </summary>
-    public partial struct Fixed32 : IFixed<Fixed32>
+    public static partial class FMath
     {
         /// <summary>
         /// 求两个数的最小值
@@ -11,9 +11,10 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Fixed32 Min(Fixed32 a, Fixed32 b)
+        public static T Min<T>(T a, T b) where T : struct, IFixed<T>
         {
-            return FMath.Min(a, b);
+            if (a.IsNaN() || b.IsNaN()) return T.NaN;
+            return a < b ? a : b;
         }
 
         /// <summary>
@@ -23,9 +24,9 @@
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static Fixed32 Min(Fixed32 a, Fixed32 b, Fixed32 c)
+        public static T Min<T>(T a, T b, T c) where T : struct, IFixed<T>
         {
-            return FMath.Min(a, b, c);
+            return Min(a, Min(b, c));
         }
 
         /// <summary>
@@ -36,9 +37,9 @@
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public static Fixed32 Min(Fixed32 a, Fixed32 b, Fixed32 c, Fixed32 d)
+        public static T Min<T>(T a, T b, T c, T d) where T : struct, IFixed<T>
         {
-            return FMath.Min(a, b, c, d);
+            return Min(a, Min(b, c, d));
         }
 
         /// <summary>
@@ -46,9 +47,20 @@
         /// </summary>
         /// <param name="fixeds"></param>
         /// <returns></returns>
-        public static Fixed32 Min(params Fixed32[] fixeds)
+        public static T Min<T>(params T[] fixeds) where T : struct, IFixed<T>
         {
-            return FMath.Min(fixeds);
+            if (fixeds == null || fixeds.Length < 2)
+            {
+                return T.NaN;
+            }
+
+            var min = Min(fixeds[0], fixeds[1]);
+            for (int i=2; i<fixeds.Length; i++)
+            {
+                min = Min(min, fixeds[i]);
+            }
+
+            return min;
         }
     }
 }

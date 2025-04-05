@@ -24,7 +24,7 @@
         /// <returns></returns>
         public static Fixed32 Floor(Fixed32 n)
         {
-            return n.Floor();
+            return FMath.Floor(n);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@
         /// <returns></returns>
         public static int FloorToInt(Fixed32 n)
         {
-            return n.FloorToInt();
+            return FMath.FloorToInt(n);
         }
     }
 }

@@ -47,7 +47,7 @@
         /// <returns></returns>
         public static Fixed32 Pow(Fixed32 m, int n)
         {
-            return m.Pow(n);
+            return FMath.Pow(m, n);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@
         /// <returns></returns>
         public static Fixed32 Pow(Fixed32 m, Fixed32 n)
         {
-            return m.Pow(n);
+            return FMath.Pow(m, n);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@
         /// <returns></returns>
         public static bool IsPowerOfTwo(Fixed32 value)
         {
-            return value.IsPowerOfTwo();
+            return FMath.IsPowerOfTwo(value);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@
         /// <returns></returns>
         public static Fixed32 ClosestPowerOfTwo(Fixed32 value)
         {
-            return value.ClosestPowerOfTwo();
+            return FMath.ClosestPowerOfTwo(value);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@
         /// <returns></returns>
         public static Fixed32 NextPowerOfTwo(Fixed32 value)
         {
-            return value.NextPowerOfTwo();
+            return FMath.NextPowerOfTwo(value);
         }
     }
 }

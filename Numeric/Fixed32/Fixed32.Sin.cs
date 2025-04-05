@@ -85,7 +85,7 @@
         }
 
         /// <summary>
-        /// 快速计算正弦
+        /// 快速正弦
         /// 注：误差大于Sin函数
         /// </summary>
         /// <param name="radian"></param>

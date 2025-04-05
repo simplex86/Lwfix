@@ -24,7 +24,7 @@
         /// <returns></returns>
         public static Fixed32 Ceil(Fixed32 n)
         {
-            return n.Ceil();
+            return FMath.Ceil(n);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@
         /// <returns></returns>
         public static int CeilToInt(Fixed32 n)
         {
-            return n.CeilToInt();
+            return FMath.CeilToInt(n);
         }
     }
 }

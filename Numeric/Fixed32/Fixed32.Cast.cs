@@ -32,7 +32,7 @@
         /// <returns></returns>
         private static long Int32ToRaw(int value)
         {
-            return Math.Clamp((long)value << INTEGRAL_BITS, MIN_RAW_VALUE, MAX_RAW_VALUE);
+            return Math.Clamp((long)value << INTEGRAL_BITS, S_MIN_RAW_VALUE, S_MAX_RAW_VALUE);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@
         /// <returns></returns>
         private static long DoubleToRaw(double value)
         {
-            return Math.Clamp((long)(value * FRACTIONAL_MULTIPLIER + 0.5), MIN_RAW_VALUE, MAX_RAW_VALUE);
+            return Math.Clamp((long)(value * FRACTIONAL_MULTIPLIER + 0.5), S_MIN_RAW_VALUE, S_MAX_RAW_VALUE);
         }
 
         /// <summary>

@@ -70,7 +70,7 @@
         /// <returns></returns>
         public static Fixed32 Sqrt(Fixed32 n)
         {
-            return n.Sqrt();
+            return FMath.Sqrt(n);
         }
     }
 }

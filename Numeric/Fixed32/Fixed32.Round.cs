@@ -31,7 +31,7 @@
         /// <returns></returns>
         public static Fixed32 Round(Fixed32 n)
         {
-            return n.Round();
+            return FMath.Round(n);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@
         /// <returns></returns>
         public static int RoundToInt(Fixed32 n)
         {
-            return n.RoundToInt();
+            return FMath.RoundToInt(n);
         }
     }
 }
