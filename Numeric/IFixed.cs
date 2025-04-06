@@ -385,6 +385,17 @@ namespace Lwkit.Fixed
 
         #endregion
 
+        #region opposite
+
+        /// <summary>
+        /// 相反数
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static T operator -(T n);
+
+        #endregion
+
         #region cast
 
         /// <summary>
@@ -813,7 +824,7 @@ namespace Lwkit.Fixed
         /// <param name="maxSpeed"></param>
         /// <param name="deltaTime"></param>
         /// <returns></returns>
-        abstract static T SmoothDamp<T>(T current, T target, ref T currentVelocity, T smoothTime, T maxSpeed, T deltaTime);
+        abstract static T SmoothDamp(T current, T target, ref T currentVelocity, T smoothTime, T maxSpeed, T deltaTime);
 
         /// <summary>
         /// 
@@ -825,7 +836,7 @@ namespace Lwkit.Fixed
         /// <param name="smoothTime"></param>
         /// <param name="maxSpeed"></param>
         /// <returns></returns>
-        abstract static T SmoothDamp<T>(T current, T target, ref T currentVelocity, T smoothTime, T maxSpeed);
+        abstract static T SmoothDamp(T current, T target, ref T currentVelocity, T smoothTime, T maxSpeed);
 
         /// <summary>
         /// 
@@ -836,7 +847,7 @@ namespace Lwkit.Fixed
         /// <param name="currentVelocity"></param>
         /// <param name="smoothTime"></param>
         /// <returns></returns>
-        abstract static T SmoothDamp<T>(T current, T target, ref T currentVelocity, T smoothTime);
+        abstract static T SmoothDamp(T current, T target, ref T currentVelocity, T smoothTime);
 
         #endregion
     }
