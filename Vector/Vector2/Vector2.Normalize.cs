@@ -1,0 +1,36 @@
+﻿using System.Numerics;
+
+namespace Lwkit.Fixed
+{
+    /// <summary>
+    /// 二维向量
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public partial struct Vector2<T> where T : struct, IFixed<T>
+    {
+        /// <summary>
+        /// 归一化后的向量
+        /// </summary>
+        public readonly Vector2<T> Normalized => Normalize(this);
+
+        /// <summary>
+        /// 归一化
+        /// </summary>
+        public void Normalize()
+        {
+            var m = Magnitude;
+            this = (m.IsZero()) ? Zero : this / m;
+        }
+
+        /// <summary>
+        /// 归一化
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static Vector2<T> Normalize(Vector2<T> v)
+        {
+            v.Normalize();
+            return v;
+        }
+    }
+}
