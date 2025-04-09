@@ -184,5 +184,15 @@
         {
             return rawvalue.IsFractional();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsFractional(Fixed32 value)
+        {
+            return value.IsFractional();
+        }
     }
 }

@@ -593,8 +593,22 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsNaN(T n);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         bool IsZero();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsZero(T n);
 
         /// <summary>
         /// 
@@ -605,8 +619,22 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsMin(T n);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         bool IsMax();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsMax(T n);
 
         /// <summary>
         /// 
@@ -617,8 +645,22 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsInfinity(T n);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         bool IsPositiveInfinity();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsPositiveInfinity(T n);
 
         /// <summary>
         /// 
@@ -629,8 +671,22 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsNegativeInfinity(T n);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         bool IsPositive();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsPositive(T n);
 
         /// <summary>
         /// 
@@ -641,8 +697,22 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsNegative(T n);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         bool IsFractional();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static bool IsFractional(T n);
 
         #endregion
 
