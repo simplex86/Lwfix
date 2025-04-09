@@ -1,7 +1,7 @@
 ﻿namespace Lwkit.Fixed
 {
     /// <summary>
-    /// 二维向量
+    /// 二维向量 - 比较
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public partial struct Vector2<T> where T : struct, IFixed<T>

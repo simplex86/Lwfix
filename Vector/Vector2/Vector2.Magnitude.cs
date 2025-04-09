@@ -9,7 +9,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public readonly T Magnitude => FMath.Sqrt(X * X + Y * Y);
+        public readonly T Magnitude => FMath.Sqrt(SqrMagnitude);
 
         /// <summary>
         /// 

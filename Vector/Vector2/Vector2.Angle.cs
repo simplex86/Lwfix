@@ -17,7 +17,7 @@
             var magnitude = FMath.Sqrt(from.SqrMagnitude * to.SqrMagnitude);
             if (magnitude.IsZero()) return T.Zero;
 
-            var acos = FMath.Acos(FMath.Clamp(Dot(from, to) / magnitude, -1, 1));
+            var acos = FMath.Acos(FMath.Clamp(Dot(from, to) / magnitude, T.NegativeOne, T.One));
             return T.RadianToDegree(acos);
         }
 
