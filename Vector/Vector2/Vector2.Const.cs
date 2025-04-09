@@ -4,36 +4,36 @@
     /// 二维向量
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public partial struct Vector2<T> where T : struct, IFixed<T>
+    public partial struct FVector2<T> where T : struct, IFixed<T>
     {
         /// <summary>
         /// (0, 0)
         /// </summary>
-        public readonly static Vector2<T> Zero = new Vector2<T>();
+        public readonly static FVector2<T> Zero = new FVector2<T>();
 
         /// <summary>
         /// (1, 1)
         /// </summary>
-        public readonly static Vector2<T> One = new Vector2<T>(T.One, T.One);
+        public readonly static FVector2<T> One = new FVector2<T>(T.One, T.One);
 
         /// <summary>
         /// (0, 1)
         /// </summary>
-        public readonly static Vector2<T> Up = new Vector2<T>(T.Zero, T.One);
+        public readonly static FVector2<T> Up = new FVector2<T>(T.Zero, T.One);
 
         /// <summary>
         /// (0, -1)
         /// </summary>
-        public readonly static Vector2<T> Down = new Vector2<T>(T.Zero, T.NegativeOne);
+        public readonly static FVector2<T> Down = new FVector2<T>(T.Zero, T.NegativeOne);
 
         /// <summary>
         /// (-1, 0)
         /// </summary>
-        public readonly static Vector2<T> Left = new Vector2<T>(T.NegativeOne, T.Zero);
+        public readonly static FVector2<T> Left = new FVector2<T>(T.NegativeOne, T.Zero);
 
         /// <summary>
         /// (1, 0)
         /// </summary>
-        public readonly static Vector2<T> Right = new Vector2<T>(T.One, T.Zero);
+        public readonly static FVector2<T> Right = new FVector2<T>(T.One, T.Zero);
     }
 }

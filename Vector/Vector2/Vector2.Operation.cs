@@ -6,7 +6,7 @@ namespace Lwkit.Fixed
     /// 二维向量
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public partial struct Vector2<T> where T : struct, IFixed<T>
+    public partial struct FVector2<T> where T : struct, IFixed<T>
     {
         /// <summary>
         /// 相加
@@ -14,9 +14,9 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Vector2<T> operator +(Vector2<T> a, Vector2<T> b)
+        public static FVector2<T> operator +(FVector2<T> a, FVector2<T> b)
         {
-            return new Vector2<T>(a.X + b.X, a.Y + b.Y);
+            return new FVector2<T>(a.X + b.X, a.Y + b.Y);
         }
 
         /// <summary>
@@ -25,9 +25,9 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Vector2<T> operator -(Vector2<T> a, Vector2<T> b)
+        public static FVector2<T> operator -(FVector2<T> a, FVector2<T> b)
         {
-            return new Vector2<T>(a.X - b.X, a.Y - b.Y);
+            return new FVector2<T>(a.X - b.X, a.Y - b.Y);
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Vector2<T> operator *(Vector2<T> a, Vector2<T> b)
+        public static FVector2<T> operator *(FVector2<T> a, FVector2<T> b)
         {
-            return new Vector2<T>(a.X * b.X, a.Y * b.Y);
+            return new FVector2<T>(a.X * b.X, a.Y * b.Y);
         }
 
         /// <summary>
@@ -47,9 +47,9 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Vector2<T> operator /(Vector2<T> a, Vector2<T> b)
+        public static FVector2<T> operator /(FVector2<T> a, FVector2<T> b)
         {
-            return new Vector2<T>(a.X / b.X, a.Y / b.Y);
+            return new FVector2<T>(a.X / b.X, a.Y / b.Y);
         }
 
         /// <summary>
@@ -57,9 +57,9 @@ namespace Lwkit.Fixed
         /// </summary>
         /// <param name="a"></param>
         /// <returns></returns>
-        public static Vector2<T> operator -(Vector2<T> a)
+        public static FVector2<T> operator -(FVector2<T> a)
         {
-            return new Vector2<T>(-a.X, -a.Y);
+            return new FVector2<T>(-a.X, -a.Y);
         }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public static Vector2<T> operator *(Vector2<T> a, T d)
+        public static FVector2<T> operator *(FVector2<T> a, T d)
         {
-            return new Vector2<T>(a.X * d, a.Y * d);
+            return new FVector2<T>(a.X * d, a.Y * d);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Lwkit.Fixed
         /// <param name="d"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public static Vector2<T> operator *(T d, Vector2<T> a)
+        public static FVector2<T> operator *(T d, FVector2<T> a)
         {
             return a * d;
         }
@@ -90,9 +90,9 @@ namespace Lwkit.Fixed
         /// <param name="a"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public static Vector2<T> operator /(Vector2<T> a, T d)
+        public static FVector2<T> operator /(FVector2<T> a, T d)
         {
-            return new Vector2<T>(a.X / d, a.Y / d);
+            return new FVector2<T>(a.X / d, a.Y / d);
         }
     }
 }

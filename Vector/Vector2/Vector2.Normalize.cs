@@ -6,12 +6,12 @@ namespace Lwkit.Fixed
     /// 二维向量
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public partial struct Vector2<T> where T : struct, IFixed<T>
+    public partial struct FVector2<T> where T : struct, IFixed<T>
     {
         /// <summary>
         /// 归一化后的向量
         /// </summary>
-        public readonly Vector2<T> Normalized => Normalize(this);
+        public readonly FVector2<T> Normalized => Normalize(this);
 
         /// <summary>
         /// 归一化
@@ -27,7 +27,7 @@ namespace Lwkit.Fixed
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        public static Vector2<T> Normalize(Vector2<T> v)
+        public static FVector2<T> Normalize(FVector2<T> v)
         {
             v.Normalize();
             return v;

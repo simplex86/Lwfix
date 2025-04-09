@@ -4,7 +4,7 @@
     /// 二维向量
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public partial struct Vector2<T> where T : struct, IFixed<T>
+    public partial struct FVector2<T> where T : struct, IFixed<T>
     {
         /// <summary>
         /// 
@@ -21,7 +21,7 @@
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public Vector2(T x, T y)
+        public FVector2(T x, T y)
         {
             this.X = x;
             this.Y = y;
@@ -31,7 +31,7 @@
         /// 
         /// </summary>
         /// <param name="other"></param>
-        public Vector2(Vector2<T> other)
+        public FVector2(FVector2<T> other)
         {
             this.X = other.X;
             this.Y = other.Y;
