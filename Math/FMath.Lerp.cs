@@ -52,7 +52,21 @@
                 return value1;
             }
 
-            return value1 + (value2 - value1) * Clamp01(amount);
+            return value1 + (value2 - value1) * amount;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public static T ClampLerp<T>(T value1, T value2, T amount) where T : struct, IFixed<T>
+        {
+            amount = Clamp01(amount);
+            return Lerp(value1, value2, amount);
         }
 
         /// <summary>

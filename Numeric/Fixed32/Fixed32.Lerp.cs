@@ -18,6 +18,18 @@
         }
 
         /// <summary>
+        /// 线性插值
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public static Fixed32 ClampLerp(Fixed32 value1, Fixed32 value2, Fixed32 amount)
+        {
+            return FMath.ClampLerp(value1, value2, amount);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="value1"></param>
