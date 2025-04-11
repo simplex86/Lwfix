@@ -495,10 +495,17 @@ namespace Lwkit.Fixed
         #region sqrt
 
         /// <summary>
-        /// 
+        /// 开方
         /// </summary>
         /// <returns></returns>
         T Sqrt();
+
+        /// <summary>
+        /// 开方
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static T Sqrt(T n);
 
         #endregion
 
@@ -579,6 +586,102 @@ namespace Lwkit.Fixed
         /// </summary>
         /// <returns></returns>
         int CeilToInt();
+
+        #endregion
+
+        #region min
+
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        abstract static T Min(T a, T b);
+
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        abstract static T Min(T a, T b, T c);
+
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        abstract static T Min(T a, T b, T c, T d);
+
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        /// <param name="fixeds"></param>
+        /// <returns></returns>
+        abstract static T Min(params T[] fixeds);
+
+        #endregion
+
+        #region max
+
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        abstract static T Max(T a, T b);
+
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        abstract static T Max(T a, T b, T c);
+
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        abstract static T Max(T a, T b, T c, T d);
+
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        /// <param name="fixeds"></param>
+        /// <returns></returns>
+        abstract static T Max(params T[] fixeds);
+
+        #endregion
+
+        #region clamp
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        abstract static T Clamp(T value, T min, T max);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        abstract static T Clamp01(T value);
 
         #endregion
 
@@ -719,13 +822,20 @@ namespace Lwkit.Fixed
         #region sign
 
         /// <summary>
-        /// 
+        /// 获取符号
         /// </summary>
         /// <returns></returns>
         int Sign();
 
         /// <summary>
-        /// 
+        /// 获取符号
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static int Sign(T n);
+
+        /// <summary>
+        /// 符号是否相同
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="a"></param>
