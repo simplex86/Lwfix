@@ -43,11 +43,11 @@
         /// <summary>
         /// 
         /// </summary>
-        private readonly static Fixed32 D2R = FromRaw(74961321);
+        public static Fixed32 DegToRad { get; } = FromRaw(74961321);
         /// <summary>
         /// 
         /// </summary>
-        private readonly static Fixed32 R2D = FromRaw(246083499208);
+        public static Fixed32 RadToDeg { get; } = FromRaw(246083499208);
 
         /// <summary>
         /// 角度转弧度
@@ -56,7 +56,7 @@
         /// <returns></returns>
         public static Fixed32 DegreeToRadian(Fixed32 degree)
         {
-            return degree * D2R;
+            return degree * DegToRad;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@
         /// <returns></returns>
         public static Fixed32 RadianToDegree(Fixed32 radian)
         {
-            return radian * R2D;
+            return radian * RadToDeg;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Lwkit.Fixed
 {
     /// <summary>
-    /// 定点数 - 数学
+    /// 定点数 - 开方
     /// </summary>
     public partial struct Fixed32 : IFixed<Fixed32>
     {
@@ -11,7 +11,7 @@
         private const byte HALF_TOTAL_BITS = TOTAL_BITS / 2;
 
         /// <summary>
-        /// 开方
+        /// 平方根
         /// </summary>
         /// <returns></returns>
         public Fixed32 Sqrt()
@@ -64,13 +64,32 @@
         }
 
         /// <summary>
-        /// 开方
+        /// 平方根
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
         public static Fixed32 Sqrt(Fixed32 n)
         {
-            return FMath.Sqrt(n);
+            return n.Sqrt();
+        }
+
+        /// <summary>
+        /// 立方根
+        /// </summary>
+        /// <returns></returns>
+        public Fixed32 Cbrt()
+        {
+            return Exp(Log() / 3);
+        }
+
+        /// <summary>
+        /// 立方根
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static Fixed32 Cbrt(Fixed32 n)
+        {
+            return n.Cbrt();
         }
     }
 }
