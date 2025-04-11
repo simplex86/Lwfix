@@ -24,7 +24,7 @@
                 return target;
             }
 
-            d = FMath.Sqrt(d);
+            d = d.Sqrt();
             x = current.X + x / d * maxDistanceDelta;
             y = current.Y + y / d * maxDistanceDelta;
 

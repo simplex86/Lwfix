@@ -28,7 +28,7 @@
         /// <returns></returns>
         public static FVector3<T> ClampLerp(FVector3<T> a, FVector3<T> b, T t)
         {
-            t = FMath.Clamp01(t);
+            t = T.Clamp01(t);
             return Lerp(a, b, t);
         }
 
@@ -43,11 +43,11 @@
         {
             
             var dot = Dot(from, to);
-            dot = FMath.Clamp(dot, T.NegativeOne, T.One);
+            dot = T.Clamp(dot, T.NegativeOne, T.One);
 
-            var theta = FMath.Acos(dot) * t;
-            var cos = FMath.Cos(theta);
-            var sin = FMath.Sin(theta);
+            var theta = T.Acos(dot) * t;
+            var cos = T.Cos(theta);
+            var sin = T.Sin(theta);
 
             var relative = to - (from * dot);
             relative.Normalize();
@@ -65,7 +65,7 @@
         /// <returns></returns>
         public static FVector3<T> ClampSlerp(FVector3<T> from, FVector3<T> to, T t)
         {
-            t = FMath.Clamp01(t);
+            t = T.Clamp01(t);
             return Slerp(from, to, t);
         }
     }

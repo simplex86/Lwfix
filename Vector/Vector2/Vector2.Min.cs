@@ -14,8 +14,8 @@
         /// <returns></returns>
         public static FVector2<T> Min(FVector2<T> lhs, FVector2<T> rhs)
         {
-            var x = FMath.Min(lhs.X, rhs.X);
-            var y = FMath.Min(lhs.Y, rhs.Y);
+            var x = T.Min(lhs.X, rhs.X);
+            var y = T.Min(lhs.Y, rhs.Y);
             return new FVector2<T>(x, y);
         }
     }

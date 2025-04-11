@@ -14,10 +14,10 @@
         /// <returns></returns>
         public static T Angle(FVector3<T> from, FVector3<T> to)
         {
-            var magnitude = FMath.Sqrt(from.SqrMagnitude * to.SqrMagnitude);
+            var magnitude = (from.SqrMagnitude * to.SqrMagnitude).Sqrt();
             if (magnitude.IsZero()) return T.Zero;
 
-            var acos = FMath.Acos(FMath.Clamp(Dot(from, to) / magnitude, T.NegativeOne, T.One));
+            var acos = T.Acos(T.Clamp(Dot(from, to) / magnitude, T.NegativeOne, T.One));
             return T.RadianToDegree(acos);
         }
 
@@ -45,7 +45,7 @@
             var n2 = (fy * tz - fz * ty);
             var n3 = (fz * tx - fx * tz);
             var n4 = (fx * ty - fy * tx);
-            var n5 = FMath.Sign(ax * n2 + ay * n3 + az * n4);
+            var n5 = T.Sign(ax * n2 + ay * n3 + az * n4);
 
             return n1 * n5;
         }

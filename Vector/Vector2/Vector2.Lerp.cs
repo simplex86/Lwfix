@@ -28,7 +28,7 @@
         /// <returns></returns>
         public static FVector2<T> ClampLerp(FVector2<T> a, FVector2<T> b, T t)
         {
-            t = FMath.Clamp01(t);
+            t = T.Clamp01(t);
             return Lerp(a, b, t);
         }
     }

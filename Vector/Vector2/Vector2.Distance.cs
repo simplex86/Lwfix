@@ -16,7 +16,7 @@
         {
             var dx = a.X - b.X;
             var dy = a.Y - b.Y;
-            return FMath.Sqrt(dx * dx + dy * dy);
+            return (dx * dx + dy * dy).Sqrt();
         }
     }
 }

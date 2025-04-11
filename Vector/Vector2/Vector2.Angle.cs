@@ -14,10 +14,10 @@
         /// <returns></returns>
         public static T Angle(FVector2<T> from, FVector2<T> to)
         {
-            var magnitude = FMath.Sqrt(from.SqrMagnitude * to.SqrMagnitude);
+            var magnitude = (from.SqrMagnitude * to.SqrMagnitude).Sqrt();
             if (magnitude.IsZero()) return T.Zero;
 
-            var acos = FMath.Acos(FMath.Clamp(Dot(from, to) / magnitude, T.NegativeOne, T.One));
+            var acos = T.Acos(T.Clamp(Dot(from, to) / magnitude, T.NegativeOne, T.One));
             return T.RadianToDegree(acos);
         }
 
@@ -29,7 +29,7 @@
         /// <returns></returns>
         public static T SignedAngle(FVector2<T> from, FVector2<T> to)
         {
-            return Angle(from, to) * FMath.Sign(from.X * to.Y - from.Y * to.X);
+            return Angle(from, to) * (from.X * to.Y - from.Y * to.X).Sign();
         }
     }
 }

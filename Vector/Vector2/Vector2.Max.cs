@@ -14,8 +14,8 @@
         /// <returns></returns>
         public static FVector2<T> Max(FVector2<T> lhs, FVector2<T> rhs)
         {
-            var x = FMath.Max(lhs.X, rhs.X);
-            var y = FMath.Max(lhs.Y, rhs.Y);
+            var x = T.Max(lhs.X, rhs.X);
+            var y = T.Max(lhs.Y, rhs.Y);
             return new FVector2<T>(x, y);
         }
     }
