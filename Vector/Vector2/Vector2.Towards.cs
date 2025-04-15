@@ -18,13 +18,12 @@
             var x = target.X - current.X;
             var y = target.Y - current.Y;
 
-            var d = x * x + y * y;
-            if (d.IsZero() || maxDistanceDelta.IsPositive() && d <= maxDistanceDelta * maxDistanceDelta)
+            var d = (x * x + y * y).Sqrt();
+            if (d.IsZero() || maxDistanceDelta.IsPositive() && d <= maxDistanceDelta)
             {
                 return target;
             }
 
-            d = d.Sqrt();
             x = current.X + x / d * maxDistanceDelta;
             y = current.Y + y / d * maxDistanceDelta;
 

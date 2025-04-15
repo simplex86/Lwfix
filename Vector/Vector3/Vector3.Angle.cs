@@ -14,7 +14,7 @@
         /// <returns></returns>
         public static T Angle(FVector3<T> from, FVector3<T> to)
         {
-            var magnitude = (from.SqrMagnitude * to.SqrMagnitude).Sqrt();
+            var magnitude = from.Magnitude * to.Magnitude;
             if (magnitude.IsZero()) return T.Zero;
 
             var acos = T.Acos(T.Clamp(Dot(from, to) / magnitude, T.NegativeOne, T.One));

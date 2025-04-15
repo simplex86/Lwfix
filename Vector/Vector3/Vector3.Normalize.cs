@@ -16,8 +16,7 @@
         /// </summary>
         public void Normalize()
         {
-            var m = Magnitude;
-            this = (m.IsZero()) ? Zero : this / m;
+            this = Normalize(this);
         }
 
         /// <summary>
@@ -27,8 +26,8 @@
         /// <returns></returns>
         public static FVector3<T> Normalize(FVector3<T> v)
         {
-            v.Normalize();
-            return v;
+            var m = v.Magnitude;
+            return (m.IsZero()) ? Zero : v / m;
         }
 
         /// <summary>

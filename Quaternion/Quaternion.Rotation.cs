@@ -9,26 +9,26 @@ namespace Lwkit.Fixed
     /// <typeparam name="T"></typeparam>
     public partial struct FQuaternion<T> where T : struct, IFixed<T>
     {
-        ///// <summary>
-        ///// 创建具有指定的 forward 方向的旋转
-        ///// </summary>
-        ///// <param name="forward"></param>
-        ///// <returns></returns>
-        //public static FQuaternion<T> LookRotation(FVector3<T> forward)
-        //{
-        //    return LookRotation(forward, FVector3<T>.Up);
-        //}
+        /// <summary>
+        /// 创建具有指定的 forward 方向的旋转
+        /// </summary>
+        /// <param name="forward"></param>
+        /// <returns></returns>
+        public static FQuaternion<T> LookRotation(FVector3<T> forward)
+        {
+            return LookRotation(forward, FVector3<T>.Up);
+        }
 
-        ///// <summary>
-        ///// 创建具有指定的 forward 和 up 方向的旋转
-        ///// </summary>
-        ///// <param name="forward"></param>
-        ///// <param name="upwards"></param>
-        ///// <returns></returns>
-        //public static FQuaternion<T> LookRotation(FVector3<T> forward, FVector3<T> upwards)
-        //{
-        //    return FromMatrix(FMatrix3x3<T>.LookAt(forward, upwards));
-        //}
+        /// <summary>
+        /// 创建具有指定的 forward 和 up 方向的旋转
+        /// </summary>
+        /// <param name="forward"></param>
+        /// <param name="upwards"></param>
+        /// <returns></returns>
+        public static FQuaternion<T> LookRotation(FVector3<T> forward, FVector3<T> upwards)
+        {
+            return FromMatrix(FMatrix3x3<T>.LookAt(forward, upwards));
+        }
 
         /// <summary>
         /// 创建从 from 到 to 的旋转
