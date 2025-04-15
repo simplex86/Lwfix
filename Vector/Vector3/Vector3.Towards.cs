@@ -1,4 +1,7 @@
-﻿namespace Lwkit.Fixed
+﻿using System.Numerics;
+using System;
+
+namespace Lwkit.Fixed
 {
     /// <summary>
     /// 三维向量 - 移动
@@ -19,13 +22,12 @@
             var y = target.Y - current.Y;
             var z = target.Z - current.Z;
 
-            var d = x * x + y * y;
-            if (d.IsZero() || maxDistanceDelta.IsPositive() && d <= maxDistanceDelta * maxDistanceDelta)
+            var d = (x * x + y * y + z * z).Sqrt();
+            if (d.IsZero() || maxDistanceDelta.IsPositive() && d <= maxDistanceDelta)
             {
                 return target;
             }
 
-            d = d.Sqrt();
             x = current.X + x / d * maxDistanceDelta;
             y = current.Y + y / d * maxDistanceDelta;
             z = current.Z + z / d * maxDistanceDelta;
@@ -43,8 +45,17 @@
         /// <returns></returns>
         public static FVector3<T> RotateTowards(FVector3<T> current, FVector3<T> target, T maxRadiansDelta, T maxMagnitudeDelta)
         {
-            // TODO
-            return target;
+            var from = current.Normalized;
+            var to = target.Normalized;
+
+            var radians = T.Acos(FVector3<T>.Dot(from, to));
+            radians = T.Min(radians, maxRadiansDelta);
+
+            var degrees = T.RadianToDegree(radians);
+            var axis = FVector3<T>.Cross(from, to);
+            var increment = FQuaternion<T>.AngleAxis(degrees, axis);
+
+            return FVector3<T>.ClampMagnitude(increment * current, maxMagnitudeDelta);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Lwkit.Fixed
+﻿using System;
+
+namespace Lwkit.Fixed
 {
     /// <summary>
     /// 定点数 - 比较

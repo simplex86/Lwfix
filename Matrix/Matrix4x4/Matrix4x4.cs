@@ -1,4 +1,6 @@
-﻿namespace Lwkit.Fixed
+﻿using System;
+
+namespace Lwkit.Fixed
 {
     /// <summary>
     /// 4x4矩阵

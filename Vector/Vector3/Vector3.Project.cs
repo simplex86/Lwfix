@@ -14,7 +14,7 @@
         /// <returns></returns>
         public static FVector3<T> Project(FVector3<T> vector, FVector3<T> normal)
         {
-            var magnitude = Dot(normal, normal);
+            var magnitude = normal.SqrMagnitude; // Dot(normal, normal);
             return magnitude.IsZero() ? Zero : normal * Dot(vector, normal) / magnitude;
         }
 

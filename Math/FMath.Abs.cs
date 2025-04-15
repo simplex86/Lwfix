@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static int Abs(int n)
         {
-            return Math.Abs(n);
+            return (n >=0) ? n : -n;
         }
 
         /// <summary>
@@ -22,7 +22,7 @@
         /// <returns></returns>
         public static long Abs(long n)
         {
-            return Math.Abs(n);
+            return (n >= 0) ? n : -n;
         }
 
         /// <summary>
