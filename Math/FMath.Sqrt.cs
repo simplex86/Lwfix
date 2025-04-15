@@ -1,12 +1,12 @@
 ﻿namespace Lwkit.Fixed
 {
     /// <summary>
-    /// 数学库
+    /// 数学库 - 开方
     /// </summary>
     public static partial class FMath
     {
         /// <summary>
-        /// 
+        /// 平方根
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="n"></param>
@@ -18,7 +18,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 平方根
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="n"></param>
@@ -30,7 +30,7 @@
         }
 
         /// <summary>
-        /// 
+        /// 平方根
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="n"></param>
@@ -38,6 +38,17 @@
         public static T Sqrt<T>(T n) where T : struct, IFixed<T>
         {
             return n.Sqrt();
+        }
+
+        /// <summary>
+        /// 立方根
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static T Cbrt<T>(T n) where T : struct, IFixed<T>
+        {
+            return n.Cbrt();
         }
     }
 }

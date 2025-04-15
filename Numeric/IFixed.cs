@@ -83,28 +83,28 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 10^-1
         /// </summary>
-        abstract static Fixed32 TPN1 { get; }
+        abstract static T TPN1 { get; }
         /// <summary>
         /// 10^-2
         /// </summary>
-        abstract static Fixed32 TPN2 { get; }
+        abstract static T TPN2 { get; }
         /// <summary>
         /// 10^-3
         /// </summary>
-        abstract static Fixed32 TPN3 { get; }
+        abstract static T TPN3 { get; }
         /// <summary>
         /// 10^-4
         /// </summary>
-        abstract static Fixed32 TPN4 { get; }
+        abstract static T TPN4 { get; }
 
         /// <summary>
         /// 180
         /// </summary>
-        abstract static Fixed32 N180 { get; }
+        abstract static T N180 { get; }
         /// <summary>
         /// 360
         /// </summary>
-        abstract static Fixed32 N360 { get; }
+        abstract static T N360 { get; }
 
         /// <summary>
         /// 正无穷
@@ -114,6 +114,16 @@ namespace Lwkit.Fixed
         /// 负无穷
         /// </summary>
         abstract static T NegativeInfinity { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        abstract static T DegToRad { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        abstract static T RadToDeg { get; }
 
         #endregion
 
@@ -495,17 +505,30 @@ namespace Lwkit.Fixed
         #region sqrt
 
         /// <summary>
-        /// 开方
+        /// 平方根
         /// </summary>
         /// <returns></returns>
         T Sqrt();
 
         /// <summary>
-        /// 开方
+        /// 平方根
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
         abstract static T Sqrt(T n);
+
+        /// <summary>
+        /// 立方根
+        /// </summary>
+        /// <returns></returns>
+        T Cbrt();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static T Cbrt(T n);
 
         #endregion
 
