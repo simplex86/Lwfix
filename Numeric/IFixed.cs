@@ -133,6 +133,32 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        T Integral();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static T Integral(T n);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        T Fractional();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        abstract static T Fractional(T n);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="n"></param>
         abstract static explicit operator byte(T n);
 
