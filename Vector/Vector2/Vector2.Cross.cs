@@ -1,4 +1,4 @@
-﻿namespace Lwkit.Fixed
+﻿namespace Lwfix
 {
     /// <summary>
     /// 二维向量 - 叉乘
