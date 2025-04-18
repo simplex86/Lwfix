@@ -1,7 +1,7 @@
 ﻿namespace Lwfix
 {
     /// <summary>
-    /// 数学库 - 开方
+    /// 数学库 - 平方根
     /// </summary>
     public static partial class FMath
     {
@@ -38,17 +38,6 @@
         public static T Sqrt<T>(T n) where T : struct, IFixed<T>
         {
             return n.Sqrt();
-        }
-
-        /// <summary>
-        /// 立方根
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static T Cbrt<T>(T n) where T : struct, IFixed<T>
-        {
-            return n.Cbrt();
         }
     }
 }
