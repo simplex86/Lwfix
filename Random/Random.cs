@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Lwkit.Fixed
+namespace Lwfix
 {
     /// <summary>
     /// 随机数
@@ -40,14 +40,24 @@ namespace Lwkit.Fixed
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public T Next<T>(int min, int max) where T : struct, IFixed<T>
+        {
+            return Get<T>().Next(min, max);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
         public T Next<T>(T min, T max) where T : struct, IFixed<T>
         {
-            var random = Get<T>();
-            return random.Next(min, max);
+            return Get<T>().Next(min, max);
         }
 
         /// <summary>

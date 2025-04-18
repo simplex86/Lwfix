@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lwkit.Fixed
+namespace Lwfix
 {
     /// <summary>
     /// 32位随机数
@@ -43,6 +43,20 @@ namespace Lwkit.Fixed
         {
             s = (int)((s * (long)a + b) % m);
             return new Fixed32(s) / m;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public Fixed32 Next(int min, int max)
+        {
+            var mod = Next();
+            max = max - min;
+
+            return (mod * max + min).Integral();
         }
 
         /// <summary>
