@@ -1,4 +1,4 @@
-﻿namespace Lwkit.Fixed
+﻿namespace Lwfix
 {
     /// <summary>
     /// 二维向量 - 插值
@@ -7,7 +7,7 @@
     public partial struct FVector2<T> where T : struct, IFixed<T>
     {
         /// <summary>
-        /// （不限制）插值
+        /// 在向量a和b之间用t线性插值
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -20,7 +20,7 @@
         }
 
         /// <summary>
-        /// 插值
+        /// 在向量a和b之间用t线性插值，t会被限制在[0, 1]之间
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>

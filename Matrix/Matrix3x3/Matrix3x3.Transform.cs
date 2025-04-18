@@ -1,4 +1,4 @@
-﻿namespace Lwkit.Fixed
+﻿namespace Lwfix
 {
     /// <summary>
     /// 3x3矩阵 - 变换

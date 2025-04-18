@@ -1,4 +1,4 @@
-﻿namespace Lwkit.Fixed
+﻿namespace Lwfix
 {
     public partial struct Fixed32
     {

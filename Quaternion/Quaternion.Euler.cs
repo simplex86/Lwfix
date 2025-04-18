@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using System;
 
-namespace Lwkit.Fixed
+namespace Lwfix
 {
     /// <summary>
     /// 四元数 - 欧拉角

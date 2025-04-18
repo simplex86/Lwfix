@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Lwkit.Fixed
+namespace Lwfix
 {
     /// <summary>
     /// 定点数接口

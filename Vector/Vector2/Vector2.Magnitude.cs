@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using System;
 
-namespace Lwkit.Fixed
+namespace Lwfix
 {
     /// <summary>
     /// 二维向量 - 大小
@@ -10,17 +10,17 @@ namespace Lwkit.Fixed
     public partial struct FVector2<T> where T : struct, IFixed<T>
     {
         /// <summary>
-        /// 大小
+        /// 向量的长度
         /// </summary>
         public readonly T Magnitude => SqrMagnitude.Sqrt();
 
         /// <summary>
-        /// 大小
+        /// 向量的长度平方
         /// </summary>
         public readonly T SqrMagnitude => X * X + Y * Y;
 
         /// <summary>
-        /// 
+        /// vector的拷贝，其长度被限制为 maxMagnitude
         /// </summary>
         /// <param name="vector"></param>
         /// <param name="maxMagnitude"></param>

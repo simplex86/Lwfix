@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lwkit.Fixed
+namespace Lwfix
 {
     /// <summary>
     /// 定点数 - 类型转换
